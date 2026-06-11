@@ -1,1426 +1,1688 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arkodyuti Bhattacharyya | BTech CSE | South Asian University</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #64ffda; /* Terminal green */
-            --secondary: #0a192f; /* Navy blue */
-            --accent: #112240; /* Darker navy */
-            --dark: #020c1b; /* Near black */
-            --light: #ccd6f6; /* Soft white */
-            --text: #8892b0; /* Gray-blue */
-            --highlight: #1e90ff; /* Electric blue */
-            --error: #ff5555; /* Red for errors */
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: var(--secondary);
-            color: var(--light);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        /* Terminal-like headers */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Fira Code', monospace;
-            font-weight: 700;
-        }
-        
-        /* Header Styles */
-        header {
-            background-color: rgba(10, 25, 47, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        header.scrolled {
-            padding: 0.5rem 0;
-            background-color: rgba(10, 25, 47, 0.95);
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            font-family: 'Fira Code', monospace;
-            transition: all 0.3s ease;
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
-        }
-        
-        .logo i {
-            margin-right: 10px;
-            color: var(--primary);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            position: relative;
-            font-family: 'Fira Code', monospace;
-        }
-        
-        nav ul li a:hover {
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-        
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            bottom: -5px;
-            left: 0;
-            transition: width 0.3s ease;
-        }
-        
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-        
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)), 
-                        url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop') no-repeat center center/cover;
-            color: var(--light);
-            text-align: left;
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(100, 255, 218, 0.1) 0%, transparent 50%);
-            animation: pulse 15s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.1;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.15;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0.1;
-            }
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            position: relative;
-            z-index: 1;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 4rem);
-            margin-bottom: 20px;
-            color: var(--primary);
-            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
-        }
-        
-        .hero h2 {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            margin-bottom: 30px;
-            color: var(--text);
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            max-width: 600px;
-            color: var(--text);
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-        
-        /* Typewriter effect */
-        .typewriter {
-            border-right: 3px solid var(--primary);
-            white-space: nowrap;
-            overflow: hidden;
-            display: inline-block;
-            animation: blink-caret 0.75s step-end infinite;
-        }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--primary); }
-        }
-        
-        /* Terminal window styling */
-        .terminal {
-            background: var(--dark);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 30px;
-            max-width: 700px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            transform: perspective(1000px) rotateX(0deg);
-            transition: all 0.5s ease;
-            animation: fadeInUp 1s ease-out 0.4s both;
-        }
-        
-        .terminal:hover {
-            transform: perspective(1000px) rotateX(5deg);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-        }
-        
-        .terminal-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .terminal-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .terminal-btn:hover {
-            transform: scale(1.2);
-        }
-        
-        .terminal-btn.red { background: #ff5f56; }
-        .terminal-btn.yellow { background: #ffbd2e; }
-        .terminal-btn.green { background: #27c93f; }
-        
-        .terminal-body {
-            font-family: 'Fira Code', monospace;
-            color: var(--light);
-        }
-        
-        .terminal-prompt {
-            color: var(--primary);
-        }
-        
-        .terminal-command {
-            color: var(--light);
-        }
-        
-        .terminal-output {
-            color: var(--text);
-            margin-top: 10px;
-        }
-        
-        /* About Section */
-        .section {
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 80% 20%, rgba(100, 255, 218, 0.05) 0%, transparent 50%);
-            z-index: -1;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            position: relative;
-            display: inline-block;
-            animation: fadeInUp 0.8s ease-out;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            width: 70%;
-            height: 3px;
-            background: var(--primary);
-            bottom: -10px;
-            left: 15%;
-            transform: scaleX(0);
-            transform-origin: left;
-            animation: growIn 1s ease-out 0.5s forwards;
-        }
-        
-        /* Skills Section */
-        .skills {
-            margin-top: 30px;
-        }
-        
-        .skill-item {
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        
-        .skill-item:nth-child(1) { animation-delay: 0.2s; }
-        .skill-item:nth-child(2) { animation-delay: 0.4s; }
-        .skill-item:nth-child(3) { animation-delay: 0.6s; }
-        .skill-item:nth-child(4) { animation-delay: 0.8s; }
-        
-        .skill-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-family: 'Fira Code', monospace;
-        }
-        
-        .skill-bar {
-            height: 10px;
-            background: var(--accent);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .skill-progress {
-            height: 100%;
-            border-radius: 5px;
-            transition: width 1.5s ease-out;
-        }
-        
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .project-card {
-            background: var(--accent);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        
-        .project-card:nth-child(1) { animation-delay: 0.1s; }
-        .project-card:nth-child(2) { animation-delay: 0.2s; }
-        .project-card:nth-child(3) { animation-delay: 0.3s; }
-        .project-card:nth-child(4) { animation-delay: 0.4s; }
-        .project-card:nth-child(5) { animation-delay: 0.5s; }
-        .project-card:nth-child(6) { animation-delay: 0.6s; }
-        
-        .project-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: var(--primary);
-        }
-        
-        .project-img {
-            height: 200px;
-            overflow: hidden;
-            background: var(--dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        
-        .project-img::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(100, 255, 218, 0.1), transparent);
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .project-card:hover .project-img::before {
-            opacity: 1;
-        }
-        
-        .project-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.5s ease;
-        }
-        
-        .project-card:hover .project-img img {
-            transform: scale(1.05);
-        }
-        
-        .project-info {
-            padding: 25px;
-        }
-        
-        .project-title {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: var(--primary);
-            transition: all 0.3s ease;
-        }
-        
-        .project-card:hover .project-title {
-            color: var(--light);
-        }
-        
-        .project-description {
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-        
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .project-tag {
-            background: rgba(100, 255, 218, 0.1);
-            color: var(--primary);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            font-family: 'Fira Code', monospace;
-            transition: all 0.3s ease;
-        }
-        
-        .project-card:hover .project-tag {
-            background: rgba(100, 255, 218, 0.3);
-        }
-        
-        .project-links {
-            display: flex;
-        }
-        
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            color: var(--primary);
-            text-decoration: none;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .project-link:hover {
-            color: var(--light);
-            transform: translateX(5px);
-        }
-        
-        .project-link i {
-            margin-right: 8px;
-        }
-        
-        /* Contact Section */
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-        
-        .contact-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        
-        .contact-info p {
-            margin-bottom: 30px;
-            color: var(--text);
-        }
-        
-        .contact-details {
-            margin-bottom: 30px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover {
-            transform: translateX(10px);
-        }
-        
-        .contact-item i {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(100, 255, 218, 0.1);
-            border-radius: 50%;
-            margin-right: 20px;
-            color: var(--primary);
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover i {
-            background: var(--primary);
-            color: var(--secondary);
-            transform: rotate(15deg);
-        }
-        
-        .contact-text h4 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-        
-        .contact-text p {
-            margin: 0;
-            color: var(--text);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(100, 255, 218, 0.1);
-            border-radius: 50%;
-            color: var(--primary);
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .social-link:hover {
-            background: var(--primary);
-            color: var(--secondary);
-            transform: translateY(-5px);
-        }
-        
-        .contact-form {
-            background: var(--accent);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .contact-form:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border-color: var(--primary);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            background: var(--secondary);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 4px;
-            color: var(--light);
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        .btn {
-            background: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            padding: 12px 30px;
-            border-radius: 4px;
-            font-family: 'Fira Code', monospace;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        
-        .btn:hover {
-            background: var(--primary);
-            color: var(--secondary);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--dark);
-            border-top: 1px solid rgba(100, 255, 218, 0.1);
-            padding: 30px 0;
-            text-align: center;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            font-family: 'Fira Code', monospace;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-logo:hover {
-            color: var(--light);
-            transform: scale(1.05);
-        }
-        
-        .footer-links {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .footer-link {
-            color: var(--text);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-family: 'Fira Code', monospace;
-        }
-        
-        .footer-link:hover {
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-        
-        .copyright {
-            color: var(--text);
-            font-size: 0.9rem;
-        }
-        
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: rgba(100, 255, 218, 0.1);
-            border: 1px solid var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-        
-        .back-to-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
-            background: var(--primary);
-            color: var(--secondary);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
-        }
-        
-        /* Floating particles */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-        
-        .particle {
-            position: absolute;
-            background: rgba(100, 255, 218, 0.5);
-            border-radius: 50%;
-            animation: float linear infinite;
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-1000px) rotate(720deg);
-                opacity: 0;
-            }
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes growIn {
-            from {
-                transform: scaleX(0);
-            }
-            to {
-                transform: scaleX(1);
-            }
-        }
-        
-        /* Responsive styles */
-        @media (max-width: 992px) {
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero {
-                text-align: center;
-            }
-            
-            .hero p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .terminal {
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-            
-            .hamburger {
-                display: block;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero h2 {
-                font-size: 1.5rem;
-            }
-            
-            .section {
-                padding: 70px 0;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero h2 {
-                font-size: 1.2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arkodyuti Bhattacharyya — Portfolio</title>
+<meta name="description" content="Arkodyuti Bhattacharyya — BTech CSE at South Asian University. Security, ML, and explainability.">
+<meta property="og:title" content="Arkodyuti Bhattacharyya — Portfolio">
+<meta property="og:description" content="BTech CSE · Security · ML · Explainability · 9.09 CGPA">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://arkodyuti.dev">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Arkodyuti Bhattacharyya — Portfolio">
+<meta name="twitter:description" content="BTech CSE · Security · ML · Explainability · 9.09 CGPA">
+<link rel="canonical" href="https://arkodyuti.dev">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300..800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:          #121517;
+  --panel:       #181B1F;
+  --raised:      #1D2025;
+  --raised-hi:   #242830;
+  --copper:      #C2743A;
+  --copper-dim:  #6B4526;
+  --gold:        #DDA84E;
+  --silver:      #9BA2A9;
+  --text:        #E2DED5;
+  --text-dim:    #9B9790;
+  --text-faint:  #575450;
+  --warn:        #C95040;
+  --pass:        #7EA35C;
+  --rule:        #272B31;
+
+  --f-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --f-body:    "IBM Plex Sans", system-ui, sans-serif;
+  --f-mono:    "IBM Plex Mono", ui-monospace, monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  background-image:
+    linear-gradient(rgba(194,116,58,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(194,116,58,.03) 1px, transparent 1px);
+  background-size: 52px 52px;
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--gold); color: #121517; }
+a {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid var(--copper-dim);
+  transition: color .15s, border-color .15s;
+}
+a:hover { color: #fff; border-bottom-color: var(--gold); }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+/* Remove outline on interactive SVG parts – they have their own focus style */
+.die-scroll :focus-visible { outline: none; }
+
+.mono { font-family: var(--f-mono); }
+
+/* ── TOP BAR ── */
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: .6rem 1.4rem;
+  background: rgba(18,21,23,.93);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.bar::-webkit-scrollbar { display: none; }
+
+.bar-brand {
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: .08em;
+  border: none;
+  flex-shrink: 0;
+}
+.bar-brand:hover { color: #fff; }
+
+.bar-nav {
+  margin-left: auto;
+  display: flex;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+.bar-nav a {
+  border: none;
+  color: var(--text-dim);
+}
+.bar-nav a:hover { color: var(--gold); }
+
+/* ── LAYOUT ── */
+.wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+section { padding: 4.5rem 0 1.5rem; }
+
+.sect-label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: .18em;
+  color: var(--copper);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  margin-bottom: .8rem;
+}
+.sect-label::after {
+  content: "";
+  height: 1px;
+  flex: 0 0 3.5rem;
+  background: var(--copper-dim);
+}
+
+h2 {
+  font-family: var(--f-display);
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+  font-weight: 640;
+  letter-spacing: .015em;
+  line-height: .95;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: .65rem;
+}
+
+.sect-sub {
+  color: var(--text-dim);
+  max-width: 62ch;
+  margin-bottom: 2rem;
+  font-size: .97rem;
+}
+.sect-sub b { color: var(--text); font-weight: 500; }
+
+/* ── HERO ── */
+.hero { padding: 4rem 0 2.5rem; }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(290px, 5fr) minmax(400px, 7fr);
+  gap: 3rem;
+  align-items: center;
+}
+.hero-grid > * { min-width: 0; }
+
+.hero-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: .12em;
+  margin-bottom: 1.4rem;
+}
+.hero-eyebrow .rev { color: var(--copper); }
+
+h1 {
+  font-family: var(--f-display);
+  font-size: clamp(2.4rem, 10vw, 6rem);
+  font-weight: 700;
+  line-height: .91;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+h1 .accent { color: var(--gold); }
+
+.hero-spec {
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  color: var(--text-dim);
+  margin: 1.2rem 0 1.5rem;
+  line-height: 1.95;
+}
+.hero-spec .k { color: var(--text-faint); }
+
+.hero-brief {
+  max-width: 44ch;
+  color: var(--text-dim);
+  font-size: .95rem;
+}
+.hero-brief b { color: var(--text); font-weight: 500; }
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .85rem;
+  margin-top: 1.9rem;
+}
+
+.btn {
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  letter-spacing: .05em;
+  padding: .6rem 1.15rem;
+  border: 1px solid var(--copper);
+  color: var(--gold);
+  background: transparent;
+  cursor: pointer;
+  border-radius: 2px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--copper);
+  transition: background .15s, color .15s, border-color .15s;
+}
+.btn:hover { background: var(--gold); color: #121517; border-color: var(--gold); }
+.btn.solid { background: var(--gold); color: #121517; border-color: var(--gold); font-weight: 600; }
+.btn.solid:hover { background: #fff; border-color: #fff; }
+
+/* ── PCB DIAGRAM ── */
+.die-wrap { position: relative; }
+
+.die-scroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--copper-dim) transparent;
+}
+.die-scroll::-webkit-scrollbar { height: 4px; }
+.die-scroll::-webkit-scrollbar-track { background: transparent; }
+.die-scroll::-webkit-scrollbar-thumb { background: var(--copper-dim); border-radius: 2px; }
+
+.die-scroll svg {
+  display: block;
+  min-width: 580px;
+  width: 100%;
+  height: auto;
+}
+
+.die-caption {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-top: .65rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+#dieReadout { color: var(--gold); min-height: 1.2em; }
+
+/* SVG styles */
+.blk rect.body {
+  fill: var(--raised);
+  stroke: var(--copper-dim);
+  stroke-width: 1;
+}
+.blk text { fill: var(--text-dim); font-family: var(--f-mono); }
+.blk .lbl { font-size: 10.5px; letter-spacing: .14em; fill: var(--text); }
+.blk .sub { font-size: 8px; letter-spacing: .09em; fill: var(--text-faint); }
+
+.blk.link { cursor: pointer; }
+.blk.link:hover rect.body,
+.blk.link:focus rect.body { fill: var(--raised-hi); stroke: var(--gold); }
+.blk.link:hover .lbl,
+.blk.link:focus .lbl { fill: var(--gold); }
+
+.die-core rect { fill: #1E2328; stroke: var(--copper-dim); stroke-width: .8; }
+.die-core text { font-family: var(--f-mono); font-size: 8px; fill: var(--text-dim); letter-spacing: .07em; }
+.die-core .cname { font-size: 7px; fill: var(--text-faint); }
+.die-core { cursor: pointer; }
+.die-core:hover rect,
+.die-core:focus rect { stroke: var(--gold); fill: var(--raised-hi); }
+.die-core:hover text { fill: var(--gold); }
+.die-core.sel rect { stroke: var(--gold); fill: #261F11; }
+.die-core.sel text { fill: var(--gold); }
+
+.trace { stroke: var(--copper-dim); stroke-width: 1; fill: none; }
+.pulse {
+  stroke: var(--gold);
+  stroke-width: 1.2;
+  fill: none;
+  stroke-dasharray: 6 140;
+  stroke-linecap: round;
+  animation: flow 5.5s linear infinite;
+  opacity: .8;
+}
+@keyframes flow { to { stroke-dashoffset: -146; } }
+
+.pin-line { stroke: var(--silver); stroke-width: 2.2; }
+.silkref { font-family: var(--f-mono); font-size: 7px; fill: var(--text-faint); letter-spacing: .06em; }
+.die-edge { fill: none; stroke: var(--copper); stroke-width: 1.2; }
+.die-fill { fill: #15181C; }
+.die-grid line { stroke: rgba(194,116,58,.05); stroke-width: 1; }
+.rtc-txt { font-family: var(--f-mono); font-size: 12px; fill: var(--gold); letter-spacing: .08em; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .blk, .die-core { opacity: 0; animation: pwr .4s ease forwards; }
+}
+@keyframes pwr { to { opacity: 1; } }
+
+/* ── PROJECT EXECUTION CLUSTER ── */
+.exec-grid {
+  display: grid;
+  grid-template-columns: minmax(230px, 4fr) minmax(0, 8fr);
+  gap: 1.1rem;
+  align-items: start;
+}
+
+.core-list {
+  border: 1px solid var(--rule);
+  background: var(--panel);
+  position: relative;
+}
+.core-list-head {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  color: var(--text-faint);
+  padding: .55rem .9rem;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+}
+
+.core-row {
+  display: grid;
+  grid-template-columns: 2.8rem 1fr auto;
+  gap: .7rem;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  padding: .7rem .9rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: background .1s;
+}
+.core-row:last-child { border-bottom: none; }
+.core-row .c-id { color: var(--text-faint); }
+.core-row .c-nm { color: var(--text); font-family: var(--f-body); font-size: .92rem; font-weight: 500; }
+.core-row .c-st { font-size: 9.5px; letter-spacing: .1em; }
+.core-row .c-st.done { color: var(--pass); }
+.core-row .c-st.wip  { color: var(--warn); }
+.core-row:hover { background: var(--raised); }
+.core-row.sel { background: var(--raised); box-shadow: inset 3px 0 0 var(--gold); }
+.core-row.sel .c-id { color: var(--gold); }
+
+.kbd-hint {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-top: .75rem;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+.kbd-hint kbd {
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  padding: 0 .4em;
+  color: var(--text-dim);
+  font-size: .9em;
+  font-family: inherit;
+}
+
+/* Readout panel */
+.readout {
+  border: 1px solid var(--copper-dim);
+  background: var(--panel);
+  position: relative;
+  padding: 1.5rem 1.7rem 1.8rem;
+  min-height: 340px;
+}
+.readout::before,
+.readout::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--gold);
+}
+.readout::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.readout::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.ro-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .5rem 1rem;
+  margin-bottom: .3rem;
+}
+.ro-tag {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  color: var(--gold);
+  letter-spacing: .1em;
+}
+.ro-title {
+  font-family: var(--f-display);
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  font-weight: 620;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: .15rem 0;
+}
+.ro-badge {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  padding: .16rem .5rem;
+  border: 1px solid;
+  border-radius: 2px;
+}
+.ro-badge.done { color: var(--pass); border-color: var(--pass); }
+.ro-badge.wip  { color: var(--warn); border-color: var(--warn); }
+.ro-badge.live { color: var(--gold); border-color: var(--gold); }
+
+.ro-desc {
+  color: var(--text-dim);
+  max-width: 64ch;
+  margin: .75rem 0 1.1rem;
+  font-size: .95rem;
+}
+.ro-desc b { color: var(--text); font-weight: 500; }
+
+.ro-rows { border-top: 1px solid var(--rule); }
+.ro-row {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: .5rem;
+  padding: .55rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: .93rem;
+  align-items: start;
+}
+.ro-row:last-child { border-bottom: none; }
+.ro-key {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  color: var(--text-faint);
+  padding-top: .15rem;
+  white-space: nowrap;
+}
+.ro-val { color: var(--text-dim); }
+.ro-val .perf { font-family: var(--f-mono); font-size: 12.5px; color: var(--text); }
+.ro-val .perf b { color: var(--gold); font-weight: 600; }
+
+.ro-points { list-style: none; }
+.ro-points li {
+  padding-left: 1.1rem;
+  position: relative;
+  margin-bottom: .3rem;
+  color: var(--text-dim);
+  font-size: .93rem;
+  line-height: 1.55;
+}
+.ro-points li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--copper-dim);
+  font-size: .8em;
+  top: .15em;
+}
+.ro-points li em { color: var(--text); font-style: normal; }
+
+.ro-errata {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: var(--text-dim);
+  padding: .6rem .8rem;
+  background: rgba(201,80,64,.05);
+  border-left: 2px solid var(--warn);
+}
+.ro-errata b { color: var(--warn); font-weight: 500; }
+
+.ro-link a {
+  font-family: var(--f-mono);
+  font-size: 12px;
+}
+
+/* ── RESEARCH ── */
+.paper {
+  border: 1px solid var(--copper-dim);
+  background: var(--panel);
+  padding: 1.9rem 2.1rem;
+  position: relative;
+  max-width: 60rem;
+}
+.paper::before {
+  content: "XAI coprocessor — unit 1";
+  position: absolute;
+  top: -9px;
+  left: 1.3rem;
+  background: var(--bg);
+  padding: 0 .65rem;
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+.paper h3 {
+  font-family: var(--f-body);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.35;
+  max-width: 54ch;
+}
+.paper .p-meta {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: .08em;
+  margin: .65rem 0 1rem;
+}
+.paper p {
+  color: var(--text-dim);
+  max-width: 66ch;
+  font-size: .95rem;
+}
+.paper p + p { margin-top: .75rem; }
+.paper p b { color: var(--text); font-weight: 500; }
+.paper .finding {
+  margin-top: 1.2rem;
+  padding: .85rem 1.1rem;
+  border-left: 2px solid var(--gold);
+  background: rgba(221,168,78,.055);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1.75;
+  color: var(--text);
+  max-width: 60ch;
+}
+.paper .finding b { color: var(--gold); }
+
+/* ── PIPELINE ── */
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  max-width: 60rem;
+}
+.stage {
+  border: 1px solid var(--rule);
+  border-left: none;
+  background: var(--panel);
+  padding: 1.15rem 1.15rem 1.35rem;
+  position: relative;
+}
+.stage:first-child { border-left: 1px solid var(--rule); }
+.stage .s-num {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  color: var(--text-faint);
+  letter-spacing: .14em;
+  margin-bottom: .45rem;
+}
+.stage .s-name {
+  font-family: var(--f-display);
+  font-size: 1.45rem;
+  font-weight: 620;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .3rem;
+}
+.stage p { font-size: .88rem; color: var(--text-dim); line-height: 1.55; }
+.stage::after {
+  content: "→";
+  position: absolute;
+  right: -9px;
+  top: 44%;
+  z-index: 2;
+  color: var(--copper);
+  background: var(--bg);
+  font-size: 13px;
+  line-height: 1;
+}
+.stage:last-child::after { content: none; }
+
+/* ── CACHE / SKILLS ── */
+.cache { max-width: 60rem; }
+
+.cache-row {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  border: 1px solid var(--rule);
+  border-bottom: none;
+  background: var(--panel);
+}
+.cache-row:last-child { border-bottom: 1px solid var(--rule); }
+
+.cache-key {
+  padding: 1rem 1.1rem;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+  justify-content: center;
+}
+.cache-level {
+  font-family: var(--f-display);
+  font-size: 1.6rem;
+  font-weight: 640;
+  letter-spacing: .04em;
+  color: var(--gold);
+  line-height: 1;
+}
+.cache-latency {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: .1em;
+  color: var(--text-faint);
+}
+
+.cache-val {
+  padding: 1rem 1.2rem;
+  line-height: 2.05;
+}
+.cache-val span {
+  white-space: nowrap;
+  font-size: .93rem;
+}
+.cache-val span + span::before {
+  content: " · ";
+  color: var(--copper-dim);
+  white-space: normal;
+}
+.cache-val .hot { color: var(--gold); font-weight: 500; }
+
+.cache-row.l1 .cache-key { box-shadow: inset 3px 0 0 var(--gold); }
+.cache-row.l2 .cache-key { box-shadow: inset 3px 0 0 var(--copper); }
+.cache-row.l3 .cache-key { box-shadow: inset 3px 0 0 var(--copper-dim); }
+
+/* ── BOOT LOG ── */
+.bootlog {
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  line-height: 2;
+  border: 1px solid var(--rule);
+  background: var(--panel);
+  padding: 1.3rem 1.5rem;
+  max-width: 60rem;
+  overflow-x: auto;
+}
+.bootlog .ts  { color: var(--copper); }
+.bootlog .ok  { color: var(--pass); }
+.bootlog .em  { color: var(--text); }
+.bootlog .hi  { color: var(--gold); font-weight: 600; }
+.bootlog .dim { color: var(--text-faint); }
+
+/* ── I/O CONTACT ── */
+.contact-lede {
+  font-size: clamp(1.1rem, 2.1vw, 1.45rem);
+  font-weight: 500;
+  max-width: 40ch;
+  margin-bottom: 1.8rem;
+  color: var(--text);
+  line-height: 1.45;
+}
+.contact-lede em { font-style: normal; color: var(--gold); }
+
+.io-ports {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 60rem;
+}
+.port {
+  flex: 1 1 230px;
+  border: 1px solid var(--copper-dim);
+  background: var(--panel);
+  padding: 1.1rem 1.25rem 1.2rem;
+  position: relative;
+  transition: border-color .15s, background .15s;
+  color: inherit;
+  border-bottom: 1px solid var(--copper-dim);
+}
+.port:hover { border-color: var(--gold); border-bottom-color: var(--gold); background: var(--raised); }
+.port .port-num {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: .18em;
+  color: var(--text-faint);
+}
+.port .port-name {
+  font-family: var(--f-display);
+  font-size: 1.45rem;
+  font-weight: 620;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--gold);
+  margin: .1rem 0 .25rem;
+}
+.port .port-val {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+
+/* ── FOOTER / ERRATA ── */
+footer {
+  padding: 4rem 0 3rem;
+  border-top: 1px solid var(--rule);
+  margin-top: 4rem;
+}
+
+.errata-table {
+  width: 100%;
+  max-width: 60rem;
+  border-collapse: collapse;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  margin-bottom: 2.5rem;
+}
+.errata-table th {
+  text-align: left;
+  font-size: 9.5px;
+  letter-spacing: .18em;
+  color: var(--text-faint);
+  font-weight: 500;
+  padding: .4rem .55rem;
+  border-bottom: 1px solid var(--copper-dim);
+}
+.errata-table td {
+  padding: .55rem .55rem;
+  border-bottom: 1px solid var(--rule);
+  color: var(--text-dim);
+  vertical-align: top;
+}
+.errata-table td:first-child { color: var(--warn); white-space: nowrap; }
+.errata-table td:last-child  { color: var(--text-faint); }
+
+.colophon {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 2rem;
+}
+.colophon a { border: none; color: var(--text-dim); }
+.colophon a:hover { color: var(--gold); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1020px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+  .exec-grid { grid-template-columns: 1fr; }
+  /* Horizontal scrollable list */
+  .core-list {
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--rule);
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 2rem), transparent 100%);
+    mask-image: linear-gradient(to right, black calc(100% - 2rem), transparent 100%);
+  }
+  .core-list::-webkit-scrollbar { display: none; }
+  .core-list-head { display: none; }
+  .core-row {
+    flex: 0 0 auto;
+    grid-template-columns: auto;
+    gap: .1rem;
+    border-bottom: none;
+    border-right: 1px solid var(--rule);
+    padding: .65rem .95rem;
+  }
+  .core-row .c-nm { font-size: .82rem; }
+  .core-row.sel { box-shadow: inset 0 -3px 0 var(--gold); }
+  .pipeline-grid { grid-template-columns: 1fr 1fr; }
+  .stage { border-left: 1px solid var(--rule); border-top: none; }
+  .stage:nth-child(1), .stage:nth-child(2) { border-top: 1px solid var(--rule); }
+  .stage::after { content: none; }
+}
+
+@media (max-width: 680px) {
+  body { font-size: 15px; }
+  .wrap { padding: 0 1.1rem; }
+  .bar { gap: .85rem; padding: .55rem 1.1rem; }
+  section { padding: 3.5rem 0 1rem; }
+  h2 { font-size: clamp(1.9rem, 8vw, 2.5rem); }
+  .hero-spec { font-size: 12px; }
+  .hero-brief { max-width: 100%; }
+  .pipeline-grid { grid-template-columns: 1fr; }
+  .stage { border-top: none; border-left: 1px solid var(--rule); }
+  .stage:first-child { border-top: 1px solid var(--rule); }
+  .cache-row { grid-template-columns: 1fr; }
+  .cache-key {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    flex-direction: row;
+    align-items: baseline;
+    gap: .8rem;
+    padding: .7rem 1.1rem;
+  }
+  .readout { padding: 1.2rem 1rem; min-height: auto; }
+  .ro-row { grid-template-columns: 1fr; gap: .2rem; }
+  .ro-key { padding-top: .3rem; }
+  .paper { padding: 1.4rem 1.25rem; }
+  .paper::before { font-size: 8.5px; }
+  .bootlog { font-size: 11.5px; padding: 1rem 1.1rem; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .pulse { animation: none; opacity: 0; }
+  .blk, .die-core { opacity: 1; animation: none; }
+  * { transition: none !important; }
+}
+</style>
 </head>
 <body>
-    <!-- Floating particles -->
-    <div class="particles" id="particles"></div>
-    
-    <!-- Header -->
-    <header id="header">
-        <div class="container header-container">
-            <a href="#" class="logo"><i class="fas fa-terminal"></i> Arkodyuti</a>
-            <nav id="nav">
-                <ul>
-                    <li><a href="#home">~/home</a></li>
-                    <li><a href="#about">~/about</a></li>
-                    <li><a href="#projects">~/projects</a></li>
-                    <li><a href="#contact">~/contact</a></li>
-                </ul>
-            </nav>
-            <button class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Hi, I'm <span class="highlight">Arkodyuti Bhattacharyya</span></h1>
-                <h2><span class="typewriter">BTech CSE Student | Problem Solver | Code Enthusiast</span></h2>
-                <p>First-year Computer Science student at South Asian University passionate about algorithms, system design, and building efficient solutions.</p>
-                
-                <div class="terminal">
-                    <div class="terminal-header">
-                        <div class="terminal-btn red"></div>
-                        <div class="terminal-btn yellow"></div>
-                        <div class="terminal-btn green"></div>
-                    </div>
-                    <div class="terminal-body">
-                        <div>
-                            <span class="terminal-prompt">$</span>
-                            <span class="terminal-command">whoami</span>
-                        </div>
-                        <div class="terminal-output">
-                            SAU/CS/BTECH(CSE)/2024/17<br>
-                            Developer | Tech Enthusiast | Learner
-                        </div>
-                        <div style="margin-top: 15px;">
-                            <span class="terminal-prompt">$</span>
-                            <span class="terminal-command">cat skills.txt</span>
-                        </div>
-                        <div class="terminal-output">
-                            Python | C/C++ | JavaScript | HTML/CSS | Linux
-                        </div>
-                        <div style="margin-top: 15px;">
-                            <span class="terminal-prompt">$</span>
-                            <span class="terminal-command">./start.sh</span>
-                        </div>
-                        <div class="terminal-output">
-                            <span class="blink">_</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ── TOP BAR ── -->
+<header class="bar" role="banner">
+  <a class="bar-brand" href="#top">Arkodyuti B.</a>
+  <nav class="bar-nav" aria-label="Section navigation">
+    <a href="#projects">projects</a>
+    <a href="#research">research</a>
+    <a href="#skills">skills</a>
+    <a href="#contact">contact</a>
+    <a href="resume.pdf">résumé ↗</a>
+  </nav>
+</header>
 
-    <!-- About Section -->
-    <section class="section about" id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>about_me.py</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>// Who am I?</h3>
-                    <p>I'm Arkodyuti Bhattacharyya, a first-year BTech Computer Science student at South Asian University (Enrollment: SAU/CS/BTECH(CSE)/2024/17). My journey in technology began with curiosity about how computers work, which has evolved into a passion for problem-solving through code.</p>
-                    
-                    <h3>// My Skills</h3>
-                    <div class="skills">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Python</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%; background: var(--primary);"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>C/C++</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%; background: var(--primary);"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Data Structures</span>
-                                <span>75%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%; background: var(--primary);"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Web Development</span>
-                                <span>70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%; background: var(--primary);"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="wrap" id="top">
 
-    <!-- Projects Section -->
-    <section class="section projects" id="projects">
-        <div class="container">
-            <div class="section-title">
-                <h2>my_projects/</h2>
-            </div>
-            <div class="projects-grid">
-                <!-- Project 1: Python GUI -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" alt="Python GUI">
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">Student Grade Manager</h3>
-                        <p class="project-description">
-                            A Python GUI application (Tkinter) for teachers to input, calculate, and visualize student grades. Features include CSV export, grade statistics, and a searchable database.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Tkinter</span>
-                            <span class="project-tag">Pandas</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> View Code</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 2: C++ -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop" alt="C++ Terminal">
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">Library Management (CLI)</h3>
-                        <p class="project-description">
-                            A C++ command-line tool for librarians to manage book inventory, track checkouts, and generate reports. Uses file handling for data persistence and OOP principles.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">C++</span>
-                            <span class="project-tag">OOP</span>
-                            <span class="project-tag">File Handling</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> View Code</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 3: Java -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1964&auto=format&fit=crop" alt="Java GUI">
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">Scientific Calculator</h3>
-                        <p class="project-description">
-                            A JavaFX GUI calculator with standard and scientific modes (trigonometry, logarithms). Supports unit conversions and a history feature.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Java</span>
-                            <span class="project-tag">JavaFX</span>
-                            <span class="project-tag">GUI</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> View Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4: Web Dev -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2071&auto=format&fit=crop" alt="Web Dev">
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">Portfolio Website</h3>
-                        <p class="project-description">
-                            A responsive personal portfolio (this website!) built with HTML/CSS/JavaScript. Features dark/light mode toggle, animated skills bars, and a contact form.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">HTML/CSS</span>
-                            <span class="project-tag">JavaScript</span>
-                            <span class="project-tag">Responsive</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> View Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 5: Python Automation -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop" alt="Python Automation">
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">File Organizer</h3>
-                        <p class="project-description">
-                            A Python script that automates file organization by extension (e.g., images, documents). Features a GUI to select folders and undo functionality.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">PyQt5</span>
-                            <span class="project-tag">Automation</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> View Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 6: C -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?q=80&w=2070&auto=format&fit=crop" alt="C Programming">
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">Banking System (CLI)</h3>
-                        <p class="project-description">
-                            A C-based console application simulating banking operations (deposit, withdrawal, balance check). Uses structures and file handling to store customer data.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">C</span>
-                            <span class="project-tag">File I/O</span>
-                            <span class="project-tag">Structures</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> View Code</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>contact.sh</h2>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Let's collaborate!</h3>
-                    <p>Whether you have a project idea, want to discuss technology, or just say hello - I'd love to hear from you.</p>
-                    
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div class="contact-text">
-                                <h4>Primary Email</h4>
-                                <p>adcluster92@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div class="contact-text">
-                                <h4>Alternate Email</h4>
-                                <p>adb.return.human@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div class="contact-text">
-                                <h4>Location</h4>
-                                <p>South Asian University, New Delhi</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="https://github.com/Ark0B" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://in.linkedin.com/in/arkodyuti-bhattacharyya-132200318" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="form">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Subject">
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" placeholder="Your Message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <a href="#" class="footer-logo">Arkodyuti Bhattacharyya</a>
-                <div class="footer-links">
-                    <a href="#home" class="footer-link">Home</a>
-                    <a href="#about" class="footer-link">About</a>
-                    <a href="#projects" class="footer-link">Projects</a>
-                    <a href="#contact" class="footer-link">Contact</a>
-                </div>
-                <p class="copyright">&copy; 2024 Arkodyuti Bhattacharyya. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <div class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <p class="hero-eyebrow">portfolio · 2026 · <span class="rev">v2.1</span></p>
+      <h1>Arkodyuti<br>Bhatta&shy;charyya<span class="accent">.</span></h1>
+      <p class="hero-spec">
+        <span class="k">studying: </span>btech cse · south asian university · 2028<br>
+        <span class="k">focus: &nbsp;&nbsp; </span>security · ml · explainability<br>
+        <span class="k">cgpa: &nbsp;&nbsp;&nbsp;</span>9.09 / 10
+      </p>
+      <p class="hero-brief">
+        Six projects shipped or in flight, one research paper in review, and a running theory:
+        <b>a confident model isn't necessarily a correct one</b> — and that gap is worth studying.
+      </p>
+      <div class="hero-cta">
+        <a class="btn solid" href="#projects">see the work</a>
+        <a class="btn" href="mailto:adb.return.human@gmail.com">get in touch</a>
+      </div>
     </div>
 
-    <script>
-        // Mobile Navigation
-        const hamburger = document.getElementById('hamburger');
-        const nav = document.getElementById('nav');
-        
-        hamburger.addEventListener('click', () => {
-            nav.classList.toggle('active');
-            hamburger.classList.toggle('toggle');
-        });
-        
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                nav.classList.remove('active');
-                hamburger.classList.remove('toggle');
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Header Scroll Effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
-        
-        // Back to Top Button
-        const backToTop = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('active');
-            } else {
-                backToTop.classList.remove('active');
-            }
-        });
-        
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Typewriter Effect
-        const typewriterTexts = [
-            "BTech CSE Student | Problem Solver | Code Enthusiast",
-            "Full-Stack Developer | Open Source Contributor",
-            "Linux Enthusiast | Algorithm Designer"
-        ];
-        const typewriterElement = document.querySelector('.typewriter');
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let isEnd = false;
-        
-        function typeWriter() {
-            const currentText = typewriterTexts[textIndex];
-            
-            if (isDeleting) {
-                typewriterElement.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typewriterElement.textContent = currentText.substring(0, charIndex + 1);
-                charIndex++;
-            }
-            
-            if (!isDeleting && charIndex === currentText.length) {
-                isEnd = true;
-                isDeleting = true;
-                setTimeout(typeWriter, 2000);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % typewriterTexts.length;
-                setTimeout(typeWriter, 500);
-            } else {
-                const speed = isDeleting ? 50 : 100;
-                setTimeout(typeWriter, speed);
-            }
-        }
-        
-        // Start the typewriter effect
-        setTimeout(typeWriter, 1000);
-        
-        // Form Submission
-        const form = document.getElementById('form');
-        
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Create a temporary loading effect
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-            
-            // Simulate form submission
-            setTimeout(() => {
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-                
-                // Reset form after a delay
-                setTimeout(() => {
-                    form.reset();
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }, 2000);
-            }, 1500);
-        });
-        
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 20;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random size between 2px and 6px
-                const size = Math.random() * 4 + 2;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Random position
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.bottom = `-${size}px`;
-                
-                // Random animation duration between 10s and 20s
-                const duration = Math.random() * 10 + 10;
-                particle.style.animationDuration = `${duration}s`;
-                
-                // Random delay
-                particle.style.animationDelay = `${Math.random() * 10}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-        
-        // Initialize particles
-        createParticles();
-        
-        // Animate skill bars on scroll
-        function animateSkills() {
-            const skillItems = document.querySelectorAll('.skill-item');
-            
-            skillItems.forEach(item => {
-                const progressBar = item.querySelector('.skill-progress');
-                const width = progressBar.style.width;
-                progressBar.style.width = '0';
-                
-                setTimeout(() => {
-                    progressBar.style.width = width;
-                }, 100);
-            });
-        }
-        
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (entry.target.id === 'about') {
-                        animateSkills();
-                    }
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, observerOptions);
-        
-        // Observe sections
-        document.querySelectorAll('.section').forEach(section => {
-            observer.observe(section);
-        });
-        
-        // Terminal typing effect
-        function terminalTyping() {
-            const commands = [
-                { command: "whoami", output: "SAU/CS/BTECH(CSE)/2024/17\nDeveloper | Tech Enthusiast | Learner" },
-                { command: "cat skills.txt", output: "Python | C/C++ | JavaScript | HTML/CSS | Linux" },
-                { command: "./start.sh", output: "Starting interactive session...\nType 'help' for available commands" }
-            ];
-            
-            const terminalBody = document.querySelector('.terminal-body');
-            let commandIndex = 0;
-            let charIndex = 0;
-            let isCommand = true;
-            
-            function typeTerminal() {
-                if (commandIndex >= commands.length) {
-                    commandIndex = 0;
-                    terminalBody.innerHTML = '';
-                }
-                
-                const currentCommand = commands[commandIndex];
-                
-                if (isCommand) {
-                    if (charIndex === 0) {
-                        const promptDiv = document.createElement('div');
-                        promptDiv.innerHTML = `<span class="terminal-prompt">$</span> <span class="terminal-command"></span>`;
-                        terminalBody.appendChild(promptDiv);
-                        currentCommand.element = promptDiv.querySelector('.terminal-command');
-                    }
-                    
-                    if (charIndex < currentCommand.command.length) {
-                        currentCommand.element.textContent += currentCommand.command.charAt(charIndex);
-                        charIndex++;
-                        setTimeout(typeTerminal, 50);
-                    } else {
-                        charIndex = 0;
-                        isCommand = false;
-                        setTimeout(typeTerminal, 500);
-                    }
-                } else {
-                    if (charIndex === 0) {
-                        const outputDiv = document.createElement('div');
-                        outputDiv.className = 'terminal-output';
-                        terminalBody.appendChild(outputDiv);
-                        currentCommand.outputElement = outputDiv;
-                    }
-                    
-                    if (charIndex < currentCommand.output.length) {
-                        currentCommand.outputElement.textContent += currentCommand.output.charAt(charIndex);
-                        charIndex++;
-                        setTimeout(typeTerminal, 30);
-                    } else {
-                        charIndex = 0;
-                        isCommand = true;
-                        commandIndex++;
-                        setTimeout(typeTerminal, 1000);
-                    }
-                }
-            }
-            
-            // Start terminal typing
-            setTimeout(typeTerminal, 2000);
-        }
-        
-        // Initialize terminal typing
-        terminalTyping();
-    </script>
+    <!-- PCB chip diagram -->
+    <div class="die-wrap">
+      <div class="die-scroll">
+        <svg id="die"
+             viewBox="0 0 780 560"
+             xmlns="http://www.w3.org/2000/svg"
+             role="group"
+             aria-label="Interactive chip map. Each block links to a section.">
+
+          <rect x="12" y="12" width="756" height="536" rx="10" fill="#0E1013" stroke="#353B42" stroke-width="1.2"/>
+          <text class="silkref" x="38" y="534" style="font-size:8px;letter-spacing:.2em">ARKB-1 · KOLKATA · 2026</text>
+          <text class="silkref" x="718" y="30" text-anchor="end" style="font-size:8px;letter-spacing:.2em">REV 2.1</text>
+
+          <polygon points="12,12 46,12 12,46" fill="#C2743A" opacity=".35"/>
+          <circle cx="24" cy="24" r="3" fill="#DDA84E" opacity=".6"/>
+
+          <rect class="die-fill" x="40" y="40" width="700" height="468"/>
+          <g class="die-grid" id="dieGrid"></g>
+          <rect class="die-edge" x="40" y="40" width="700" height="468"/>
+
+          <g id="svgPins"></g>
+
+          <g>
+            <path class="trace" d="M400 128 H420"/>
+            <path class="trace" d="M556 106 H572"/>
+            <path class="trace" d="M400 208 H420"/>
+            <path class="trace" d="M556 208 H572"/>
+            <path class="trace" d="M238 260 V278"/>
+            <path class="trace" d="M490 260 V278"/>
+            <path class="trace" d="M638 260 V278"/>
+            <path class="trace" d="M238 372 V390"/>
+            <path class="trace" d="M490 372 V390"/>
+            <path class="trace" d="M638 372 V390"/>
+            <path class="pulse" d="M400 128 H420 M238 260 V278 M238 372 V390"/>
+            <path class="pulse" style="animation-delay:-2.2s" d="M400 208 H420 M490 260 V278 M490 372 V390"/>
+            <path class="pulse" style="animation-delay:-4.1s" d="M556 106 H572 M638 260 V278 M638 372 V390"/>
+          </g>
+
+          <!-- EXEC CLUSTER -->
+          <g class="blk link"
+             role="link"
+             tabindex="0"
+             aria-label="Project cores section"
+             data-target="#projects"
+             style="animation-delay:.05s">
+            <rect class="body" x="60" y="60" width="340" height="198" rx="3"/>
+            <text class="lbl" x="74" y="80">EXEC CLUSTER</text>
+            <text class="sub" id="coreCountLbl" x="390" y="80" text-anchor="end">— CORES</text>
+            <g id="coreCluster"></g>
+          </g>
+          <text class="silkref" x="60" y="56">U1</text>
+
+          <!-- XAI COPROC -->
+          <g class="blk link"
+             role="link"
+             tabindex="0"
+             aria-label="Research — XAI coprocessor"
+             data-target="#research"
+             style="animation-delay:.17s">
+            <rect class="body" x="420" y="60" width="136" height="92" rx="3"/>
+            <text class="lbl" x="434" y="82">XAI</text>
+            <text class="lbl" x="434" y="98">COPROC</text>
+            <text class="sub" x="434" y="140">EXPLAINS ITSELF</text>
+          </g>
+          <text class="silkref" x="420" y="56">U2</text>
+
+          <!-- SEC ENGINE -->
+          <g class="blk link"
+             role="link"
+             tabindex="0"
+             aria-label="Security engine — NIDS project (first core)"
+             data-target="#projects"
+             data-filtercore="0"
+             style="animation-delay:.25s">
+            <rect class="body" x="572" y="60" width="148" height="92" rx="3"/>
+            <text class="lbl" x="586" y="82">SEC</text>
+            <text class="lbl" x="586" y="98">ENGINE</text>
+            <text class="sub" x="586" y="140">PACKETS → VERDICTS</text>
+          </g>
+          <text class="silkref" x="572" y="56">U3</text>
+
+          <!-- RTC -->
+          <g class="blk" aria-label="Real-time clock" style="animation-delay:.33s">
+            <rect class="body" x="420" y="168" width="136" height="90" rx="3"/>
+            <text class="lbl" x="434" y="189">RTC</text>
+            <text class="rtc-txt" id="dieClock" x="434" y="222">--:--:--</text>
+            <text class="sub"    x="434" y="248">ASIA/KOLKATA</text>
+          </g>
+          <text class="silkref" x="420" y="164">Y1</text>
+
+          <!-- PMU -->
+          <g class="blk" style="animation-delay:.40s">
+            <rect class="body" x="572" y="168" width="148" height="90" rx="3"/>
+            <text class="lbl" x="586" y="189">PMU</text>
+            <text class="sub"  x="586" y="214">SRC: CHAI</text>
+            <text class="sub"  x="586" y="230">SLEEP: RARE</text>
+          </g>
+
+          <!-- CACHE HIERARCHY -->
+          <g class="blk link"
+             role="link"
+             tabindex="0"
+             aria-label="Cache hierarchy — skills section"
+             data-target="#skills"
+             style="animation-delay:.48s">
+            <rect class="body" x="60" y="278" width="340" height="92" rx="3"/>
+            <text class="lbl"  x="74" y="299">CACHE HIERARCHY</text>
+            <rect x="74" y="311" width="96"  height="13" fill="none" stroke="#DDA84E" stroke-width=".9"/>
+            <text class="sub" x="80" y="321" style="fill:#DDA84E">L1 — hot</text>
+            <rect x="74" y="328" width="192" height="13" fill="none" stroke="#C2743A" stroke-width=".9"/>
+            <text class="sub" x="80" y="338">L2 — warm</text>
+            <rect x="74" y="345" width="308" height="13" fill="none" stroke="#6B4526" stroke-width=".9"/>
+            <text class="sub" x="80" y="355">L3 — will hit</text>
+          </g>
+
+          <!-- BOOT ROM -->
+          <g class="blk link"
+             role="link"
+             tabindex="0"
+             aria-label="Boot ROM — background section"
+             data-target="#about"
+             style="animation-delay:.55s">
+            <rect class="body" x="420" y="278" width="136" height="92" rx="3"/>
+            <text class="lbl" x="434" y="299">BOOT</text>
+            <text class="lbl" x="434" y="315">ROM</text>
+            <text class="sub" x="434" y="355">SINCE 2024 · 9.09 CGPA</text>
+          </g>
+
+          <!-- JTAG / RÉSUMÉ -->
+          <g class="blk link"
+             role="link"
+             tabindex="0"
+             aria-label="JTAG debug port — open full résumé PDF"
+             data-target="resume.pdf"
+             data-href="resume.pdf"
+             style="animation-delay:.62s">
+            <rect class="body" x="572" y="278" width="148" height="92" rx="3"/>
+            <text class="lbl" x="586" y="299">JTAG / DBG</text>
+            <text class="sub" x="586" y="323">FULL SCAN CHAIN:</text>
+            <text class="sub" x="586" y="337" style="fill:#DDA84E">RÉSUMÉ.PDF</text>
+          </g>
+          <text class="silkref" x="572" y="274">J2</text>
+
+          <!-- I/O PHY -->
+          <g class="blk link"
+             role="group"
+             aria-label="I/O PHY — contact links"
+             data-target="#contact"
+             style="animation-delay:.70s">
+            <rect class="body" x="60" y="390" width="660" height="96" rx="3"/>
+            <text class="lbl" x="74" y="411">I/O PHY</text>
+
+            <g class="die-core" tabindex="0" role="link" aria-label="Send email to adb.return.human@gmail.com" data-href="mailto:adb.return.human@gmail.com">
+              <rect x="74"  y="422" width="204" height="48" rx="2"/>
+              <text x="86"  y="442">PORT0 · MAIL</text>
+              <text class="cname" x="86" y="456">adb.return.human</text>
+            </g>
+            <g class="die-core" tabindex="0" role="link" aria-label="GitHub profile: ark0b" data-href="https://github.com/ark0b">
+              <rect x="292" y="422" width="204" height="48" rx="2"/>
+              <text x="304" y="442">PORT1 · GITHUB</text>
+              <text class="cname" x="304" y="456">/ark0b</text>
+            </g>
+            <g class="die-core" tabindex="0" role="link" aria-label="LinkedIn profile: Arkodyuti Bhattacharyya" data-href="https://www.linkedin.com/in/arkodyuti-bhattacharyya">
+              <rect x="510" y="422" width="196" height="48" rx="2"/>
+              <text x="522" y="442">PORT2 · LINKEDIN</text>
+              <text class="cname" x="522" y="456">arkodyuti b.</text>
+            </g>
+          </g>
+          <text class="silkref" x="60" y="386">J1</text>
+        </svg>
+      </div>
+      <p class="die-caption" id="dieCaption">
+        <span id="dieReadout">hover a block — click to navigate</span>
+        <span>hand-routed svg · no frameworks</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECTS (static fallback + interactive) ── -->
+<section id="projects">
+  <p class="sect-label">execution cluster</p>
+  <h2>Projects</h2>
+  <p class="sect-sub">
+    One entry per shipped or in-progress project. <b>Select one to expand the readout</b> — what it does, the stack, any measured performance, and what went sideways building it.
+  </p>
+
+  <!-- Static fallback for non-JS visitors (hidden when JS runs) -->
+  <noscript>
+    <div style="border:1px solid var(--warn); padding:1rem; margin-bottom:2rem; background:rgba(201,80,64,.05); font-family:var(--f-mono); font-size:12px; color:var(--text-dim);">
+      ⚠️ JavaScript is disabled. All projects are listed below as plain text.
+    </div>
+    <ul style="list-style:none; padding-left:0; display:flex; flex-direction:column; gap:1.5rem; max-width:60rem;">
+      <!-- Hardcoded first project to mirror interactive -->
+      <li>
+        <strong style="color:var(--gold)">C0 · NIDS — Network Intrusion Detection System (COMPLETE)</strong><br>
+        <span style="font-size:0.93rem;">Python · scikit-learn · XGBoost · SHAP · Flask · pandas</span><br>
+        <span style="color:var(--text-dim);">ML IDS trained on CICIDS2017 with SHAP explainability.</span>
+      </li>
+      <!-- Other projects can be appended similarly, but since this is a fallback, we only give a taste -->
+      <li>… and five more projects. Please enable JavaScript for the full interactive readout.</li>
+    </ul>
+  </noscript>
+
+  <div class="exec-grid">
+    <div>
+      <div class="core-list" id="coreListWrap" role="listbox" aria-label="Project list" aria-controls="readout" aria-keyshortcuts="ArrowDown ArrowUp j k">
+        <div class="core-list-head"><span>ID</span><span>STATUS</span></div>
+        <div id="coreList"></div>
+      </div>
+      <p class="kbd-hint">
+        <kbd>↑</kbd> <kbd>↓</kbd> or <kbd>j</kbd> <kbd>k</kbd> to navigate
+      </p>
+    </div>
+    <div class="readout" id="readout" aria-live="polite" aria-atomic="false">
+      <!-- Static readout for first project (will be replaced by JS) -->
+      <div id="readoutStatic">
+        <div class="ro-head">
+          <span class="ro-tag">C0 · NIDS</span>
+          <span class="ro-badge done">COMPLETE</span>
+        </div>
+        <p class="ro-title">Network Intrusion Detection System</p>
+        <p class="ro-desc">A machine-learning IDS trained and evaluated on <b>CICIDS2017</b>, with an explainability layer so detections can be audited instead of just believed — every flagged flow shows <b>why</b> it was flagged.</p>
+        <div class="ro-rows">
+          <div class="ro-row">
+            <span class="ro-key">STACK</span>
+            <span class="ro-val mono" style="font-size:12px;color:var(--text-dim)">Python · scikit-learn · XGBoost · SHAP · Flask · pandas</span>
+          </div>
+          <div class="ro-row">
+            <span class="ro-key">PERFORMANCE</span>
+            <span class="ro-val perf">F1 · Random Forest <b>99.77%</b>  ·  MCC <b>0.992</b>  ·  F1 · XGBoost <b>96.76%</b>  ·  F1 · SVM <b>90.71%</b></span>
+          </div>
+          <div class="ro-row">
+            <span class="ro-key">WHAT I BUILT</span>
+            <span class="ro-val">
+              <ul class="ro-points">
+                <li>Benchmarked three classifiers head-to-head on weighted F1 and MCC.</li>
+                <li>Addressed extreme class imbalance with a hybrid <em>SMOTE</em> strategy.</li>
+                <li>Integrated <em>SHAP</em> feature attribution per detection event.</li>
+                <li>Built a Flask dashboard for real-time attack detection and visualization.</li>
+              </ul>
+            </span>
+          </div>
+          <div class="ro-row">
+            <span class="ro-key">ERRATA</span>
+            <span class="ro-val"><span class="ro-errata"><b>Note:</b> the headline F1 means nothing until you've fought CICIDS2017's imbalance — some attack classes are vanishingly rare. Honest evaluation was most of the real work.</span></span>
+          </div>
+          <div class="ro-row">
+            <span class="ro-key">SOURCE</span>
+            <span class="ro-val ro-link"><a href="https://github.com/ark0b" target="_blank" rel="noopener noreferrer">source on GitHub ↗</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESEARCH ── -->
+<section id="research">
+  <p class="sect-label">xai coprocessor</p>
+  <h2>Research</h2>
+  <p class="sect-sub">The dedicated thread for the question underneath most of my work: <b>when a neural network is confident, should you be?</b></p>
+
+  <div class="paper">
+    <h3>Explanation Consistency as a Coherence Prior for Reliable Neural Decision-Making</h3>
+    <p class="p-meta">Extended position paper · submitted to IJCNN 2026 · in review</p>
+    <p>
+      Deep networks can be highly accurate and still fail silently. This paper proposes
+      <b>explanation consistency</b> — whether a model's explanations stay stable under small input perturbations —
+      as a reliability signal orthogonal to predictive accuracy, evaluated on medical imaging datasets.
+    </p>
+    <p>
+      The core argument: a model can generalize from the wrong features and never be caught by accuracy metrics
+      alone. Explanation stability surfaces exactly this gap.
+    </p>
+    <p class="finding">
+      <b>finding:</b> high-confidence predictions can have unstable explanations — exposing failure modes accuracy
+      metrics never see. in safety-critical systems, that gap is the whole problem.
+    </p>
+  </div>
+</section>
+
+<!-- ── PIPELINE ── -->
+<section id="pipeline">
+  <p class="sect-label">control unit</p>
+  <h2>How I Work</h2>
+  <p class="sect-sub">Every problem goes through the same four stages. No speculative execution — I don't ship what I can't explain.</p>
+
+  <div class="pipeline-grid">
+    <div class="stage"><p class="s-num">01</p><p class="s-name">Fetch</p><p>Read everything first — docs, source, packet captures. Raw input beats secondhand summaries.</p></div>
+    <div class="stage"><p class="s-num">02</p><p class="s-name">Decode</p><p>Break it into parts small enough to trust. If it still seems too complex, it isn't decoded yet.</p></div>
+    <div class="stage"><p class="s-num">03</p><p class="s-name">Execute</p><p>Build the smallest thing that proves the idea, then grow it. Working beats elegant-but-imaginary.</p></div>
+    <div class="stage"><p class="s-num">04</p><p class="s-name">Writeback</p><p>Document it, ship it, and defend every line. A result only retires once it's explained.</p></div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <p class="sect-label">cache hierarchy</p>
+  <h2>Skills</h2>
+  <p class="sect-sub">Sorted by how fast I reach for them, not by how impressive they sound. <b>L1 is muscle memory.</b></p>
+
+  <div class="cache">
+    <div class="cache-row l1">
+      <div class="cache-key"><span class="cache-level">L1</span><span class="cache-latency">DAILY · ~0 CYCLES</span></div>
+      <div class="cache-val"><span class="hot">Python</span><span class="hot">Linux</span><span class="hot">Git / GitHub</span><span class="hot">SQL / MySQL</span></div>
+    </div>
+    <div class="cache-row l2">
+      <div class="cache-key"><span class="cache-level">L2</span><span class="cache-latency">WEEKLY · WARM</span></div>
+      <div class="cache-val"><span>C / C++</span><span>JavaScript</span><span>Flask</span><span>scikit-learn</span><span>SHAP</span><span>XGBoost</span><span>pandas</span><span>NumPy</span><span>Wireshark</span><span>Jupyter</span></div>
+    </div>
+    <div class="cache-row l3">
+      <div class="cache-key"><span class="cache-level">L3</span><span class="cache-latency">ON DEMAND</span></div>
+      <div class="cache-val"><span>Java</span><span>MongoDB</span><span>Matplotlib</span><span>Tableau</span><span>HTML / CSS</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT / BOOT LOG ── -->
+<section id="about">
+  <p class="sect-label">boot rom</p>
+  <h2>Background</h2>
+  <p class="sect-sub"><b>Still booting</b> — full release scheduled 2028.</p>
+
+  <ul class="bootlog">
+    <li><span class="ts">[2024.08]</span> enrolled: <span class="em">south_asian_university</span> — b.tech computer science & engineering <span class="ok">[OK]</span></li>
+    <li><span class="ts">[ check ]</span> integrity: cgpa = <span class="hi">9.09</span> / 10.00 <span class="ok">[OK]</span></li>
+    <li><span class="ts">[2025.10]</span> service started: <span class="em">csi_sau · technical lead</span> — leading chapter tech team since inception <span class="ok">[OK]</span></li>
+    <li><span class="ts">[2025.11]</span> events shipped: <span class="em">avishkarx_ideathon</span>, <span class="em">syntax_coding_contest</span> (unstop platform ops) + chapter site built &amp; maintained <span class="ok">[OK]</span></li>
+    <li><span class="ts">[2026.01]</span> paper submitted: <span class="em">ijcnn_2026</span> — explanation consistency in deep networks <span class="dim">[in review]</span></li>
+    <li><span class="ts">[daemon ]</span> background: ctf_practice, packet_analysis, distro_hopping <span class="dim">(current: endeavouros + kde)</span></li>
+    <li><span class="ts">[status ]</span> running · <span class="em">open to internships</span> · next_release: <span class="hi">class_of_2028</span></li>
+  </ul>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <p class="sect-label">i/o ports</p>
+  <h2>Contact</h2>
+  <p class="contact-lede">All ports open and actively polled. If the problem involves <em>taking something apart to understand it</em>, transmit.</p>
+
+  <div class="io-ports">
+    <a class="port" href="mailto:adb.return.human@gmail.com">
+      <p class="port-num">PORT0 · UART · PRIMARY</p>
+      <p class="port-name">Mail</p>
+      <p class="port-val">adb.return.human@gmail.com</p>
+    </a>
+    <a class="port" href="https://github.com/ark0b" target="_blank" rel="noopener noreferrer">
+      <p class="port-num">PORT1 · SPI · SOURCE</p>
+      <p class="port-name">GitHub</p>
+      <p class="port-val">github.com/ark0b</p>
+    </a>
+    <a class="port" href="https://www.linkedin.com/in/arkodyuti-bhattacharyya" target="_blank" rel="noopener noreferrer">
+      <p class="port-num">PORT2 · I²C · PROFESSIONAL</p>
+      <p class="port-name">LinkedIn</p>
+      <p class="port-val">arkodyuti bhattacharyya</p>
+    </a>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="wrap">
+    <p class="sect-label">errata</p>
+    <table class="errata-table">
+      <thead><tr><th>ID</th><th>DESCRIPTION</th><th>WORKAROUND</th></tr></thead>
+      <tbody>
+        <tr><td>E-001</td><td>Sleep states deprioritized when a problem is almost solved.</td><td>chai · none planned</td></tr>
+        <tr><td>E-002</td><td>Cannot encounter a Linux ISO without flashing it. Distro counter has overflowed.</td><td>wontfix — feature</td></tr>
+        <tr><td>E-003</td><td>Answers "how does it work?" at logic-gate depth unless interrupted.</td><td>ask follow-up questions</td></tr>
+      </tbody>
+    </table>
+    <div class="colophon">
+      <span>© <span id="year"></span> arkodyuti bhattacharyya</span>
+      <span>big shoulders + ibm plex</span>
+      <span>one html file · no frameworks · svg hand-routed</span>
+      <a href="#top">back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   PROJECT DATA (unchanged)
+   ============================================================ */
+const projects = [
+  {
+    tag: "NIDS",
+    name: "Network Intrusion Detection System",
+    status: "complete",
+    stack: "Python · scikit-learn · XGBoost · SHAP · Flask · pandas",
+    desc: "A machine-learning IDS trained and evaluated on <b>CICIDS2017</b>, with an explainability layer so detections can be audited instead of just believed — every flagged flow shows <b>why</b> it was flagged.",
+    perf: [
+      ["F1 · Random Forest", "99.77%"],
+      ["MCC",                "0.992"],
+      ["F1 · XGBoost",       "96.76%"],
+      ["F1 · SVM",           "90.71%"]
+    ],
+    points: [
+      "Benchmarked three classifiers head-to-head on weighted F1 and MCC.",
+      "Addressed extreme class imbalance with a hybrid <em>SMOTE</em> strategy.",
+      "Integrated <em>SHAP</em> feature attribution per detection event.",
+      "Built a Flask dashboard for real-time attack detection and visualization."
+    ],
+    note: "<b>Note:</b> the headline F1 means nothing until you've fought CICIDS2017's imbalance — some attack classes are vanishingly rare. Honest evaluation was most of the real work.",
+    link: { label: "source on GitHub", href: "https://github.com/ark0b" }
+  },
+  {
+    tag: "MESS",
+    name: "Mess Management System",
+    status: "complete",
+    stack: "Python · Flask · MySQL · JavaScript · HTML/CSS",
+    desc: "Full-stack web app for hostel mess operations: meal tracking, scheduling, billing and expense management, with separate student and admin views.",
+    perf: null,
+    points: [
+      "Designed the relational schema for users, meal tracking, and billing from scratch.",
+      "Backend API for meal scheduling and payment processing.",
+      "Responsive student frontend (plans, expenses) plus a full admin dashboard."
+    ],
+    note: "<b>Note:</b> schema decisions made on day one followed me to the last commit. Billing edge cases are where simple CRUD apps go to be humbled.",
+    link: { label: "source on GitHub", href: "https://github.com/ark0b" }
+  },
+  {
+    tag: "STORE",
+    name: "Store Management System",
+    status: "complete",
+    stack: "Java · SQL",
+    desc: "Backend for <b>multi-store, multi-warehouse</b> inventory tracking and sales management — normalized relational design with reporting on top.",
+    perf: null,
+    points: [
+      "Complete CRUD layer over a normalized relational schema.",
+      "Transaction handling so concurrent sales can't corrupt stock counts.",
+      "Sales analytics reporting across stores and warehouses."
+    ],
+    note: "<b>Note:</b> this is where ACID stopped being a textbook chapter. Once two operations can touch the same stock row, isolation levels get personal.",
+    link: { label: "source on GitHub", href: "https://github.com/ark0b" }
+  },
+  {
+    tag: "CSI",
+    name: "CSI–SAU Chapter Website",
+    status: "live",
+    stack: "HTML · CSS · JavaScript",
+    desc: "The student chapter's web presence, built and maintained as <b>Technical Lead</b> — including event pages for the AvishkarX Ideathon and the SyntaX coding contest.",
+    perf: null,
+    points: [
+      "Hand-built, framework-free — fast to load, easy for the next lead to inherit.",
+      "Supported live contest logistics for SyntaX on the Unstop platform."
+    ],
+    note: "<b>Note:</b> writing a site other people will maintain rewires how you think. Clever code loses to obvious code, every time.",
+    link: null
+  },
+  {
+    tag: "CVIZ",
+    name: "Code Execution Visualizer",
+    status: "building",
+    stack: "JavaScript · WebAssembly",
+    desc: "A step-through visualizer for program execution: <b>run once, record full state snapshots</b>, then scrub the run forwards and backwards like a timeline.",
+    perf: null,
+    points: [
+      "Execute-once / replay architecture — the UI walks an array of snapshots, so stepping <em>backwards</em> is free.",
+      "Language interpreters compiled to WebAssembly: nothing untrusted touches a server."
+    ],
+    note: "<b>Note:</b> in development. The core decision was refusing live re-execution per step — record the truth once, replay it forever.",
+    link: null
+  },
+  {
+    tag: "SWS",
+    name: "Student Workspace App",
+    status: "building",
+    stack: "React · Node.js · PostgreSQL · pgvector",
+    desc: "One app for student life: calendar, goals, to-dos, a club social feed, and an <b>AI recommender</b> that surfaces campus events you'd actually attend.",
+    perf: null,
+    points: [
+      "PostgreSQL schema designed first; features ship as vertical slices on top.",
+      "Event recommendations via <em>pgvector</em> similarity over interests and attendance history."
+    ],
+    note: "<b>Note:</b> in development. Recurring calendar events (RRULE) are the boss fight — every calendar app you've used has scars from it.",
+    link: null
+  }
+];
+
+/* ============================================================
+   SVG GENERATION
+   ============================================================ */
+const SVG_NS = "http://www.w3.org/2000/svg";
+function svgEl(tag, attrs) {
+  const el = document.createElementNS(SVG_NS, tag);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  return el;
+}
+
+// Pins
+(function buildPins() {
+  const g = document.getElementById("svgPins");
+  for (let x = 48; x <= 728; x += 24) {
+    g.appendChild(svgEl("line", { x1: x, y1: 12, x2: x, y2: 4,  class: "pin-line" }));
+    g.appendChild(svgEl("line", { x1: x, y1: 548, x2: x, y2: 556, class: "pin-line" }));
+  }
+  for (let y = 48; y <= 512; y += 24) {
+    g.appendChild(svgEl("line", { x1: 12, y1: y, x2: 4,   y2: y, class: "pin-line" }));
+    g.appendChild(svgEl("line", { x1: 768, y1: y, x2: 776, y2: y, class: "pin-line" }));
+  }
+})();
+
+// Grid
+(function buildGrid() {
+  const g = document.getElementById("dieGrid");
+  for (let x = 40 + 30; x < 740; x += 30)
+    g.appendChild(svgEl("line", { x1: x, y1: 40,  x2: x, y2: 508 }));
+  for (let y = 40 + 30; y < 508; y += 30)
+    g.appendChild(svgEl("line", { x1: 40, y1: y, x2: 740, y2: y }));
+})();
+
+// Core cells inside the chip
+(function fabCoreCells() {
+  const cluster = document.getElementById("coreCluster");
+  const label   = document.getElementById("coreCountLbl");
+  label.textContent = projects.length + " CORES";
+
+  const AX = 74, AY = 98, AW = 318, AH = 152;
+  const COLS = 3, GAP = 7;
+  const rows = Math.ceil(projects.length / COLS);
+  const cw   = (AW - (COLS - 1) * GAP) / COLS;
+  const ch   = Math.min(62, (AH - (rows - 1) * GAP) / rows);
+
+  projects.forEach((p, i) => {
+    const cx = AX + (i % COLS) * (cw + GAP);
+    const cy = AY + Math.floor(i / COLS) * (ch + GAP);
+
+    const g = svgEl("g", {
+      class: "die-core",
+      tabindex: "0",
+      role: "link",
+      "aria-label": `Project ${i}: ${p.name} (${p.status})`,
+      "data-idx": i,
+      style: `animation-delay:${.12 + i * .07}s`
+    });
+
+    g.appendChild(svgEl("rect", { x: cx, y: cy, width: cw, height: ch, rx: "2" }));
+
+    const t1 = svgEl("text", { x: cx + 8, y: cy + 17 });
+    t1.textContent = `C${i}`;
+    g.appendChild(t1);
+
+    const t2 = svgEl("text", { x: cx + 8, y: cy + 29, class: "cname" });
+    t2.textContent = p.tag;
+    g.appendChild(t2);
+
+    if (p.status === "building") {
+      const t3 = svgEl("text", { x: cx + 8, y: cy + 41, class: "cname", style: "fill:#C95040" });
+      t3.textContent = "FAB";
+      g.appendChild(t3);
+    }
+
+    cluster.appendChild(g);
+  });
+})();
+
+/* ============================================================
+   INTERACTIVE PROJECT LIST + READOUT
+   ============================================================ */
+const listEl     = document.getElementById("coreList");
+const readout    = document.getElementById("readout");
+let selectedIdx  = 0;
+
+// Build sidebar buttons
+projects.forEach((p, i) => {
+  const btn = document.createElement("button");
+  btn.className   = "core-row";
+  btn.dataset.idx = i;
+  btn.setAttribute("role", "option");
+  btn.setAttribute("aria-selected", i === 0 ? "true" : "false");
+
+  const statusClass = p.status === "building" ? "wip" : "done";
+  btn.innerHTML = `<span class="c-id">C${i}</span><span class="c-nm">${p.name}</span><span class="c-st ${statusClass}">${p.status.toUpperCase()}</span>`;
+  btn.addEventListener("click", () => selectProject(i, true));
+  listEl.appendChild(btn);
+});
+
+function selectProject(idx, scrollIntoView) {
+  selectedIdx = idx;
+  const p = projects[idx];
+
+  // Update list buttons
+  document.querySelectorAll(".core-row").forEach((r, j) => {
+    r.classList.toggle("sel", j === idx);
+    r.setAttribute("aria-selected", j === idx ? "true" : "false");
+  });
+
+  // Update die cores
+  document.querySelectorAll("#coreCluster .die-core").forEach((c, j) =>
+    c.classList.toggle("sel", j === idx)
+  );
+
+  const badgeClass = p.status === "building" ? "wip"
+                   : p.status === "live"     ? "live"
+                   :                           "done";
+
+  const perfHTML = p.perf
+    ? `<div class="ro-row">
+         <span class="ro-key">PERFORMANCE</span>
+         <span class="ro-val perf">${p.perf.map(([k, v]) =>
+           `${k} <b>${v}</b>`).join(" &nbsp;·&nbsp; ")}</span>
+       </div>`
+    : "";
+
+  const linkHTML = p.link
+    ? `<div class="ro-row">
+         <span class="ro-key">SOURCE</span>
+         <span class="ro-val ro-link">
+           <a href="${p.link.href}" target="_blank" rel="noopener noreferrer">${p.link.label} ↗</a>
+         </span>
+       </div>`
+    : "";
+
+  readout.innerHTML = `
+    <div class="ro-head">
+      <span class="ro-tag">C${idx} · ${p.tag}</span>
+      <span class="ro-badge ${badgeClass}">${p.status.toUpperCase()}</span>
+    </div>
+    <p class="ro-title" tabindex="-1" id="roTitle">${p.name}</p>
+    <p class="ro-desc">${p.desc}</p>
+    <div class="ro-rows">
+      <div class="ro-row">
+        <span class="ro-key">STACK</span>
+        <span class="ro-val mono" style="font-size:12px;color:var(--text-dim)">${p.stack}</span>
+      </div>
+      ${perfHTML}
+      <div class="ro-row">
+        <span class="ro-key">WHAT I BUILT</span>
+        <span class="ro-val">
+          <ul class="ro-points">${p.points.map(pt => `<li>${pt}</li>`).join("")}</ul>
+        </span>
+      </div>
+      <div class="ro-row">
+        <span class="ro-key">ERRATA</span>
+        <span class="ro-val"><span class="ro-errata">${p.note}</span></span>
+      </div>
+      ${linkHTML}
+    </div>
+  `;
+
+  // Move focus to the readout title for screen readers
+  const titleEl = document.getElementById("roTitle");
+  if (titleEl) setTimeout(() => titleEl.focus(), 50);
+
+  // Remove static readout if present
+  const staticReadout = document.getElementById("readoutStatic");
+  if (staticReadout) staticReadout.remove();
+
+  if (scrollIntoView) {
+    document.getElementById("projects").scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+// Init with first project (replaces static content)
+selectProject(0, false);
+
+// Keyboard navigation: Arrow keys + j/k
+document.addEventListener("keydown", e => {
+  if (e.target.matches("input, textarea, select")) return;
+  const key = e.key;
+  if (key === "ArrowDown" || key === "j") {
+    e.preventDefault();
+    selectProject(Math.min(selectedIdx + 1, projects.length - 1), false);
+  }
+  if (key === "ArrowUp" || key === "k") {
+    e.preventDefault();
+    selectProject(Math.max(selectedIdx - 1, 0), false);
+  }
+});
+
+/* ============================================================
+   SVG BLOCK NAVIGATION + HOVER
+   ============================================================ */
+const dieReadout = document.getElementById("dieReadout");
+const defaultReadoutText = "hover a block — click to navigate";
+
+const blockLabels = {
+  "#projects":  "exec cluster — " + projects.length + " projects",
+  "#research":  "xai coproc — explanation consistency research",
+  "#skills":    "cache hierarchy — skills by access frequency",
+  "#about":     "boot rom — education & background",
+  "#contact":   "i/o phy — contact, all ports open",
+  "resume.pdf": "jtag — full résumé PDF"
+};
+
+document.querySelectorAll(".blk.link").forEach(block => {
+  const target = block.dataset.target;
+
+  function navigate() {
+    // If a filtercore is set, select that specific project first
+    if (block.dataset.filtercore !== undefined) {
+      const coreIdx = parseInt(block.dataset.filtercore, 10);
+      if (!isNaN(coreIdx) && coreIdx < projects.length) {
+        selectProject(coreIdx, false);
+      }
+    }
+
+    if (block.dataset.href) {
+      window.location.href = block.dataset.href;
+    } else if (target) {
+      const el = document.querySelector(target);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
+  block.addEventListener("click", navigate);
+  block.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      navigate();
+    }
+  });
+  block.addEventListener("mouseenter", () => {
+    dieReadout.textContent = blockLabels[target] || target;
+  });
+  block.addEventListener("mouseleave", () => {
+    dieReadout.textContent = defaultReadoutText;
+  });
+  block.addEventListener("focus", () => {
+    dieReadout.textContent = blockLabels[target] || target;
+  });
+  block.addEventListener("blur", () => {
+    dieReadout.textContent = defaultReadoutText;
+  });
+});
+
+// Core cells (project selection)
+document.querySelectorAll("#coreCluster .die-core").forEach(cell => {
+  const idx = +cell.dataset.idx;
+
+  function activate() {
+    selectProject(idx, true);
+  }
+
+  cell.addEventListener("click", e => { e.stopPropagation(); activate(); });
+  cell.addEventListener("keydown", e => {
+    if (e.key === "Enter") { e.stopPropagation(); activate(); }
+  });
+  cell.addEventListener("mouseenter", () => {
+    dieReadout.textContent = `C${idx} — ${projects[idx].name}`;
+  });
+  cell.addEventListener("mouseleave", () => {
+    dieReadout.textContent = defaultReadoutText;
+  });
+  cell.addEventListener("focus", () => {
+    dieReadout.textContent = `C${idx} — ${projects[idx].name}`;
+  });
+  cell.addEventListener("blur", () => {
+    dieReadout.textContent = defaultReadoutText;
+  });
+});
+
+// I/O PHY external links (mailto + external)
+document.querySelectorAll(".die-core[data-href]").forEach(port => {
+  port.addEventListener("click", e => {
+    e.stopPropagation();
+    const href = port.dataset.href;
+    if (href.startsWith("mailto:")) {
+      window.location.href = href;
+    } else {
+      window.open(href, "_blank", "noopener,noreferrer");
+    }
+  });
+  port.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      e.stopPropagation();
+      const href = port.dataset.href;
+      if (href.startsWith("mailto:")) {
+        window.location.href = href;
+      } else {
+        window.open(href, "_blank", "noopener,noreferrer");
+      }
+    }
+  });
+});
+
+/* ============================================================
+   CLOCK (RTC only, no uptime)
+   ============================================================ */
+const timeFormatter = new Intl.DateTimeFormat("en-GB", {
+  timeZone: "Asia/Kolkata",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: false
+});
+
+const dieClockEl = document.getElementById("dieClock");
+
+function tick() {
+  if (dieClockEl) {
+    dieClockEl.textContent = timeFormatter.format(new Date());
+  }
+}
+tick();
+setInterval(tick, 1000);
+
+// Year in footer
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Cleanup on pagehide
+window.addEventListener("pagehide", () => clearInterval(tick));
+</script>
 </body>
 </html>
