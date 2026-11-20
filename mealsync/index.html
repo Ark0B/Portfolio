@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MealSync — case study · Arkodyuti Bhattacharyya</title>
+<meta name="description" content="Case study: a university mess management system with rotating signed QR passes, server-verified payments and a database-enforced one-plate-per-meal rule.">
+<meta name="author" content="Arkodyuti Bhattacharyya">
+<meta name="theme-color" content="#121517">
+<link rel="canonical" href="https://ark0b.github.io/Portfolio/mealsync/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Arkodyuti Bhattacharyya">
+<meta property="og:title" content="MealSync — case study">
+<meta property="og:description" content="Case study: a university mess management system with rotating signed QR passes, server-verified payments and a database-enforced one-plate-per-meal rule.">
+<meta property="og:url" content="https://ark0b.github.io/Portfolio/mealsync/">
+<meta property="og:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MealSync — case study">
+<meta name="twitter:description" content="Case study: a university mess management system with rotating signed QR passes, server-verified payments and a database-enforced one-plate-per-meal rule.">
+<meta name="twitter:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
+<link rel="preload" href="../assets/fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "MealSync", "description": "Case study: a university mess management system with rotating signed QR passes, server-verified payments and a database-enforced one-plate-per-meal rule.", "url": "https://ark0b.github.io/Portfolio/mealsync/", "codeRepository": "https://github.com/Ark0B/mealsync", "author": {"@type": "Person", "name": "Arkodyuti Bhattacharyya", "url": "https://ark0b.github.io/Portfolio/"}, "isPartOf": {"@type": "WebSite", "url": "https://ark0b.github.io/Portfolio/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://ark0b.github.io/Portfolio/"}, {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://ark0b.github.io/Portfolio/#projects"}, {"@type": "ListItem", "position": 3, "name": "MealSync", "item": "https://ark0b.github.io/Portfolio/mealsync/"}]}</script>
+</head>
+<body class="paper">
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <a class="bar-brand" href="../">ARK0B-1</a>
+  <nav class="bar-nav" aria-label="Case studies">
+    <a href="../#projects">← all</a>
+    <a href="../nids/">nids</a>
+    <a href="../fireguard/">fireguard</a>
+    <a href="../mealsync/" aria-current="page">mealsync</a>
+    <a href="../givegrid/">givegrid</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap case">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../">ARK0B-1</a><span aria-hidden="true">/</span><a href="../#projects">exec cluster</a><span aria-hidden="true">/</span>C2 · MEAL</nav>
+
+  <article class="case-sheet">
+    <header class="case-head">
+      <div class="net">
+        <span class="net-ref">C2</span>
+        <h1>MealSync</h1>
+        <span class="net-wire" aria-hidden="true"><i></i><b class="via"></b><i class="short"></i><b class="pad"></b></span>
+        <span class="net-name" aria-hidden="true">DS-C2</span>
+      </div>
+      <p class="case-lede">Replacing a university mess's paper meal cards and payment screenshots with a pass that can't be shared, payments the server verifies, and a rule the database enforces.</p>
+      <dl class="spec">
+        <div><dt>Status</dt><dd>v1.0.0 released</dd></div>
+        <div><dt>My role</dt><dd>Architecture and design lead · QA</dd></div>
+        <div><dt>Team</dt><dd>4 people</dd></div>
+        <div><dt>Stack</dt><dd class="mono">Node.js · Express · MySQL 8 · JWT · Jest</dd></div>
+      </dl>
+    </header>
+
+    <section class="case-sec">
+      <h2>The problem</h2>
+      <p>The university mess ran on a <b>paper meal card</b> that was checked "if and when asked", payment proved by <b>showing a UPI screenshot</b>, registers, Excel sheets and Google Forms. Counter staff relied on remembering faces. Nothing stopped one card feeding two people, and a missed meal was simply wasted food and money.</p>
+    </section>
+    <section class="case-sec">
+      <h2>A pass that can't be screenshotted</h2>
+      <div class="fig-row">
+      <figure class="fig ">
+        <img src="../assets/img/mealsync-pass.webp" alt="MealSync student meal pass on a phone: a QR code with a countdown bar, a note that it changes every 30 seconds, and today's menu." width="780" height="1180" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 1</b> The student pass. The bar under the QR counts down to the next code.</figcaption>
+      </figure>
+        <div>
+          <p>Each student gets a QR pass that is <mark>signed by the server and rotates every 30 seconds</mark>. A screenshot stops working within a minute, and a forged code fails the signature check.</p>
+          <p>At the counter, staff scan it with the camera (or paste the code). The server decides, not the person at the counter.</p>
+        </div>
+      </div>
+    </section>
+    <section class="case-sec">
+      <h2>One plate per student per meal</h2>
+      <figure class="fig ">
+        <img src="../assets/img/mealsync-serve-refuse.webp" alt="Two scanner results side by side: a green SERVE for Aman Verma at lunch, then a red DO NOT SERVE reading already served this meal." width="1076" height="248" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 2</b> The same student's pass, scanned twice at lunch. First scan: serve. Second: refused, with the time of the first.</figcaption>
+      </figure>
+      <p>The rule isn't enforced by the screen. It is a database constraint, <code>UNIQUE (user_id, meal_date, meal)</code> on the table of served plates, so a second plate is impossible even if two counters scan the same pass at the same moment.</p>
+      <figure class="fig ">
+        <img src="../assets/img/mealsync-counter.webp" alt="Counter screen with the refusal, today's headcount, and a recent-scans table listing served, already served and no entitlement outcomes." width="1100" height="510" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 3</b> Every scan is logged, including refusals. Students with three or more refused scans in a month show up in the manager's fraud report.</figcaption>
+      </figure>
+    </section>
+    <section class="case-sec">
+      <h2>Payments the server checks itself</h2>
+      <p>Payment follows the Razorpay order → checkout → verify flow. The server creates an order, the gateway returns a payment ID and a signature, and the server recomputes <code>HMAC-SHA256(orderId | paymentId)</code> with its secret before anything is activated. A screenshot of a payment app proves nothing to it.</p>
+    </section>
+    <section class="case-sec">
+      <h2>The rest of the system</h2>
+      <ul class="bul">
+        <li>Skip a meal before the cut-off and part of its cost is credited to a wallet; the kitchen sees a live veg / non-veg headcount.</li>
+        <li>Late-plate reservations, day-scholar plans and pay-per-meal tokens.</li>
+        <li>Complaint tickets that escalate, meal ratings, committee polls and a menu editor.</li>
+        <li>Monthly reports, a CSV export that opens in Excel, and a full audit log.</li>
+      </ul>
+      <div class="dtab-wrap"><table class="dtab">
+        <caption><b>Table 1</b> Engineering.</caption>
+        <tbody>
+          <tr><td>Architecture</td><td>Express, layered: routes → controllers → services → database adapter</td></tr>
+          <tr><td>Database</td><td>MySQL 8 in production, SQLite for development; 19 tables in 3NF</td></tr>
+          <tr><td>Tests</td><td>128 unit and API tests · 95.5% line coverage</td></tr>
+          <tr><td>CI</td><td>GitHub Actions runs every push on SQLite and on a real MySQL 8</td></tr>
+          <tr><td>Docs</td><td>SRS, use cases, DFDs, UML, architecture decisions, test plan, traceability matrix, OpenAPI spec</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="case-sec">
+      <h2>Errata</h2>
+      <div class="errata-box">
+        <p>The hard part wasn't code. It was the mess's own rules: what counts as late, when a skipped meal earns credit, who may cancel mid-month and what they get back. Every one of those ended up as a setting the mess office can change, because the first answer we were given was rarely the final one.</p>
+        <p>The camera scanner needs HTTPS (or localhost), which is why the counter also accepts a pasted code.</p>
+      </div>
+    </section>
+    <section class="case-sec">
+      <h2>Source</h2>
+      <p><a href="https://github.com/Ark0B/mealsync" target="_blank" rel="noopener">github.com/Ark0B/mealsync ↗</a> · Software Engineering project 2026 · team: Arkodyuti Bhattacharyya (architecture, design, QA), Tarun, Ananya, Sania.</p>
+    </section>
+    <nav class="case-nav" aria-label="More case studies">
+      <a href="../fireguard/"><span>← PREVIOUS</span>FireGuard</a>
+      <a class="next" href="../givegrid/"><span>NEXT →</span>GiveGrid</a>
+    </nav>
+  </article>
+</main>
+
+<footer class="case-foot">
+  <div class="wrap">
+    <div class="colophon">
+      <span>© 2026 arkodyuti bhattacharyya</span>
+      <a href="../">← back to the chip</a>
+      <a href="https://github.com/ark0b" rel="me">github</a>
+      <a href="mailto:adb.return.human@gmail.com">email</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -3,874 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arkodyuti Bhattacharyya — Portfolio</title>
-<meta name="description" content="Arkodyuti Bhattacharyya — BTech CSE at South Asian University. Security, ML, and explainability.">
-<meta property="og:title" content="Arkodyuti Bhattacharyya — Portfolio">
-<meta property="og:description" content="BTech CSE · Security · ML · Explainability · 9.09 CGPA">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://arkodyuti.dev">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Arkodyuti Bhattacharyya — Portfolio">
-<meta name="twitter:description" content="BTech CSE · Security · ML · Explainability · 9.09 CGPA">
-<link rel="canonical" href="https://arkodyuti.dev">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300..800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<title>Arkodyuti Bhattacharyya (Ark0B) — ML for Security · CSE at South Asian University</title>
+<meta name="description" content="Arkodyuti Bhattacharyya (Ark0B), BTech CSE student at South Asian University, New Delhi. Machine learning for security, explainability research, and full-stack projects: NIDS, FireGuard, MealSync, GiveGrid.">
+<meta name="author" content="Arkodyuti Bhattacharyya">
+<meta name="theme-color" content="#121517">
+<link rel="canonical" href="https://ark0b.github.io/Portfolio/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
-<style>
-:root {
-  --bg:          #121517;
-  --panel:       #181B1F;
-  --raised:      #1D2025;
-  --raised-hi:   #242830;
-  --copper:      #C2743A;
-  --copper-dim:  #6B4526;
-  --gold:        #DDA84E;
-  --silver:      #9BA2A9;
-  --text:        #E2DED5;
-  --text-dim:    #9B9790;
-  --text-faint:  #575450;
-  --warn:        #C95040;
-  --pass:        #7EA35C;
-  --rule:        #272B31;
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Arkodyuti Bhattacharyya">
+<meta property="og:title" content="Arkodyuti Bhattacharyya — ML for Security">
+<meta property="og:description" content="BTech CSE at South Asian University. Intrusion detection, explainability research, wildfire forecasting and full-stack systems.">
+<meta property="og:url" content="https://ark0b.github.io/Portfolio/">
+<meta property="og:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ARK0B-1: Arkodyuti Bhattacharyya's portfolio, styled as a chip datasheet">
+<meta property="profile:first_name" content="Arkodyuti">
+<meta property="profile:last_name" content="Bhattacharyya">
+<meta property="profile:username" content="ark0b">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Arkodyuti Bhattacharyya — ML for Security">
+<meta name="twitter:description" content="BTech CSE at South Asian University. Intrusion detection, explainability research, wildfire forecasting and full-stack systems.">
+<meta name="twitter:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
 
-  --f-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
-  --f-body:    "IBM Plex Sans", system-ui, sans-serif;
-  --f-mono:    "IBM Plex Mono", ui-monospace, monospace;
-}
+<link rel="preload" href="assets/fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  background-image:
-    linear-gradient(rgba(194,116,58,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(194,116,58,.03) 1px, transparent 1px);
-  background-size: 52px 52px;
-  color: var(--text);
-  font-family: var(--f-body);
-  font-size: 16px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-::selection { background: var(--gold); color: #121517; }
-a {
-  color: var(--gold);
-  text-decoration: none;
-  border-bottom: 1px solid var(--copper-dim);
-  transition: color .15s, border-color .15s;
-}
-a:hover { color: #fff; border-bottom-color: var(--gold); }
-
-:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-/* Remove outline on interactive SVG parts – they have their own focus style */
-.die-scroll :focus-visible { outline: none; }
-
-.mono { font-family: var(--f-mono); }
-
-/* ── TOP BAR ── */
-.bar {
-  position: sticky;
-  top: 0;
-  z-index: 90;
-  display: flex;
-  align-items: center;
-  gap: 1.4rem;
-  padding: .6rem 1.4rem;
-  background: rgba(18,21,23,.93);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--rule);
-  font-family: var(--f-mono);
-  font-size: 11.5px;
-  color: var(--text-dim);
-  white-space: nowrap;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.bar::-webkit-scrollbar { display: none; }
-
-.bar-brand {
-  color: var(--gold);
-  font-weight: 600;
-  letter-spacing: .08em;
-  border: none;
-  flex-shrink: 0;
-}
-.bar-brand:hover { color: #fff; }
-
-.bar-nav {
-  margin-left: auto;
-  display: flex;
-  gap: 1.2rem;
-  flex-shrink: 0;
-}
-.bar-nav a {
-  border: none;
-  color: var(--text-dim);
-}
-.bar-nav a:hover { color: var(--gold); }
-
-/* ── LAYOUT ── */
-.wrap {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-section { padding: 4.5rem 0 1.5rem; }
-
-.sect-label {
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: .18em;
-  color: var(--copper);
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: .9rem;
-  margin-bottom: .8rem;
-}
-.sect-label::after {
-  content: "";
-  height: 1px;
-  flex: 0 0 3.5rem;
-  background: var(--copper-dim);
-}
-
-h2 {
-  font-family: var(--f-display);
-  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
-  font-weight: 640;
-  letter-spacing: .015em;
-  line-height: .95;
-  text-transform: uppercase;
-  color: var(--text);
-  margin-bottom: .65rem;
-}
-
-.sect-sub {
-  color: var(--text-dim);
-  max-width: 62ch;
-  margin-bottom: 2rem;
-  font-size: .97rem;
-}
-.sect-sub b { color: var(--text); font-weight: 500; }
-
-/* ── HERO ── */
-.hero { padding: 4rem 0 2.5rem; }
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(290px, 5fr) minmax(400px, 7fr);
-  gap: 3rem;
-  align-items: center;
-}
-.hero-grid > * { min-width: 0; }
-
-.hero-eyebrow {
-  font-family: var(--f-mono);
-  font-size: 11px;
-  color: var(--text-faint);
-  letter-spacing: .12em;
-  margin-bottom: 1.4rem;
-}
-.hero-eyebrow .rev { color: var(--copper); }
-
-h1 {
-  font-family: var(--f-display);
-  font-size: clamp(2.4rem, 10vw, 6rem);
-  font-weight: 700;
-  line-height: .91;
-  letter-spacing: .01em;
-  text-transform: uppercase;
-  hyphens: manual;
-  overflow-wrap: break-word;
-}
-h1 .accent { color: var(--gold); }
-
-.hero-spec {
-  font-family: var(--f-mono);
-  font-size: 12.5px;
-  color: var(--text-dim);
-  margin: 1.2rem 0 1.5rem;
-  line-height: 1.95;
-}
-.hero-spec .k { color: var(--text-faint); }
-
-.hero-brief {
-  max-width: 44ch;
-  color: var(--text-dim);
-  font-size: .95rem;
-}
-.hero-brief b { color: var(--text); font-weight: 500; }
-
-.hero-cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .85rem;
-  margin-top: 1.9rem;
-}
-
-.btn {
-  font-family: var(--f-mono);
-  font-size: 12.5px;
-  letter-spacing: .05em;
-  padding: .6rem 1.15rem;
-  border: 1px solid var(--copper);
-  color: var(--gold);
-  background: transparent;
-  cursor: pointer;
-  border-radius: 2px;
-  text-decoration: none;
-  border-bottom: 1px solid var(--copper);
-  transition: background .15s, color .15s, border-color .15s;
-}
-.btn:hover { background: var(--gold); color: #121517; border-color: var(--gold); }
-.btn.solid { background: var(--gold); color: #121517; border-color: var(--gold); font-weight: 600; }
-.btn.solid:hover { background: #fff; border-color: #fff; }
-
-/* ── PCB DIAGRAM ── */
-.die-wrap { position: relative; }
-
-.die-scroll {
-  overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--copper-dim) transparent;
-}
-.die-scroll::-webkit-scrollbar { height: 4px; }
-.die-scroll::-webkit-scrollbar-track { background: transparent; }
-.die-scroll::-webkit-scrollbar-thumb { background: var(--copper-dim); border-radius: 2px; }
-
-.die-scroll svg {
-  display: block;
-  min-width: 580px;
-  width: 100%;
-  height: auto;
-}
-
-.die-caption {
-  font-family: var(--f-mono);
-  font-size: 11px;
-  color: var(--text-faint);
-  margin-top: .65rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-#dieReadout { color: var(--gold); min-height: 1.2em; }
-
-/* SVG styles */
-.blk rect.body {
-  fill: var(--raised);
-  stroke: var(--copper-dim);
-  stroke-width: 1;
-}
-.blk text { fill: var(--text-dim); font-family: var(--f-mono); }
-.blk .lbl { font-size: 10.5px; letter-spacing: .14em; fill: var(--text); }
-.blk .sub { font-size: 8px; letter-spacing: .09em; fill: var(--text-faint); }
-
-.blk.link { cursor: pointer; }
-.blk.link:hover rect.body,
-.blk.link:focus rect.body { fill: var(--raised-hi); stroke: var(--gold); }
-.blk.link:hover .lbl,
-.blk.link:focus .lbl { fill: var(--gold); }
-
-.die-core rect { fill: #1E2328; stroke: var(--copper-dim); stroke-width: .8; }
-.die-core text { font-family: var(--f-mono); font-size: 8px; fill: var(--text-dim); letter-spacing: .07em; }
-.die-core .cname { font-size: 7px; fill: var(--text-faint); }
-.die-core { cursor: pointer; }
-.die-core:hover rect,
-.die-core:focus rect { stroke: var(--gold); fill: var(--raised-hi); }
-.die-core:hover text { fill: var(--gold); }
-.die-core.sel rect { stroke: var(--gold); fill: #261F11; }
-.die-core.sel text { fill: var(--gold); }
-
-.trace { stroke: var(--copper-dim); stroke-width: 1; fill: none; }
-.pulse {
-  stroke: var(--gold);
-  stroke-width: 1.2;
-  fill: none;
-  stroke-dasharray: 6 140;
-  stroke-linecap: round;
-  animation: flow 5.5s linear infinite;
-  opacity: .8;
-}
-@keyframes flow { to { stroke-dashoffset: -146; } }
-
-.pin-line { stroke: var(--silver); stroke-width: 2.2; }
-.silkref { font-family: var(--f-mono); font-size: 7px; fill: var(--text-faint); letter-spacing: .06em; }
-.die-edge { fill: none; stroke: var(--copper); stroke-width: 1.2; }
-.die-fill { fill: #15181C; }
-.die-grid line { stroke: rgba(194,116,58,.05); stroke-width: 1; }
-.rtc-txt { font-family: var(--f-mono); font-size: 12px; fill: var(--gold); letter-spacing: .08em; }
-
-@media (prefers-reduced-motion: no-preference) {
-  .blk, .die-core { opacity: 0; animation: pwr .4s ease forwards; }
-}
-@keyframes pwr { to { opacity: 1; } }
-
-/* ── PROJECT EXECUTION CLUSTER ── */
-.exec-grid {
-  display: grid;
-  grid-template-columns: minmax(230px, 4fr) minmax(0, 8fr);
-  gap: 1.1rem;
-  align-items: start;
-}
-
-.core-list {
-  border: 1px solid var(--rule);
-  background: var(--panel);
-  position: relative;
-}
-.core-list-head {
-  font-family: var(--f-mono);
-  font-size: 10px;
-  letter-spacing: .16em;
-  color: var(--text-faint);
-  padding: .55rem .9rem;
-  border-bottom: 1px solid var(--rule);
-  display: flex;
-  justify-content: space-between;
-}
-
-.core-row {
-  display: grid;
-  grid-template-columns: 2.8rem 1fr auto;
-  gap: .7rem;
-  align-items: center;
-  width: 100%;
-  text-align: left;
-  padding: .7rem .9rem;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--rule);
-  font-family: var(--f-mono);
-  font-size: 12px;
-  color: var(--text-dim);
-  cursor: pointer;
-  transition: background .1s;
-}
-.core-row:last-child { border-bottom: none; }
-.core-row .c-id { color: var(--text-faint); }
-.core-row .c-nm { color: var(--text); font-family: var(--f-body); font-size: .92rem; font-weight: 500; }
-.core-row .c-st { font-size: 9.5px; letter-spacing: .1em; }
-.core-row .c-st.done { color: var(--pass); }
-.core-row .c-st.wip  { color: var(--warn); }
-.core-row:hover { background: var(--raised); }
-.core-row.sel { background: var(--raised); box-shadow: inset 3px 0 0 var(--gold); }
-.core-row.sel .c-id { color: var(--gold); }
-
-.kbd-hint {
-  font-family: var(--f-mono);
-  font-size: 11px;
-  color: var(--text-faint);
-  margin-top: .75rem;
-  display: flex;
-  align-items: center;
-  gap: .4rem;
-  flex-wrap: wrap;
-}
-.kbd-hint kbd {
-  border: 1px solid var(--rule);
-  border-bottom-width: 2px;
-  border-radius: 3px;
-  padding: 0 .4em;
-  color: var(--text-dim);
-  font-size: .9em;
-  font-family: inherit;
-}
-
-/* Readout panel */
-.readout {
-  border: 1px solid var(--copper-dim);
-  background: var(--panel);
-  position: relative;
-  padding: 1.5rem 1.7rem 1.8rem;
-  min-height: 340px;
-}
-.readout::before,
-.readout::after {
-  content: "";
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border: 1.5px solid var(--gold);
-}
-.readout::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-.readout::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-
-.ro-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: .5rem 1rem;
-  margin-bottom: .3rem;
-}
-.ro-tag {
-  font-family: var(--f-mono);
-  font-size: 11.5px;
-  color: var(--gold);
-  letter-spacing: .1em;
-}
-.ro-title {
-  font-family: var(--f-display);
-  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
-  font-weight: 620;
-  letter-spacing: .02em;
-  text-transform: uppercase;
-  line-height: 1;
-  margin: .15rem 0;
-}
-.ro-badge {
-  font-family: var(--f-mono);
-  font-size: 10px;
-  letter-spacing: .1em;
-  padding: .16rem .5rem;
-  border: 1px solid;
-  border-radius: 2px;
-}
-.ro-badge.done { color: var(--pass); border-color: var(--pass); }
-.ro-badge.wip  { color: var(--warn); border-color: var(--warn); }
-.ro-badge.live { color: var(--gold); border-color: var(--gold); }
-
-.ro-desc {
-  color: var(--text-dim);
-  max-width: 64ch;
-  margin: .75rem 0 1.1rem;
-  font-size: .95rem;
-}
-.ro-desc b { color: var(--text); font-weight: 500; }
-
-.ro-rows { border-top: 1px solid var(--rule); }
-.ro-row {
-  display: grid;
-  grid-template-columns: 8.5rem 1fr;
-  gap: .5rem;
-  padding: .55rem 0;
-  border-bottom: 1px solid var(--rule);
-  font-size: .93rem;
-  align-items: start;
-}
-.ro-row:last-child { border-bottom: none; }
-.ro-key {
-  font-family: var(--f-mono);
-  font-size: 10.5px;
-  letter-spacing: .1em;
-  color: var(--text-faint);
-  padding-top: .15rem;
-  white-space: nowrap;
-}
-.ro-val { color: var(--text-dim); }
-.ro-val .perf { font-family: var(--f-mono); font-size: 12.5px; color: var(--text); }
-.ro-val .perf b { color: var(--gold); font-weight: 600; }
-
-.ro-points { list-style: none; }
-.ro-points li {
-  padding-left: 1.1rem;
-  position: relative;
-  margin-bottom: .3rem;
-  color: var(--text-dim);
-  font-size: .93rem;
-  line-height: 1.55;
-}
-.ro-points li::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  color: var(--copper-dim);
-  font-size: .8em;
-  top: .15em;
-}
-.ro-points li em { color: var(--text); font-style: normal; }
-
-.ro-errata {
-  font-family: var(--f-mono);
-  font-size: 11.5px;
-  line-height: 1.7;
-  color: var(--text-dim);
-  padding: .6rem .8rem;
-  background: rgba(201,80,64,.05);
-  border-left: 2px solid var(--warn);
-}
-.ro-errata b { color: var(--warn); font-weight: 500; }
-
-.ro-link a {
-  font-family: var(--f-mono);
-  font-size: 12px;
-}
-
-/* ── RESEARCH ── */
-.paper {
-  border: 1px solid var(--copper-dim);
-  background: var(--panel);
-  padding: 1.9rem 2.1rem;
-  position: relative;
-  max-width: 60rem;
-}
-.paper::before {
-  content: "XAI coprocessor — unit 1";
-  position: absolute;
-  top: -9px;
-  left: 1.3rem;
-  background: var(--bg);
-  padding: 0 .65rem;
-  font-family: var(--f-mono);
-  font-size: 9.5px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--copper);
-}
-.paper h3 {
-  font-family: var(--f-body);
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.35;
-  max-width: 54ch;
-}
-.paper .p-meta {
-  font-family: var(--f-mono);
-  font-size: 11px;
-  color: var(--gold);
-  letter-spacing: .08em;
-  margin: .65rem 0 1rem;
-}
-.paper p {
-  color: var(--text-dim);
-  max-width: 66ch;
-  font-size: .95rem;
-}
-.paper p + p { margin-top: .75rem; }
-.paper p b { color: var(--text); font-weight: 500; }
-.paper .finding {
-  margin-top: 1.2rem;
-  padding: .85rem 1.1rem;
-  border-left: 2px solid var(--gold);
-  background: rgba(221,168,78,.055);
-  font-family: var(--f-mono);
-  font-size: 12px;
-  line-height: 1.75;
-  color: var(--text);
-  max-width: 60ch;
-}
-.paper .finding b { color: var(--gold); }
-
-/* ── PIPELINE ── */
-.pipeline-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  max-width: 60rem;
-}
-.stage {
-  border: 1px solid var(--rule);
-  border-left: none;
-  background: var(--panel);
-  padding: 1.15rem 1.15rem 1.35rem;
-  position: relative;
-}
-.stage:first-child { border-left: 1px solid var(--rule); }
-.stage .s-num {
-  font-family: var(--f-mono);
-  font-size: 9.5px;
-  color: var(--text-faint);
-  letter-spacing: .14em;
-  margin-bottom: .45rem;
-}
-.stage .s-name {
-  font-family: var(--f-display);
-  font-size: 1.45rem;
-  font-weight: 620;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: .3rem;
-}
-.stage p { font-size: .88rem; color: var(--text-dim); line-height: 1.55; }
-.stage::after {
-  content: "→";
-  position: absolute;
-  right: -9px;
-  top: 44%;
-  z-index: 2;
-  color: var(--copper);
-  background: var(--bg);
-  font-size: 13px;
-  line-height: 1;
-}
-.stage:last-child::after { content: none; }
-
-/* ── CACHE / SKILLS ── */
-.cache { max-width: 60rem; }
-
-.cache-row {
-  display: grid;
-  grid-template-columns: 9.5rem minmax(0, 1fr);
-  border: 1px solid var(--rule);
-  border-bottom: none;
-  background: var(--panel);
-}
-.cache-row:last-child { border-bottom: 1px solid var(--rule); }
-
-.cache-key {
-  padding: 1rem 1.1rem;
-  border-right: 1px solid var(--rule);
-  display: flex;
-  flex-direction: column;
-  gap: .1rem;
-  justify-content: center;
-}
-.cache-level {
-  font-family: var(--f-display);
-  font-size: 1.6rem;
-  font-weight: 640;
-  letter-spacing: .04em;
-  color: var(--gold);
-  line-height: 1;
-}
-.cache-latency {
-  font-family: var(--f-mono);
-  font-size: 9.5px;
-  letter-spacing: .1em;
-  color: var(--text-faint);
-}
-
-.cache-val {
-  padding: 1rem 1.2rem;
-  line-height: 2.05;
-}
-.cache-val span {
-  white-space: nowrap;
-  font-size: .93rem;
-}
-.cache-val span + span::before {
-  content: " · ";
-  color: var(--copper-dim);
-  white-space: normal;
-}
-.cache-val .hot { color: var(--gold); font-weight: 500; }
-
-.cache-row.l1 .cache-key { box-shadow: inset 3px 0 0 var(--gold); }
-.cache-row.l2 .cache-key { box-shadow: inset 3px 0 0 var(--copper); }
-.cache-row.l3 .cache-key { box-shadow: inset 3px 0 0 var(--copper-dim); }
-
-/* ── BOOT LOG ── */
-.bootlog {
-  font-family: var(--f-mono);
-  font-size: 12.5px;
-  line-height: 2;
-  border: 1px solid var(--rule);
-  background: var(--panel);
-  padding: 1.3rem 1.5rem;
-  max-width: 60rem;
-  overflow-x: auto;
-}
-.bootlog .ts  { color: var(--copper); }
-.bootlog .ok  { color: var(--pass); }
-.bootlog .em  { color: var(--text); }
-.bootlog .hi  { color: var(--gold); font-weight: 600; }
-.bootlog .dim { color: var(--text-faint); }
-
-/* ── I/O CONTACT ── */
-.contact-lede {
-  font-size: clamp(1.1rem, 2.1vw, 1.45rem);
-  font-weight: 500;
-  max-width: 40ch;
-  margin-bottom: 1.8rem;
-  color: var(--text);
-  line-height: 1.45;
-}
-.contact-lede em { font-style: normal; color: var(--gold); }
-
-.io-ports {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  max-width: 60rem;
-}
-.port {
-  flex: 1 1 230px;
-  border: 1px solid var(--copper-dim);
-  background: var(--panel);
-  padding: 1.1rem 1.25rem 1.2rem;
-  position: relative;
-  transition: border-color .15s, background .15s;
-  color: inherit;
-  border-bottom: 1px solid var(--copper-dim);
-}
-.port:hover { border-color: var(--gold); border-bottom-color: var(--gold); background: var(--raised); }
-.port .port-num {
-  font-family: var(--f-mono);
-  font-size: 9.5px;
-  letter-spacing: .18em;
-  color: var(--text-faint);
-}
-.port .port-name {
-  font-family: var(--f-display);
-  font-size: 1.45rem;
-  font-weight: 620;
-  text-transform: uppercase;
-  letter-spacing: .03em;
-  color: var(--gold);
-  margin: .1rem 0 .25rem;
-}
-.port .port-val {
-  font-family: var(--f-mono);
-  font-size: 12px;
-  color: var(--text-dim);
-  overflow-wrap: anywhere;
-}
-
-/* ── FOOTER / ERRATA ── */
-footer {
-  padding: 4rem 0 3rem;
-  border-top: 1px solid var(--rule);
-  margin-top: 4rem;
-}
-
-.errata-table {
-  width: 100%;
-  max-width: 60rem;
-  border-collapse: collapse;
-  font-family: var(--f-mono);
-  font-size: 12px;
-  margin-bottom: 2.5rem;
-}
-.errata-table th {
-  text-align: left;
-  font-size: 9.5px;
-  letter-spacing: .18em;
-  color: var(--text-faint);
-  font-weight: 500;
-  padding: .4rem .55rem;
-  border-bottom: 1px solid var(--copper-dim);
-}
-.errata-table td {
-  padding: .55rem .55rem;
-  border-bottom: 1px solid var(--rule);
-  color: var(--text-dim);
-  vertical-align: top;
-}
-.errata-table td:first-child { color: var(--warn); white-space: nowrap; }
-.errata-table td:last-child  { color: var(--text-faint); }
-
-.colophon {
-  font-family: var(--f-mono);
-  font-size: 11px;
-  color: var(--text-faint);
-  display: flex;
-  flex-wrap: wrap;
-  gap: .35rem 2rem;
-}
-.colophon a { border: none; color: var(--text-dim); }
-.colophon a:hover { color: var(--gold); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1020px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 2.2rem; }
-  .exec-grid { grid-template-columns: 1fr; }
-  /* Horizontal scrollable list */
-  .core-list {
-    display: flex;
-    overflow-x: auto;
-    border-bottom: 1px solid var(--rule);
-    scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(to right, black calc(100% - 2rem), transparent 100%);
-    mask-image: linear-gradient(to right, black calc(100% - 2rem), transparent 100%);
-  }
-  .core-list::-webkit-scrollbar { display: none; }
-  .core-list-head { display: none; }
-  .core-row {
-    flex: 0 0 auto;
-    grid-template-columns: auto;
-    gap: .1rem;
-    border-bottom: none;
-    border-right: 1px solid var(--rule);
-    padding: .65rem .95rem;
-  }
-  .core-row .c-nm { font-size: .82rem; }
-  .core-row.sel { box-shadow: inset 0 -3px 0 var(--gold); }
-  .pipeline-grid { grid-template-columns: 1fr 1fr; }
-  .stage { border-left: 1px solid var(--rule); border-top: none; }
-  .stage:nth-child(1), .stage:nth-child(2) { border-top: 1px solid var(--rule); }
-  .stage::after { content: none; }
-}
-
-@media (max-width: 680px) {
-  body { font-size: 15px; }
-  .wrap { padding: 0 1.1rem; }
-  .bar { gap: .85rem; padding: .55rem 1.1rem; }
-  section { padding: 3.5rem 0 1rem; }
-  h2 { font-size: clamp(1.9rem, 8vw, 2.5rem); }
-  .hero-spec { font-size: 12px; }
-  .hero-brief { max-width: 100%; }
-  .pipeline-grid { grid-template-columns: 1fr; }
-  .stage { border-top: none; border-left: 1px solid var(--rule); }
-  .stage:first-child { border-top: 1px solid var(--rule); }
-  .cache-row { grid-template-columns: 1fr; }
-  .cache-key {
-    border-right: none;
-    border-bottom: 1px solid var(--rule);
-    flex-direction: row;
-    align-items: baseline;
-    gap: .8rem;
-    padding: .7rem 1.1rem;
-  }
-  .readout { padding: 1.2rem 1rem; min-height: auto; }
-  .ro-row { grid-template-columns: 1fr; gap: .2rem; }
-  .ro-key { padding-top: .3rem; }
-  .paper { padding: 1.4rem 1.25rem; }
-  .paper::before { font-size: 8.5px; }
-  .bootlog { font-size: 11.5px; padding: 1rem 1.1rem; }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .pulse { animation: none; opacity: 0; }
-  .blk, .die-core { opacity: 1; animation: none; }
-  * { transition: none !important; }
-}
-</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://ark0b.github.io/Portfolio/#person",
+      "name": "Arkodyuti Bhattacharyya",
+      "alternateName": "Ark0B",
+      "url": "https://ark0b.github.io/Portfolio/",
+      "email": "mailto:adb.return.human@gmail.com",
+      "jobTitle": "BTech Computer Science and Engineering student",
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "name": "South Asian University",
+        "address": { "@type": "PostalAddress", "addressLocality": "New Delhi", "addressCountry": "IN" }
+      },
+      "memberOf": { "@type": "Organization", "name": "CSI-SAU (Computer Society of India, South Asian University chapter)" },
+      "knowsAbout": ["Machine learning for security", "Network intrusion detection", "Explainable AI", "Python", "Node.js", "MySQL", "Fuzzy logic"],
+      "sameAs": [
+        "https://github.com/ark0b",
+        "https://www.linkedin.com/in/arkodyuti-bhattacharyya"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ark0b.github.io/Portfolio/#site",
+      "url": "https://ark0b.github.io/Portfolio/",
+      "name": "Arkodyuti Bhattacharyya — Portfolio",
+      "inLanguage": "en",
+      "author": { "@id": "https://ark0b.github.io/Portfolio/#person" }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
-<!-- ── TOP BAR ── -->
-<header class="bar" role="banner">
-  <a class="bar-brand" href="#top">Arkodyuti B.</a>
-  <nav class="bar-nav" aria-label="Section navigation">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <a class="bar-brand" href="#top">ARK0B-1</a>
+  <nav class="bar-nav" aria-label="Sections">
     <a href="#projects">projects</a>
     <a href="#research">research</a>
-    <a href="#skills">skills</a>
+    <a class="nav-opt" href="#skills">skills</a>
+    <a href="#about">about</a>
     <a href="#contact">contact</a>
     <a href="resume.pdf">résumé ↗</a>
   </nav>
 </header>
 
-<div class="wrap" id="top">
+<main id="main" class="wrap">
 
 <!-- ── HERO ── -->
-<section class="hero">
+<section class="hero" id="top" aria-labelledby="hero-name">
   <div class="hero-grid">
     <div>
-      <p class="hero-eyebrow">portfolio · 2026 · <span class="rev">v2.1</span></p>
-      <h1>Arkodyuti<br>Bhatta&shy;charyya<span class="accent">.</span></h1>
-      <p class="hero-spec">
-        <span class="k">studying: </span>btech cse · south asian university · 2028<br>
-        <span class="k">focus: &nbsp;&nbsp; </span>security · ml · explainability<br>
-        <span class="k">cgpa: &nbsp;&nbsp;&nbsp;</span>9.09 / 10
+      <p class="hero-eyebrow">portfolio · 2026 · <span class="rev">rev 3.0</span></p>
+      <h1 id="hero-name">Arkodyuti<br>Bhatta&shy;charyya<span class="accent">.</span></h1>
+      <dl class="hero-spec">
+        <dt>studying</dt><dd>btech cse · south asian university</dd>
+        <dt>based</dt><dd>new delhi · class of 2028</dd>
+        <dt>focus</dt><dd>ml for security · explainability</dd>
+        <dt>role</dt><dd>technical lead, csi-sau</dd>
+        <dt>cgpa</dt><dd>9.09 / 10</dd>
+      </dl>
+      <p class="hero-brief">
+        I build machine-learning systems that have to justify their answers, from intrusion detection to wildfire forecasting.
+        The question underneath most of it: <b>a confident model isn't necessarily a correct one</b>, and that gap is worth studying.
       </p>
       <p class="hero-brief">
-        Six projects shipped or in flight, one research paper in review, and a running theory:
-        <b>a confident model isn't necessarily a correct one</b> — and that gap is worth studying.
+        <b>Right now:</b> temporal and weather models for FireGuard, and revising an explainability paper for resubmission.
       </p>
       <div class="hero-cta">
         <a class="btn solid" href="#projects">see the work</a>
@@ -878,346 +111,527 @@ footer {
       </div>
     </div>
 
-    <!-- PCB chip diagram -->
-    <div class="die-wrap">
-      <div class="die-scroll">
-        <svg id="die"
-             viewBox="0 0 780 560"
-             xmlns="http://www.w3.org/2000/svg"
-             role="group"
-             aria-label="Interactive chip map. Each block links to a section.">
+    <!-- Die map: every block is a real link, so it works without JavaScript -->
+    <figure class="die-wrap">
+      <svg id="die" viewBox="0 0 780 560" xmlns="http://www.w3.org/2000/svg" role="group" aria-labelledby="dieTitle">
+        <title id="dieTitle">Chip map of this page. Each block links to a section.</title>
 
-          <rect x="12" y="12" width="756" height="536" rx="10" fill="#0E1013" stroke="#353B42" stroke-width="1.2"/>
-          <text class="silkref" x="38" y="534" style="font-size:8px;letter-spacing:.2em">ARKB-1 · KOLKATA · 2026</text>
-          <text class="silkref" x="718" y="30" text-anchor="end" style="font-size:8px;letter-spacing:.2em">REV 2.1</text>
+        <rect x="12" y="12" width="756" height="536" rx="10" fill="#0E1013" stroke="#353B42" stroke-width="1.2"/>
+        <text class="silkref" x="38" y="534" style="font-size:8px;letter-spacing:.2em">ARK0B-1 · NEW DELHI · 2026</text>
+        <text class="silkref" x="742" y="30" text-anchor="end" style="font-size:8px;letter-spacing:.2em">REV 3.0</text>
+        <polygon points="12,12 46,12 12,46" fill="#C2743A" opacity=".35"/>
+        <circle cx="24" cy="24" r="3" fill="#DDA84E" opacity=".6"/>
 
-          <polygon points="12,12 46,12 12,46" fill="#C2743A" opacity=".35"/>
-          <circle cx="24" cy="24" r="3" fill="#DDA84E" opacity=".6"/>
+        <rect class="die-fill" x="40" y="40" width="700" height="468"/>
+        <g class="die-grid" id="dieGrid" aria-hidden="true"></g>
+        <rect class="die-edge" x="40" y="40" width="700" height="468"/>
+        <g id="svgPins" aria-hidden="true"></g>
 
-          <rect class="die-fill" x="40" y="40" width="700" height="468"/>
-          <g class="die-grid" id="dieGrid"></g>
-          <rect class="die-edge" x="40" y="40" width="700" height="468"/>
+        <g aria-hidden="true">
+          <path class="trace" d="M400 128 H420"/>
+          <path class="trace" d="M556 106 H572"/>
+          <path class="trace" d="M400 208 H420"/>
+          <path class="trace" d="M556 208 H572"/>
+          <path class="trace" d="M238 260 V278"/>
+          <path class="trace" d="M490 260 V278"/>
+          <path class="trace" d="M638 260 V278"/>
+          <path class="trace" d="M238 372 V390"/>
+          <path class="trace" d="M490 372 V390"/>
+          <path class="trace" d="M638 372 V390"/>
+          <path class="pulse" d="M400 128 H420 M238 260 V278 M238 372 V390"/>
+          <path class="pulse" style="animation-delay:-2.2s" d="M400 208 H420 M490 260 V278 M490 372 V390"/>
+          <path class="pulse" style="animation-delay:-4.1s" d="M556 106 H572 M638 260 V278 M638 372 V390"/>
+        </g>
 
-          <g id="svgPins"></g>
+        <!-- U1 EXEC CLUSTER: frame links to #projects, cores (drawn by JS) link to each project -->
+        <a class="blk" href="#projects" data-readout="exec cluster — all projects" style="animation-delay:.05s">
+          <rect class="body" x="60" y="60" width="340" height="198" rx="3"/>
+          <text class="lbl" x="74" y="80">EXEC CLUSTER</text>
+          <text class="sub" id="coreCountLbl" x="390" y="80" text-anchor="end">CORES</text>
+        </a>
+        <g id="coreCluster"></g>
+        <text class="silkref" x="60" y="56">U1</text>
 
-          <g>
-            <path class="trace" d="M400 128 H420"/>
-            <path class="trace" d="M556 106 H572"/>
-            <path class="trace" d="M400 208 H420"/>
-            <path class="trace" d="M556 208 H572"/>
-            <path class="trace" d="M238 260 V278"/>
-            <path class="trace" d="M490 260 V278"/>
-            <path class="trace" d="M638 260 V278"/>
-            <path class="trace" d="M238 372 V390"/>
-            <path class="trace" d="M490 372 V390"/>
-            <path class="trace" d="M638 372 V390"/>
-            <path class="pulse" d="M400 128 H420 M238 260 V278 M238 372 V390"/>
-            <path class="pulse" style="animation-delay:-2.2s" d="M400 208 H420 M490 260 V278 M490 372 V390"/>
-            <path class="pulse" style="animation-delay:-4.1s" d="M556 106 H572 M638 260 V278 M638 372 V390"/>
-          </g>
+        <!-- U2 XAI -->
+        <a class="blk" href="#research" data-readout="xai coproc — explanation consistency research" style="animation-delay:.17s">
+          <rect class="body" x="420" y="60" width="136" height="92" rx="3"/>
+          <text class="lbl" x="434" y="82">XAI</text>
+          <text class="lbl" x="434" y="98">COPROC</text>
+          <text class="sub" x="434" y="140">EXPLAINS ITSELF</text>
+        </a>
+        <text class="silkref" x="420" y="56">U2</text>
 
-          <!-- EXEC CLUSTER -->
-          <g class="blk link"
-             role="link"
-             tabindex="0"
-             aria-label="Project cores section"
-             data-target="#projects"
-             style="animation-delay:.05s">
-            <rect class="body" x="60" y="60" width="340" height="198" rx="3"/>
-            <text class="lbl" x="74" y="80">EXEC CLUSTER</text>
-            <text class="sub" id="coreCountLbl" x="390" y="80" text-anchor="end">— CORES</text>
-            <g id="coreCluster"></g>
-          </g>
-          <text class="silkref" x="60" y="56">U1</text>
+        <!-- U3 SEC ENGINE → NIDS -->
+        <a class="blk" href="#p-nids" data-readout="sec engine — network intrusion detection" style="animation-delay:.25s">
+          <rect class="body" x="572" y="60" width="148" height="92" rx="3"/>
+          <text class="lbl" x="586" y="82">SEC</text>
+          <text class="lbl" x="586" y="98">ENGINE</text>
+          <text class="sub" x="586" y="140">PACKETS → VERDICTS</text>
+        </a>
+        <text class="silkref" x="572" y="56">U3</text>
 
-          <!-- XAI COPROC -->
-          <g class="blk link"
-             role="link"
-             tabindex="0"
-             aria-label="Research — XAI coprocessor"
-             data-target="#research"
-             style="animation-delay:.17s">
-            <rect class="body" x="420" y="60" width="136" height="92" rx="3"/>
-            <text class="lbl" x="434" y="82">XAI</text>
-            <text class="lbl" x="434" y="98">COPROC</text>
-            <text class="sub" x="434" y="140">EXPLAINS ITSELF</text>
-          </g>
-          <text class="silkref" x="420" y="56">U2</text>
+        <!-- Y1 RTC (decorative) -->
+        <g class="blk" style="animation-delay:.33s">
+          <rect class="body" x="420" y="168" width="136" height="90" rx="3"/>
+          <text class="lbl" x="434" y="189">RTC</text>
+          <text class="rtc-txt" id="dieClock" x="434" y="222">--:--:--</text>
+          <text class="sub" x="434" y="248">IST · UTC+05:30</text>
+        </g>
+        <text class="silkref" x="420" y="164">Y1</text>
 
-          <!-- SEC ENGINE -->
-          <g class="blk link"
-             role="link"
-             tabindex="0"
-             aria-label="Security engine — NIDS project (first core)"
-             data-target="#projects"
-             data-filtercore="0"
-             style="animation-delay:.25s">
-            <rect class="body" x="572" y="60" width="148" height="92" rx="3"/>
-            <text class="lbl" x="586" y="82">SEC</text>
-            <text class="lbl" x="586" y="98">ENGINE</text>
-            <text class="sub" x="586" y="140">PACKETS → VERDICTS</text>
-          </g>
-          <text class="silkref" x="572" y="56">U3</text>
+        <!-- PMU (decorative) -->
+        <g class="blk" style="animation-delay:.40s">
+          <rect class="body" x="572" y="168" width="148" height="90" rx="3"/>
+          <text class="lbl" x="586" y="189">PMU</text>
+          <text class="sub" x="586" y="214">SRC: CHAI</text>
+          <text class="sub" x="586" y="230">SLEEP: RARE</text>
+        </g>
 
-          <!-- RTC -->
-          <g class="blk" aria-label="Real-time clock" style="animation-delay:.33s">
-            <rect class="body" x="420" y="168" width="136" height="90" rx="3"/>
-            <text class="lbl" x="434" y="189">RTC</text>
-            <text class="rtc-txt" id="dieClock" x="434" y="222">--:--:--</text>
-            <text class="sub"    x="434" y="248">ASIA/KOLKATA</text>
-          </g>
-          <text class="silkref" x="420" y="164">Y1</text>
+        <!-- CACHE → skills -->
+        <a class="blk" href="#skills" data-readout="cache hierarchy — skills by how often I use them" style="animation-delay:.48s">
+          <rect class="body" x="60" y="278" width="340" height="92" rx="3"/>
+          <text class="lbl" x="74" y="299">CACHE HIERARCHY</text>
+          <rect x="74" y="311" width="96" height="13" fill="none" stroke="#DDA84E" stroke-width=".9"/>
+          <text class="sub" x="80" y="321" style="fill:#DDA84E">L1 — hot</text>
+          <rect x="74" y="328" width="192" height="13" fill="none" stroke="#C2743A" stroke-width=".9"/>
+          <text class="sub" x="80" y="338">L2 — warm</text>
+          <rect x="74" y="345" width="308" height="13" fill="none" stroke="#6B4526" stroke-width=".9"/>
+          <text class="sub" x="80" y="355">L3 — on demand</text>
+        </a>
+        <text class="silkref" x="60" y="274">U5</text>
 
-          <!-- PMU -->
-          <g class="blk" style="animation-delay:.40s">
-            <rect class="body" x="572" y="168" width="148" height="90" rx="3"/>
-            <text class="lbl" x="586" y="189">PMU</text>
-            <text class="sub"  x="586" y="214">SRC: CHAI</text>
-            <text class="sub"  x="586" y="230">SLEEP: RARE</text>
-          </g>
+        <!-- BOOT ROM → background -->
+        <a class="blk" href="#about" data-readout="boot rom — education and timeline" style="animation-delay:.55s">
+          <rect class="body" x="420" y="278" width="136" height="92" rx="3"/>
+          <text class="lbl" x="434" y="299">BOOT</text>
+          <text class="lbl" x="434" y="315">ROM</text>
+          <text class="sub" x="434" y="355">SINCE 2024 · 9.09</text>
+        </a>
+        <text class="silkref" x="420" y="274">U6</text>
 
-          <!-- CACHE HIERARCHY -->
-          <g class="blk link"
-             role="link"
-             tabindex="0"
-             aria-label="Cache hierarchy — skills section"
-             data-target="#skills"
-             style="animation-delay:.48s">
-            <rect class="body" x="60" y="278" width="340" height="92" rx="3"/>
-            <text class="lbl"  x="74" y="299">CACHE HIERARCHY</text>
-            <rect x="74" y="311" width="96"  height="13" fill="none" stroke="#DDA84E" stroke-width=".9"/>
-            <text class="sub" x="80" y="321" style="fill:#DDA84E">L1 — hot</text>
-            <rect x="74" y="328" width="192" height="13" fill="none" stroke="#C2743A" stroke-width=".9"/>
-            <text class="sub" x="80" y="338">L2 — warm</text>
-            <rect x="74" y="345" width="308" height="13" fill="none" stroke="#6B4526" stroke-width=".9"/>
-            <text class="sub" x="80" y="355">L3 — will hit</text>
-          </g>
+        <!-- J2 JTAG → résumé -->
+        <a class="blk" href="resume.pdf" data-readout="jtag — full résumé (pdf)" style="animation-delay:.62s">
+          <rect class="body" x="572" y="278" width="148" height="92" rx="3"/>
+          <text class="lbl" x="586" y="299">JTAG / DBG</text>
+          <text class="sub" x="586" y="323">FULL SCAN CHAIN:</text>
+          <text class="sub" x="586" y="337" style="fill:#DDA84E">RÉSUMÉ.PDF</text>
+        </a>
+        <text class="silkref" x="572" y="274">J2</text>
 
-          <!-- BOOT ROM -->
-          <g class="blk link"
-             role="link"
-             tabindex="0"
-             aria-label="Boot ROM — background section"
-             data-target="#about"
-             style="animation-delay:.55s">
-            <rect class="body" x="420" y="278" width="136" height="92" rx="3"/>
-            <text class="lbl" x="434" y="299">BOOT</text>
-            <text class="lbl" x="434" y="315">ROM</text>
-            <text class="sub" x="434" y="355">SINCE 2024 · 9.09 CGPA</text>
-          </g>
-
-          <!-- JTAG / RÉSUMÉ -->
-          <g class="blk link"
-             role="link"
-             tabindex="0"
-             aria-label="JTAG debug port — open full résumé PDF"
-             data-target="resume.pdf"
-             data-href="resume.pdf"
-             style="animation-delay:.62s">
-            <rect class="body" x="572" y="278" width="148" height="92" rx="3"/>
-            <text class="lbl" x="586" y="299">JTAG / DBG</text>
-            <text class="sub" x="586" y="323">FULL SCAN CHAIN:</text>
-            <text class="sub" x="586" y="337" style="fill:#DDA84E">RÉSUMÉ.PDF</text>
-          </g>
-          <text class="silkref" x="572" y="274">J2</text>
-
-          <!-- I/O PHY -->
-          <g class="blk link"
-             role="group"
-             aria-label="I/O PHY — contact links"
-             data-target="#contact"
-             style="animation-delay:.70s">
-            <rect class="body" x="60" y="390" width="660" height="96" rx="3"/>
-            <text class="lbl" x="74" y="411">I/O PHY</text>
-
-            <g class="die-core" tabindex="0" role="link" aria-label="Send email to adb.return.human@gmail.com" data-href="mailto:adb.return.human@gmail.com">
-              <rect x="74"  y="422" width="204" height="48" rx="2"/>
-              <text x="86"  y="442">PORT0 · MAIL</text>
-              <text class="cname" x="86" y="456">adb.return.human</text>
-            </g>
-            <g class="die-core" tabindex="0" role="link" aria-label="GitHub profile: ark0b" data-href="https://github.com/ark0b">
-              <rect x="292" y="422" width="204" height="48" rx="2"/>
-              <text x="304" y="442">PORT1 · GITHUB</text>
-              <text class="cname" x="304" y="456">/ark0b</text>
-            </g>
-            <g class="die-core" tabindex="0" role="link" aria-label="LinkedIn profile: Arkodyuti Bhattacharyya" data-href="https://www.linkedin.com/in/arkodyuti-bhattacharyya">
-              <rect x="510" y="422" width="196" height="48" rx="2"/>
-              <text x="522" y="442">PORT2 · LINKEDIN</text>
-              <text class="cname" x="522" y="456">arkodyuti b.</text>
-            </g>
-          </g>
-          <text class="silkref" x="60" y="386">J1</text>
-        </svg>
-      </div>
-      <p class="die-caption" id="dieCaption">
-        <span id="dieReadout">hover a block — click to navigate</span>
-        <span>hand-routed svg · no frameworks</span>
-      </p>
-    </div>
+        <!-- J1 I/O PHY: frame is decorative, each port is its own link -->
+        <g class="blk" style="animation-delay:.70s">
+          <rect class="body" x="60" y="390" width="660" height="96" rx="3"/>
+          <text class="lbl" x="74" y="411">I/O PHY</text>
+        </g>
+        <a class="die-core" href="mailto:adb.return.human@gmail.com" data-readout="port0 — email adb.return.human@gmail.com" style="animation-delay:.74s">
+          <rect x="74" y="422" width="204" height="48" rx="2"/>
+          <text x="86" y="442">PORT0 · MAIL</text>
+          <text class="cname" x="86" y="456">adb.return.human</text>
+        </a>
+        <a class="die-core" href="https://github.com/ark0b" target="_blank" data-readout="port1 — github.com/ark0b" style="animation-delay:.78s">
+          <rect x="292" y="422" width="204" height="48" rx="2"/>
+          <text x="304" y="442">PORT1 · GITHUB</text>
+          <text class="cname" x="304" y="456">/ark0b</text>
+        </a>
+        <a class="die-core" href="https://www.linkedin.com/in/arkodyuti-bhattacharyya" target="_blank" data-readout="port2 — linkedin" style="animation-delay:.82s">
+          <rect x="510" y="422" width="196" height="48" rx="2"/>
+          <text x="522" y="442">PORT2 · LINKEDIN</text>
+          <text class="cname" x="522" y="456">arkodyuti b.</text>
+        </a>
+        <text class="silkref" x="60" y="386">J1</text>
+      </svg>
+      <figcaption class="die-caption">
+        <span id="dieReadout" aria-hidden="true">every block is a link</span>
+        <span class="led-legend"><i class="led st-complete"></i>complete <i class="led st-building"></i>building <i class="led st-live"></i>live <i class="led st-paused"></i>paused</span>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- ── PROJECTS (static fallback + interactive) ── -->
-<section id="projects">
-  <p class="sect-label">execution cluster</p>
-  <h2>Projects</h2>
+<!-- ── PROJECTS ──
+     To add a project: copy one <article class="proj">, give it a unique id (p-something),
+     set data-tag and data-status (complete | live | building | paused). The list, the
+     C0/C1… numbering and the chip's cores are all generated from these articles. -->
+<section class="sheet" id="projects" aria-labelledby="projects-h">
+  <aside class="rail" aria-label="Margin notes">
+    <ul class="rail-notes">
+      <li>8 cores, one per project</li>
+      <li>4 have full case studies</li>
+      <li>C0 is also wired to U3, the sec engine</li>
+    </ul>
+  </aside>
+  <div class="sheet-body">
+  <header class="net">
+    <span class="net-ref">U1</span>
+    <h2 id="projects-h">Projects</h2>
+    <span class="net-wire" aria-hidden="true"><i></i><b class="via"></b><i class="short"></i><b class="pad"></b></span>
+    <span class="net-name" aria-hidden="true">EXEC_CLUSTER</span>
+  </header>
   <p class="sect-sub">
-    One entry per shipped or in-progress project. <b>Select one to expand the readout</b> — what it does, the stack, any measured performance, and what went sideways building it.
+    What each one does, the stack, what was measured, and what went sideways building it.
+    Most are team projects; each card says <b>who I built it with</b>, and my part where it was a distinct one.
   </p>
 
-  <!-- Static fallback for non-JS visitors (hidden when JS runs) -->
-  <noscript>
-    <div style="border:1px solid var(--warn); padding:1rem; margin-bottom:2rem; background:rgba(201,80,64,.05); font-family:var(--f-mono); font-size:12px; color:var(--text-dim);">
-      ⚠️ JavaScript is disabled. All projects are listed below as plain text.
-    </div>
-    <ul style="list-style:none; padding-left:0; display:flex; flex-direction:column; gap:1.5rem; max-width:60rem;">
-      <!-- Hardcoded first project to mirror interactive -->
-      <li>
-        <strong style="color:var(--gold)">C0 · NIDS — Network Intrusion Detection System (COMPLETE)</strong><br>
-        <span style="font-size:0.93rem;">Python · scikit-learn · XGBoost · SHAP · Flask · pandas</span><br>
-        <span style="color:var(--text-dim);">ML IDS trained on CICIDS2017 with SHAP explainability.</span>
-      </li>
-      <!-- Other projects can be appended similarly, but since this is a fallback, we only give a taste -->
-      <li>… and five more projects. Please enable JavaScript for the full interactive readout.</li>
-    </ul>
-  </noscript>
-
   <div class="exec-grid">
-    <div>
-      <div class="core-list" id="coreListWrap" role="listbox" aria-label="Project list" aria-controls="readout" aria-keyshortcuts="ArrowDown ArrowUp j k">
-        <div class="core-list-head"><span>ID</span><span>STATUS</span></div>
-        <div id="coreList"></div>
+    <div class="core-list-wrap">
+      <div class="core-list">
+        <div class="core-list-head" aria-hidden="true"><span>ID</span><span>STATUS</span></div>
+        <div id="coreList" role="tablist" aria-orientation="vertical" aria-label="Projects"></div>
       </div>
-      <p class="kbd-hint">
-        <kbd>↑</kbd> <kbd>↓</kbd> or <kbd>j</kbd> <kbd>k</kbd> to navigate
-      </p>
+      <p class="kbd-hint"><kbd>↑</kbd> <kbd>↓</kbd> to move through the list · <span class="cs-dot">◆</span> case study</p>
     </div>
-    <div class="readout" id="readout" aria-live="polite" aria-atomic="false">
-      <!-- Static readout for first project (will be replaced by JS) -->
-      <div id="readoutStatic">
-        <div class="ro-head">
-          <span class="ro-tag">C0 · NIDS</span>
-          <span class="ro-badge done">COMPLETE</span>
-        </div>
-        <p class="ro-title">Network Intrusion Detection System</p>
-        <p class="ro-desc">A machine-learning IDS trained and evaluated on <b>CICIDS2017</b>, with an explainability layer so detections can be audited instead of just believed — every flagged flow shows <b>why</b> it was flagged.</p>
-        <div class="ro-rows">
-          <div class="ro-row">
-            <span class="ro-key">STACK</span>
-            <span class="ro-val mono" style="font-size:12px;color:var(--text-dim)">Python · scikit-learn · XGBoost · SHAP · Flask · pandas</span>
-          </div>
-          <div class="ro-row">
-            <span class="ro-key">PERFORMANCE</span>
-            <span class="ro-val perf">F1 · Random Forest <b>99.77%</b>  ·  MCC <b>0.992</b>  ·  F1 · XGBoost <b>96.76%</b>  ·  F1 · SVM <b>90.71%</b></span>
-          </div>
-          <div class="ro-row">
-            <span class="ro-key">WHAT I BUILT</span>
-            <span class="ro-val">
-              <ul class="ro-points">
-                <li>Benchmarked three classifiers head-to-head on weighted F1 and MCC.</li>
-                <li>Addressed extreme class imbalance with a hybrid <em>SMOTE</em> strategy.</li>
-                <li>Integrated <em>SHAP</em> feature attribution per detection event.</li>
-                <li>Built a Flask dashboard for real-time attack detection and visualization.</li>
-              </ul>
-            </span>
-          </div>
-          <div class="ro-row">
-            <span class="ro-key">ERRATA</span>
-            <span class="ro-val"><span class="ro-errata"><b>Note:</b> the headline F1 means nothing until you've fought CICIDS2017's imbalance — some attack classes are vanishingly rare. Honest evaluation was most of the real work.</span></span>
-          </div>
-          <div class="ro-row">
-            <span class="ro-key">SOURCE</span>
-            <span class="ro-val ro-link"><a href="https://github.com/ark0b" target="_blank" rel="noopener noreferrer">source on GitHub ↗</a></span>
-          </div>
-        </div>
-      </div>
+
+    <div class="proj-stack" id="projStack">
+
+      <article class="proj" id="p-nids" data-tag="NIDS" data-status="complete">
+        <header class="ro-head">
+          <span class="ro-tag">NIDS</span>
+          <span class="ro-badge st-complete">complete</span>
+          <span class="ro-role">team of 4</span>
+        </header>
+        <h3 class="ro-title">Network Intrusion Detection System</h3>
+        <p class="ro-desc">A machine-learning IDS trained on <b>CICIDS2017</b> that sorts network flows into 15 classes (DDoS, brute force, botnet, benign and more), with SHAP explanations so every flagged flow shows <b>why</b> it was flagged.</p>
+        <dl class="ro-rows">
+          <div class="ro-row"><dt>Stack</dt><dd class="mono">Python · scikit-learn · XGBoost · SHAP · pandas · Dash / Plotly · Tshark</dd></div>
+          <div class="ro-row"><dt>Performance</dt><dd class="perf">Random Forest weighted F1 <b>99.77%</b> · MCC <b>0.992</b> · macro F1 <b>0.85</b><span class="caveat">weighted F1 is carried by benign traffic; macro F1 counts every attack class equally. Random split; cross-day evaluation is next.</span></dd></div>
+          <div class="ro-row"><dt>What I built</dt><dd><ul class="ro-points">
+            <li>Benchmarked Random Forest, XGBoost and SVM on weighted F1 and MCC.</li>
+            <li>Handled extreme class imbalance with <em>SMOTE</em>, fitted on the training split only.</li>
+            <li>Per-flow <em>SHAP</em> attributions shown alongside each detection.</li>
+            <li>Near-real-time monitoring dashboard with live packet capture.</li>
+          </ul></dd></div>
+          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">A 99.77% score deserves suspicion. The split and SMOTE are leak-free, but XSS detection sits at F1 0.27 and SQL injection has 4 test samples. The headline number is mostly benign traffic being easy. Cross-day numbers will be lower and more honest.</span></dd></div>
+          <div class="ro-row"><dt>Source</dt><dd class="ro-links"><a class="cs-link" href="nids/">read the case study →</a><a href="https://github.com/TheCodeCipher/network-intrusion-detection-xai" target="_blank" rel="noopener">repository ↗</a></dd></div>
+        </dl>
+      </article>
+
+      <article class="proj" id="p-fireguard" data-tag="FIRE" data-status="building">
+        <header class="ro-head">
+          <span class="ro-tag">FIRE</span>
+          <span class="ro-badge st-building">building</span>
+          <span class="ro-role">role: temporal / weather models · team of 6</span>
+        </header>
+        <h3 class="ro-title">FireGuard — Wildfire Spread Forecasting</h3>
+        <p class="ro-desc">Next-day wildfire spread prediction on <b>WildfireSpreadTS</b>: satellite, terrain and weather rasters for 607 fire events (2018–2021). The prototype replays historical forecasts; <b>live next-day forecasting</b> is being built into the final product.</p>
+        <dl class="ro-rows">
+          <div class="ro-row"><dt>Stack</dt><dd class="mono">Python · PyTorch · U-Net · GeoTIFF rasters · GFS / GRIDMET weather</dd></div>
+          <div class="ro-row"><dt>What I built</dt><dd><ul class="ro-points">
+            <li>Own the temporal and weather side: how multi-day weather enters the spatial model.</li>
+            <li>Audited the weather channels against raw rasters before trusting them, then wrote the temporal input contract the rest of the team builds on.</li>
+            <li>Integrated every role's branch into one working prototype.</li>
+          </ul></dd></div>
+          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">The weather data looked fine until I checked it against the raw files: the GFS wind-direction channel only spans −90° to +90° (half the compass), and GFS precipitation isn't consistent across years. Both now have to be handled explicitly before they reach a model.</span></dd></div>
+          <div class="ro-row"><dt>Source</dt><dd class="ro-links"><a class="cs-link" href="fireguard/">read the case study →</a><a href="https://github.com/TheCodeCipher/fireguard" target="_blank" rel="noopener">repository ↗</a></dd></div>
+        </dl>
+      </article>
+
+      <article class="proj" id="p-mealsync" data-tag="MEAL" data-status="complete">
+        <header class="ro-head">
+          <span class="ro-tag">MEAL</span>
+          <span class="ro-badge st-complete">v1.0.0</span>
+          <span class="ro-role">role: architect / design lead · QA · team of 4</span>
+        </header>
+        <h3 class="ro-title">MealSync — Mess Management</h3>
+        <p class="ro-desc">Replaces a university mess's paper meal cards, registers, Excel sheets and "show me your payment screenshot" checks with one system for students, counter staff, the mess office and the committee.</p>
+        <dl class="ro-rows">
+          <div class="ro-row"><dt>Stack</dt><dd class="mono">Node.js · Express · MySQL 8 · JWT / bcrypt · Jest + Supertest · GitHub Actions · OpenAPI</dd></div>
+          <div class="ro-row"><dt>Measured</dt><dd class="perf"><b>128</b> tests · <b>95.5%</b> line coverage · CI on SQLite and MySQL 8</dd></div>
+          <div class="ro-row"><dt>What I built</dt><dd><ul class="ro-points">
+            <li>A <em>signed QR pass that rotates every 30 seconds</em>, so screenshots expire and passes can't be shared.</li>
+            <li>Server-verified payments (HMAC signature) instead of trusting payment screenshots.</li>
+            <li><em>One plate per student per meal</em> enforced by the database; every refused scan is logged as a fraud signal.</li>
+            <li>Skip-a-meal credits and a live veg / non-veg headcount for the kitchen.</li>
+            <li>19-table schema in 3NF, layered routes → controllers → services, full SRS / UML / test documentation.</li>
+          </ul></dd></div>
+          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">The interesting bugs weren't in the code but in the mess's rules: what counts as "late", when a skipped meal earns credit, who may cancel mid-month. Every rule ended up as an editable setting.</span></dd></div>
+          <div class="ro-row"><dt>Source</dt><dd class="ro-links"><a class="cs-link" href="mealsync/">read the case study →</a><a href="https://github.com/Ark0B/mealsync" target="_blank" rel="noopener">repository ↗</a></dd></div>
+        </dl>
+      </article>
+
+      <article class="proj" id="p-givegrid" data-tag="GIVE" data-status="complete">
+        <header class="ro-head">
+          <span class="ro-tag">GIVE</span>
+          <span class="ro-badge st-complete">complete</span>
+          <span class="ro-role">with Tarun Das · team of 2</span>
+        </header>
+        <h3 class="ro-title">GiveGrid — Donation Matching</h3>
+        <p class="ro-desc">Connects donors with <b>verified NGOs</b>: donors list usable goods, NGOs post needs, the platform ranks matches and runs the workflow from claim to handover. One donation can be split across several NGOs.</p>
+        <dl class="ro-rows">
+          <div class="ro-row"><dt>Stack</dt><dd class="mono">HTML / CSS / JS · Node.js · Express · MySQL 8 · bcrypt · JWT · Jest + Supertest · Postman</dd></div>
+          <div class="ro-row"><dt>Measured</dt><dd class="perf"><b>120</b> tests · <b>92%</b> line coverage · <b>10,272</b> seeded rows, every measured request in milliseconds</dd></div>
+          <div class="ro-row"><dt>What I built</dt><dd><ul class="ro-points">
+            <li>Race-safe claims with <em>SELECT … FOR UPDATE</em>: two NGOs claiming 70 of 100 chairs at the same instant, exactly one wins.</li>
+            <li>A claim changes four rows in one transaction, all or nothing.</li>
+            <li><em>Append-only donation history</em> enforced by MySQL itself, not by convention.</li>
+            <li>48-hour holds that a timer releases exactly once if no pickup is confirmed.</li>
+          </ul></dd></div>
+          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">Our first concurrency test sent requests one after another and passed against broken code. Removing the lock now makes 5 of 9 concurrency tests fail, so the tests actually detect the race.</span></dd></div>
+          <div class="ro-row"><dt>Source</dt><dd class="ro-links"><a class="cs-link" href="givegrid/">read the case study →</a><a href="https://github.com/TheCodeCipher/givegrid" target="_blank" rel="noopener">repository ↗</a></dd></div>
+        </dl>
+      </article>
+
+      <article class="proj" id="p-cyclone" data-tag="CYCL" data-status="building">
+        <header class="ro-head">
+          <span class="ro-tag">CYCL</span>
+          <span class="ro-badge st-building">building</span>
+          <span class="ro-role">AI &amp; soft computing course · team</span>
+        </header>
+        <h3 class="ro-title">Cyclone Response with Fuzzy Logic</h3>
+        <p class="ro-desc">Disaster-management decision support for <b>North Indian Ocean cyclones</b> in three stages: forecast wind 24 hours ahead, score the threat, then turn threat into a resource-allocation priority. Replayed on Fani, Amphan, Biparjoy, Mocha and Remal.</p>
+        <dl class="ro-rows">
+          <div class="ro-row"><dt>Stack</dt><dd class="mono">Python · NumPy · pandas · Mamdani and Sugeno (TSK) inference · NOAA IBTrACS</dd></div>
+          <div class="ro-row"><dt>Measured</dt><dd class="perf">v1 forecast test MAE <b>10.6 kt</b> vs <b>12.9 kt</b> persistence baseline<span class="caveat">linear forecaster; the ANFIS stage is in progress</span></dd></div>
+          <div class="ro-row"><dt>What I built</dt><dd><ul class="ro-points">
+            <li>IBTrACS pipeline with train / validation / test split <em>by storm</em>, so no cyclone leaks across sets.</li>
+            <li>Mamdani threat score from wind speed and distance to land.</li>
+            <li>TSK priority score mapped to resource units through a declared policy table.</li>
+          </ul></dd></div>
+          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">A fuzzy threat score should rise when wind rises. My own monotonicity check on v1 said it didn't always, so the system is being rebuilt as a clean input-to-prediction prototype.</span></dd></div>
+        </dl>
+      </article>
+
+      <article class="proj" id="p-csi" data-tag="CSI" data-status="live">
+        <header class="ro-head">
+          <span class="ro-tag">CSI</span>
+          <span class="ro-badge st-live">live</span>
+          <span class="ro-role">role: technical lead</span>
+        </header>
+        <h3 class="ro-title">CSI–SAU Chapter Website</h3>
+        <p class="ro-desc">The student chapter's site, built and maintained as <b>Technical Lead</b>, including event pages for the AvishkarX Ideathon and the SyntaX coding contest.</p>
+        <dl class="ro-rows">
+          <div class="ro-row"><dt>Stack</dt><dd class="mono">HTML · CSS · JavaScript · GitHub Pages</dd></div>
+          <div class="ro-row"><dt>What I built</dt><dd><ul class="ro-points">
+            <li>Hand-built and framework-free: fast to load and easy for the next lead to inherit.</li>
+            <li>Ran contest logistics for SyntaX on Unstop.</li>
+          </ul></dd></div>
+          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">Writing a site other people will maintain changes how you write it. Obvious code beats clever code every time.</span></dd></div>
+          <div class="ro-row"><dt>Links</dt><dd class="ro-links"><a href="https://csi-sau.github.io/" target="_blank" rel="noopener">live site ↗</a><a href="https://github.com/CSI-SAU/csi-sau.github.io" target="_blank" rel="noopener">repository ↗</a></dd></div>
+        </dl>
+      </article>
+
+      <article class="proj" id="p-orion" data-tag="ORION" data-status="building">
+        <header class="ro-head">
+          <span class="ro-tag">ORION</span>
+          <span class="ro-badge st-building">building</span>
+          <span class="ro-role">team of 2</span>
+        </header>
+        <h3 class="ro-title">Project Orion — Student Workspace</h3>
+        <p class="ro-desc">One workspace for student life: calendar, reminders, goals and a resource library, plus a model that learns from how you plan and <b>helps schedule the work</b>.</p>
+        <dl class="ro-rows">
+          <div class="ro-row"><dt>Stack</dt><dd class="mono">React · Node.js · PostgreSQL · pgvector</dd></div>
+          <div class="ro-row"><dt>What I built</dt><dd><ul class="ro-points">
+            <li>Schema designed first; features ship as vertical slices on top of it.</li>
+            <li>Recommendations from vector similarity inside PostgreSQL.</li>
+          </ul></dd></div>
+          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">Recurring calendar events (RRULE) are the hard part. Every calendar app you've used has scars from them.</span></dd></div>
+        </dl>
+      </article>
+
+      <article class="proj" id="p-cviz" data-tag="CVIZ" data-status="paused">
+        <header class="ro-head">
+          <span class="ro-tag">CVIZ</span>
+          <span class="ro-badge st-paused">paused</span>
+          <span class="ro-role">team of 5</span>
+        </header>
+        <h3 class="ro-title">Code Execution Visualizer</h3>
+        <p class="ro-desc">Step through a program's execution like a timeline: <b>run once, record every state</b>, then scrub forwards and backwards.</p>
+        <dl class="ro-rows">
+          <div class="ro-row"><dt>Stack</dt><dd class="mono">JavaScript · WebAssembly</dd></div>
+          <div class="ro-row"><dt>Design</dt><dd><ul class="ro-points">
+            <li>Execute-once / replay: the UI walks an array of snapshots, so stepping <em>backwards</em> is free.</li>
+            <li>Interpreters compiled to WebAssembly, so untrusted code never touches a server.</li>
+          </ul></dd></div>
+          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">Paused while other projects ship. The key decision stands: record the run once and replay it, rather than re-running code on every step.</span></dd></div>
+        </dl>
+      </article>
+
     </div>
+  </div>
   </div>
 </section>
 
 <!-- ── RESEARCH ── -->
-<section id="research">
-  <p class="sect-label">xai coprocessor</p>
-  <h2>Research</h2>
-  <p class="sect-sub">The dedicated thread for the question underneath most of my work: <b>when a neural network is confident, should you be?</b></p>
+<section class="sheet" id="research" aria-labelledby="research-h">
+  <aside class="rail" aria-label="Margin notes">
+    <ul class="rail-notes">
+      <li>status: revising</li>
+      <li>cf. C0: a 99.8% score that hides an XSS F1 of 0.27</li>
+      <li>same question, different domain</li>
+    </ul>
+  </aside>
+  <div class="sheet-body">
+  <header class="net">
+    <span class="net-ref">U2</span>
+    <h2 id="research-h">Research</h2>
+    <span class="net-wire" aria-hidden="true"><i></i><b class="via"></b><i class="short"></i><b class="pad"></b></span>
+    <span class="net-name" aria-hidden="true">XAI_COPROC</span>
+  </header>
+  <p class="sect-sub">The question underneath most of my work: <b>when a neural network is confident, should you be?</b></p>
 
-  <div class="paper">
+  <article class="paper paper-split">
+    <p class="paper-unit" aria-hidden="true">XAI coprocessor — unit 1</p>
+    <div class="paper-text">
     <h3>Explanation Consistency as a Coherence Prior for Reliable Neural Decision-Making</h3>
-    <p class="p-meta">Extended position paper · submitted to IJCNN 2026 · in review</p>
+    <p class="p-meta">Extended position paper · with faculty co-author · submitted to IJCNN 2026 · in revision for resubmission</p>
     <p>
       Deep networks can be highly accurate and still fail silently. This paper proposes
-      <b>explanation consistency</b> — whether a model's explanations stay stable under small input perturbations —
-      as a reliability signal orthogonal to predictive accuracy, evaluated on medical imaging datasets.
+      <b>explanation consistency</b>, whether a model's explanations stay stable under small input perturbations,
+      as a reliability signal separate from predictive accuracy, evaluated on medical imaging datasets.
     </p>
     <p>
-      The core argument: a model can generalize from the wrong features and never be caught by accuracy metrics
-      alone. Explanation stability surfaces exactly this gap.
+      The core argument: a model can generalise from the wrong features and never be caught by accuracy metrics.
+      Explanation stability surfaces exactly that gap.
     </p>
     <p class="finding">
-      <b>finding:</b> high-confidence predictions can have unstable explanations — exposing failure modes accuracy
-      metrics never see. in safety-critical systems, that gap is the whole problem.
+      <b>finding:</b> high-confidence predictions can have unstable explanations, exposing failure modes accuracy
+      metrics never see. In safety-critical systems, that gap is the whole problem.
     </p>
+    </div>
+    <figure class="quad">
+      <svg viewBox="0 0 360 330" role="img" aria-labelledby="quadT quadD">
+        <title id="quadT">Confidence against explanation stability</title>
+        <desc id="quadD">A two by two grid. Horizontal axis: model confidence, low to high. Vertical axis: explanation stability, unstable at the bottom, stable at the top. The confident but unstable corner is highlighted as silent failure, the case accuracy and confidence cannot catch.</desc>
+        <g class="q-cells">
+          <rect x="44" y="14" width="150" height="130"/>
+          <rect x="198" y="14" width="150" height="130"/>
+          <rect x="44" y="148" width="150" height="130"/>
+          <rect class="q-hot" x="198" y="148" width="150" height="130"/>
+        </g>
+        <g class="q-txt">
+          <text x="56" y="38" class="q-h">KNOWN UNKNOWN</text>
+          <text x="56" y="56">unsure, but reasons</text><text x="56" y="70">hold steady</text>
+          <text x="210" y="38" class="q-h">TRUST, VERIFY</text>
+          <text x="210" y="56">confident, and the</text><text x="210" y="70">reasons hold</text>
+          <text x="56" y="172" class="q-h">ALREADY FLAGGED</text>
+          <text x="56" y="190">low confidence gives</text><text x="56" y="204">it away</text>
+          <text x="210" y="172" class="q-h q-hh">SILENT FAILURE</text>
+          <text x="210" y="190">confident, but the</text><text x="210" y="204">reasons shift under</text><text x="210" y="218">tiny perturbations</text>
+          <text x="210" y="262" class="q-tag">▲ the target</text>
+        </g>
+        <g class="q-axes">
+          <path d="M44 282 H348" /><path d="M40 278 V14" />
+          <text x="196" y="304" text-anchor="middle">model confidence →</text>
+          <text x="44" y="300">low</text><text x="348" y="300" text-anchor="end">high</text>
+          <text x="-146" y="22" transform="rotate(-90)" text-anchor="middle">explanation stability →</text>
+        </g>
+      </svg>
+      <figcaption><b>Fig. 1</b> Confidence alone can't separate the right-hand column. Explanation stability can.</figcaption>
+    </figure>
+  </article>
   </div>
 </section>
 
-<!-- ── PIPELINE ── -->
-<section id="pipeline">
-  <p class="sect-label">control unit</p>
-  <h2>How I Work</h2>
-  <p class="sect-sub">Every problem goes through the same four stages. No speculative execution — I don't ship what I can't explain.</p>
+<!-- ── HOW I WORK ── -->
+<section class="sheet" id="pipeline" aria-labelledby="pipeline-h">
+  <aside class="rail" aria-label="Margin notes">
+    <ul class="rail-notes">
+      <li>4-stage, in-order</li>
+      <li>no speculative execution</li>
+      <li>no branch prediction either</li>
+    </ul>
+  </aside>
+  <div class="sheet-body">
+  <header class="net">
+    <span class="net-ref">U4</span>
+    <h2 id="pipeline-h">How I Work</h2>
+    <span class="net-wire" aria-hidden="true"><i></i><b class="via"></b><i class="short"></i><b class="pad"></b></span>
+    <span class="net-name" aria-hidden="true">CTRL_UNIT</span>
+  </header>
+  <p class="sect-sub">Every problem goes through the same four stages. No speculative execution: I don't ship what I can't explain.</p>
 
-  <div class="pipeline-grid">
-    <div class="stage"><p class="s-num">01</p><p class="s-name">Fetch</p><p>Read everything first — docs, source, packet captures. Raw input beats secondhand summaries.</p></div>
-    <div class="stage"><p class="s-num">02</p><p class="s-name">Decode</p><p>Break it into parts small enough to trust. If it still seems too complex, it isn't decoded yet.</p></div>
-    <div class="stage"><p class="s-num">03</p><p class="s-name">Execute</p><p>Build the smallest thing that proves the idea, then grow it. Working beats elegant-but-imaginary.</p></div>
-    <div class="stage"><p class="s-num">04</p><p class="s-name">Writeback</p><p>Document it, ship it, and defend every line. A result only retires once it's explained.</p></div>
+  <ol class="pipeline-grid">
+    <li class="stage"><p class="s-code" aria-hidden="true">IF</p><h3>Fetch</h3><p>Read everything first: docs, source, raw data, packet captures. Raw input beats secondhand summaries.</p></li>
+    <li class="stage"><p class="s-code" aria-hidden="true">ID</p><h3>Decode</h3><p>Break it into parts small enough to trust. If it still seems too complex, it isn't decoded yet.</p></li>
+    <li class="stage"><p class="s-code" aria-hidden="true">EX</p><h3>Execute</h3><p>Build the smallest thing that proves the idea, then grow it. Working beats elegant-but-imaginary.</p></li>
+    <li class="stage"><p class="s-code" aria-hidden="true">WB</p><h3>Writeback</h3><p>Test it, document it, and be able to defend every line. A result only retires once it's explained.</p></li>
+  </ol>
   </div>
 </section>
 
 <!-- ── SKILLS ── -->
-<section id="skills">
-  <p class="sect-label">cache hierarchy</p>
-  <h2>Skills</h2>
-  <p class="sect-sub">Sorted by how fast I reach for them, not by how impressive they sound. <b>L1 is muscle memory.</b></p>
+<section class="sheet" id="skills" aria-labelledby="skills-h">
+  <aside class="rail" aria-label="Margin notes">
+    <ul class="rail-notes">
+      <li>ordered by how often I use it, not how good I am</li>
+      <li>misses are expected; that is what L3 is for</li>
+    </ul>
+  </aside>
+  <div class="sheet-body">
+  <header class="net">
+    <span class="net-ref">U5</span>
+    <h2 id="skills-h">Skills</h2>
+    <span class="net-wire" aria-hidden="true"><i></i><b class="via"></b><i class="short"></i><b class="pad"></b></span>
+    <span class="net-name" aria-hidden="true">CACHE</span>
+  </header>
+  <p class="sect-sub">Sorted by how often I reach for them, not by how impressive they sound. <b>L1 is muscle memory.</b></p>
 
   <div class="cache">
     <div class="cache-row l1">
       <div class="cache-key"><span class="cache-level">L1</span><span class="cache-latency">DAILY · ~0 CYCLES</span></div>
-      <div class="cache-val"><span class="hot">Python</span><span class="hot">Linux</span><span class="hot">Git / GitHub</span><span class="hot">SQL / MySQL</span></div>
+      <ul class="cache-val"><li>Python</li><li>Linux</li><li>Git / GitHub</li><li>SQL / MySQL</li></ul>
     </div>
     <div class="cache-row l2">
       <div class="cache-key"><span class="cache-level">L2</span><span class="cache-latency">WEEKLY · WARM</span></div>
-      <div class="cache-val"><span>C / C++</span><span>JavaScript</span><span>Flask</span><span>scikit-learn</span><span>SHAP</span><span>XGBoost</span><span>pandas</span><span>NumPy</span><span>Wireshark</span><span>Jupyter</span></div>
+      <ul class="cache-val"><li>JavaScript</li><li>Node.js / Express</li><li>HTML / CSS</li><li>C / C++</li><li>scikit-learn</li><li>pandas / NumPy</li><li>SHAP</li><li>Jupyter</li><li>Jest / Supertest</li><li>Wireshark</li></ul>
     </div>
     <div class="cache-row l3">
       <div class="cache-key"><span class="cache-level">L3</span><span class="cache-latency">ON DEMAND</span></div>
-      <div class="cache-val"><span>Java</span><span>MongoDB</span><span>Matplotlib</span><span>Tableau</span><span>HTML / CSS</span></div>
+      <ul class="cache-val"><li>PyTorch</li><li>XGBoost</li><li>Fuzzy inference</li><li>Java</li><li>React</li><li>PostgreSQL</li><li>MongoDB</li><li>GitHub Actions</li><li>Matplotlib</li><li>Tableau</li></ul>
     </div>
+  </div>
   </div>
 </section>
 
-<!-- ── ABOUT / BOOT LOG ── -->
-<section id="about">
-  <p class="sect-label">boot rom</p>
-  <h2>Background</h2>
-  <p class="sect-sub"><b>Still booting</b> — full release scheduled 2028.</p>
+<!-- ── BACKGROUND ── -->
+<section class="sheet" id="about" aria-labelledby="about-h">
+  <aside class="rail" aria-label="Margin notes">
+    <ul class="rail-notes">
+      <li>uptime since 2024.08</li>
+      <li>timestamps are yyyy.mm</li>
+      <li>IST, UTC+05:30</li>
+    </ul>
+  </aside>
+  <div class="sheet-body">
+  <header class="net">
+    <span class="net-ref">U6</span>
+    <h2 id="about-h">Background</h2>
+    <span class="net-wire" aria-hidden="true"><i></i><b class="via"></b><i class="short"></i><b class="pad"></b></span>
+    <span class="net-name" aria-hidden="true">BOOT_ROM</span>
+  </header>
+  <p class="sect-sub"><b>Still booting</b>: full release scheduled for 2028.</p>
 
   <ul class="bootlog">
-    <li><span class="ts">[2024.08]</span> enrolled: <span class="em">south_asian_university</span> — b.tech computer science & engineering <span class="ok">[OK]</span></li>
-    <li><span class="ts">[ check ]</span> integrity: cgpa = <span class="hi">9.09</span> / 10.00 <span class="ok">[OK]</span></li>
-    <li><span class="ts">[2025.10]</span> service started: <span class="em">csi_sau · technical lead</span> — leading chapter tech team since inception <span class="ok">[OK]</span></li>
-    <li><span class="ts">[2025.11]</span> events shipped: <span class="em">avishkarx_ideathon</span>, <span class="em">syntax_coding_contest</span> (unstop platform ops) + chapter site built &amp; maintained <span class="ok">[OK]</span></li>
-    <li><span class="ts">[2026.01]</span> paper submitted: <span class="em">ijcnn_2026</span> — explanation consistency in deep networks <span class="dim">[in review]</span></li>
-    <li><span class="ts">[daemon ]</span> background: ctf_practice, packet_analysis, distro_hopping <span class="dim">(current: endeavouros + kde)</span></li>
-    <li><span class="ts">[status ]</span> running · <span class="em">open to internships</span> · next_release: <span class="hi">class_of_2028</span></li>
+    <li><span class="ts">[2024.08]</span><span>enrolled: <span class="em">south_asian_university</span>, new delhi · b.tech computer science &amp; engineering <span class="ok">[OK]</span></span></li>
+    <li><span class="ts">[ check ]</span><span>integrity: cgpa = <span class="hi">9.09</span> / 10.00 <span class="ok">[OK]</span></span></li>
+    <li><span class="ts">[2025.10]</span><span>service started: <span class="em">csi_sau · technical lead</span>, leading the chapter tech team since inception <span class="ok">[OK]</span></span></li>
+    <li><span class="ts">[2025.11]</span><span>events shipped: <span class="em">avishkarx_ideathon</span>, <span class="em">syntax_coding_contest</span> (unstop platform ops) <span class="ok">[OK]</span></span></li>
+    <li><span class="ts">[2026.01]</span><span>paper submitted: <span class="em">ijcnn_2026</span>, explanation consistency in deep networks <span class="ok">[OK]</span></span></li>
+    <li><span class="ts">[ 2026  ]</span><span>review returned: not accepted · revising for resubmission <span class="rty">[RETRY]</span></span></li>
+    <li><span class="ts">[2026.09]</span><span>smart india hackathon 2026: <span class="em">internal round cleared</span> <span class="ok">[OK]</span></span></li>
+    <li><span class="ts">[2026.11]</span><span>released: <span class="em">mealsync v1.0.0</span> and <span class="em">givegrid</span> <span class="ok">[OK]</span></span></li>
+    <li><span class="ts">[2026.11]</span><span>process running: <span class="em">fireguard</span>, wildfire spread forecasting <span class="run">[RUN]</span></span></li>
+    <li><span class="ts">[daemon ]</span><span>background: ctf_practice, packet_analysis, distro_hopping <span class="dim">(current: endeavouros + kde)</span></span></li>
+    <li><span class="ts">[status ]</span><span>running · <span class="em">open to internships</span> · next_release: <span class="hi">class_of_2028</span></span></li>
   </ul>
+  </div>
 </section>
 
 <!-- ── CONTACT ── -->
-<section id="contact">
-  <p class="sect-label">i/o ports</p>
-  <h2>Contact</h2>
-  <p class="contact-lede">All ports open and actively polled. If the problem involves <em>taking something apart to understand it</em>, transmit.</p>
+<section class="sheet" id="contact" aria-labelledby="contact-h">
+  <aside class="rail" aria-label="Margin notes">
+    <ul class="rail-notes">
+      <li>all ports polled daily</li>
+      <li>email is the fastest path</li>
+    </ul>
+  </aside>
+  <div class="sheet-body">
+  <header class="net">
+    <span class="net-ref">J1</span>
+    <h2 id="contact-h">Contact</h2>
+    <span class="net-wire" aria-hidden="true"><i></i><b class="via"></b><i class="short"></i><b class="pad"></b></span>
+    <span class="net-name" aria-hidden="true">IO_PHY</span>
+  </header>
+  <p class="contact-lede">All ports open and actively polled. If the problem involves <em>taking something apart to understand it</em>, get in touch.</p>
 
   <div class="io-ports">
     <a class="port" href="mailto:adb.return.human@gmail.com">
@@ -1225,464 +639,49 @@ footer {
       <p class="port-name">Mail</p>
       <p class="port-val">adb.return.human@gmail.com</p>
     </a>
-    <a class="port" href="https://github.com/ark0b" target="_blank" rel="noopener noreferrer">
+    <a class="port" href="https://github.com/ark0b" target="_blank" rel="noopener me">
       <p class="port-num">PORT1 · SPI · SOURCE</p>
       <p class="port-name">GitHub</p>
       <p class="port-val">github.com/ark0b</p>
     </a>
-    <a class="port" href="https://www.linkedin.com/in/arkodyuti-bhattacharyya" target="_blank" rel="noopener noreferrer">
+    <a class="port" href="https://www.linkedin.com/in/arkodyuti-bhattacharyya" target="_blank" rel="noopener me">
       <p class="port-num">PORT2 · I²C · PROFESSIONAL</p>
       <p class="port-name">LinkedIn</p>
       <p class="port-val">arkodyuti bhattacharyya</p>
     </a>
+    <a class="port" href="resume.pdf">
+      <p class="port-num">J2 · JTAG · FULL SCAN</p>
+      <p class="port-name">Résumé</p>
+      <p class="port-val">resume.pdf</p>
+    </a>
+  </div>
   </div>
 </section>
 
-</div><!-- /wrap -->
+</main>
 
 <footer>
   <div class="wrap">
     <p class="sect-label">errata</p>
-    <table class="errata-table">
-      <thead><tr><th>ID</th><th>DESCRIPTION</th><th>WORKAROUND</th></tr></thead>
-      <tbody>
-        <tr><td>E-001</td><td>Sleep states deprioritized when a problem is almost solved.</td><td>chai · none planned</td></tr>
-        <tr><td>E-002</td><td>Cannot encounter a Linux ISO without flashing it. Distro counter has overflowed.</td><td>wontfix — feature</td></tr>
-        <tr><td>E-003</td><td>Answers "how does it work?" at logic-gate depth unless interrupted.</td><td>ask follow-up questions</td></tr>
-      </tbody>
-    </table>
+    <div class="errata-scroll">
+      <table class="errata-table">
+        <thead><tr><th scope="col">ID</th><th scope="col">DESCRIPTION</th><th scope="col">WORKAROUND</th></tr></thead>
+        <tbody>
+          <tr><td>E-001</td><td>Sleep states deprioritised when a problem is almost solved.</td><td>chai · none planned</td></tr>
+          <tr><td>E-002</td><td>Cannot encounter a Linux ISO without flashing it. Distro counter has overflowed.</td><td>wontfix — feature</td></tr>
+          <tr><td>E-003</td><td>Answers "how does it work?" at logic-gate depth unless interrupted.</td><td>ask follow-up questions</td></tr>
+        </tbody>
+      </table>
+    </div>
     <div class="colophon">
-      <span>© <span id="year"></span> arkodyuti bhattacharyya</span>
+      <span>© <span id="year">2026</span> arkodyuti bhattacharyya</span>
       <span>big shoulders + ibm plex</span>
-      <span>one html file · no frameworks · svg hand-routed</span>
+      <span>static html · no frameworks · svg hand-routed</span>
       <a href="#top">back to top ↑</a>
     </div>
   </div>
 </footer>
 
-<script>
-/* ============================================================
-   PROJECT DATA (unchanged)
-   ============================================================ */
-const projects = [
-  {
-    tag: "NIDS",
-    name: "Network Intrusion Detection System",
-    status: "complete",
-    stack: "Python · scikit-learn · XGBoost · SHAP · Flask · pandas",
-    desc: "A machine-learning IDS trained and evaluated on <b>CICIDS2017</b>, with an explainability layer so detections can be audited instead of just believed — every flagged flow shows <b>why</b> it was flagged.",
-    perf: [
-      ["F1 · Random Forest", "99.77%"],
-      ["MCC",                "0.992"],
-      ["F1 · XGBoost",       "96.76%"],
-      ["F1 · SVM",           "90.71%"]
-    ],
-    points: [
-      "Benchmarked three classifiers head-to-head on weighted F1 and MCC.",
-      "Addressed extreme class imbalance with a hybrid <em>SMOTE</em> strategy.",
-      "Integrated <em>SHAP</em> feature attribution per detection event.",
-      "Built a Flask dashboard for real-time attack detection and visualization."
-    ],
-    note: "<b>Note:</b> the headline F1 means nothing until you've fought CICIDS2017's imbalance — some attack classes are vanishingly rare. Honest evaluation was most of the real work.",
-    link: { label: "source on GitHub", href: "https://github.com/ark0b" }
-  },
-  {
-    tag: "MESS",
-    name: "Mess Management System",
-    status: "complete",
-    stack: "Python · Flask · MySQL · JavaScript · HTML/CSS",
-    desc: "Full-stack web app for hostel mess operations: meal tracking, scheduling, billing and expense management, with separate student and admin views.",
-    perf: null,
-    points: [
-      "Designed the relational schema for users, meal tracking, and billing from scratch.",
-      "Backend API for meal scheduling and payment processing.",
-      "Responsive student frontend (plans, expenses) plus a full admin dashboard."
-    ],
-    note: "<b>Note:</b> schema decisions made on day one followed me to the last commit. Billing edge cases are where simple CRUD apps go to be humbled.",
-    link: { label: "source on GitHub", href: "https://github.com/ark0b" }
-  },
-  {
-    tag: "STORE",
-    name: "Store Management System",
-    status: "complete",
-    stack: "Java · SQL",
-    desc: "Backend for <b>multi-store, multi-warehouse</b> inventory tracking and sales management — normalized relational design with reporting on top.",
-    perf: null,
-    points: [
-      "Complete CRUD layer over a normalized relational schema.",
-      "Transaction handling so concurrent sales can't corrupt stock counts.",
-      "Sales analytics reporting across stores and warehouses."
-    ],
-    note: "<b>Note:</b> this is where ACID stopped being a textbook chapter. Once two operations can touch the same stock row, isolation levels get personal.",
-    link: { label: "source on GitHub", href: "https://github.com/ark0b" }
-  },
-  {
-    tag: "CSI",
-    name: "CSI–SAU Chapter Website",
-    status: "live",
-    stack: "HTML · CSS · JavaScript",
-    desc: "The student chapter's web presence, built and maintained as <b>Technical Lead</b> — including event pages for the AvishkarX Ideathon and the SyntaX coding contest.",
-    perf: null,
-    points: [
-      "Hand-built, framework-free — fast to load, easy for the next lead to inherit.",
-      "Supported live contest logistics for SyntaX on the Unstop platform."
-    ],
-    note: "<b>Note:</b> writing a site other people will maintain rewires how you think. Clever code loses to obvious code, every time.",
-    link: null
-  },
-  {
-    tag: "CVIZ",
-    name: "Code Execution Visualizer",
-    status: "building",
-    stack: "JavaScript · WebAssembly",
-    desc: "A step-through visualizer for program execution: <b>run once, record full state snapshots</b>, then scrub the run forwards and backwards like a timeline.",
-    perf: null,
-    points: [
-      "Execute-once / replay architecture — the UI walks an array of snapshots, so stepping <em>backwards</em> is free.",
-      "Language interpreters compiled to WebAssembly: nothing untrusted touches a server."
-    ],
-    note: "<b>Note:</b> in development. The core decision was refusing live re-execution per step — record the truth once, replay it forever.",
-    link: null
-  },
-  {
-    tag: "SWS",
-    name: "Student Workspace App",
-    status: "building",
-    stack: "React · Node.js · PostgreSQL · pgvector",
-    desc: "One app for student life: calendar, goals, to-dos, a club social feed, and an <b>AI recommender</b> that surfaces campus events you'd actually attend.",
-    perf: null,
-    points: [
-      "PostgreSQL schema designed first; features ship as vertical slices on top.",
-      "Event recommendations via <em>pgvector</em> similarity over interests and attendance history."
-    ],
-    note: "<b>Note:</b> in development. Recurring calendar events (RRULE) are the boss fight — every calendar app you've used has scars from it.",
-    link: null
-  }
-];
-
-/* ============================================================
-   SVG GENERATION
-   ============================================================ */
-const SVG_NS = "http://www.w3.org/2000/svg";
-function svgEl(tag, attrs) {
-  const el = document.createElementNS(SVG_NS, tag);
-  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
-  return el;
-}
-
-// Pins
-(function buildPins() {
-  const g = document.getElementById("svgPins");
-  for (let x = 48; x <= 728; x += 24) {
-    g.appendChild(svgEl("line", { x1: x, y1: 12, x2: x, y2: 4,  class: "pin-line" }));
-    g.appendChild(svgEl("line", { x1: x, y1: 548, x2: x, y2: 556, class: "pin-line" }));
-  }
-  for (let y = 48; y <= 512; y += 24) {
-    g.appendChild(svgEl("line", { x1: 12, y1: y, x2: 4,   y2: y, class: "pin-line" }));
-    g.appendChild(svgEl("line", { x1: 768, y1: y, x2: 776, y2: y, class: "pin-line" }));
-  }
-})();
-
-// Grid
-(function buildGrid() {
-  const g = document.getElementById("dieGrid");
-  for (let x = 40 + 30; x < 740; x += 30)
-    g.appendChild(svgEl("line", { x1: x, y1: 40,  x2: x, y2: 508 }));
-  for (let y = 40 + 30; y < 508; y += 30)
-    g.appendChild(svgEl("line", { x1: 40, y1: y, x2: 740, y2: y }));
-})();
-
-// Core cells inside the chip
-(function fabCoreCells() {
-  const cluster = document.getElementById("coreCluster");
-  const label   = document.getElementById("coreCountLbl");
-  label.textContent = projects.length + " CORES";
-
-  const AX = 74, AY = 98, AW = 318, AH = 152;
-  const COLS = 3, GAP = 7;
-  const rows = Math.ceil(projects.length / COLS);
-  const cw   = (AW - (COLS - 1) * GAP) / COLS;
-  const ch   = Math.min(62, (AH - (rows - 1) * GAP) / rows);
-
-  projects.forEach((p, i) => {
-    const cx = AX + (i % COLS) * (cw + GAP);
-    const cy = AY + Math.floor(i / COLS) * (ch + GAP);
-
-    const g = svgEl("g", {
-      class: "die-core",
-      tabindex: "0",
-      role: "link",
-      "aria-label": `Project ${i}: ${p.name} (${p.status})`,
-      "data-idx": i,
-      style: `animation-delay:${.12 + i * .07}s`
-    });
-
-    g.appendChild(svgEl("rect", { x: cx, y: cy, width: cw, height: ch, rx: "2" }));
-
-    const t1 = svgEl("text", { x: cx + 8, y: cy + 17 });
-    t1.textContent = `C${i}`;
-    g.appendChild(t1);
-
-    const t2 = svgEl("text", { x: cx + 8, y: cy + 29, class: "cname" });
-    t2.textContent = p.tag;
-    g.appendChild(t2);
-
-    if (p.status === "building") {
-      const t3 = svgEl("text", { x: cx + 8, y: cy + 41, class: "cname", style: "fill:#C95040" });
-      t3.textContent = "FAB";
-      g.appendChild(t3);
-    }
-
-    cluster.appendChild(g);
-  });
-})();
-
-/* ============================================================
-   INTERACTIVE PROJECT LIST + READOUT
-   ============================================================ */
-const listEl     = document.getElementById("coreList");
-const readout    = document.getElementById("readout");
-let selectedIdx  = 0;
-
-// Build sidebar buttons
-projects.forEach((p, i) => {
-  const btn = document.createElement("button");
-  btn.className   = "core-row";
-  btn.dataset.idx = i;
-  btn.setAttribute("role", "option");
-  btn.setAttribute("aria-selected", i === 0 ? "true" : "false");
-
-  const statusClass = p.status === "building" ? "wip" : "done";
-  btn.innerHTML = `<span class="c-id">C${i}</span><span class="c-nm">${p.name}</span><span class="c-st ${statusClass}">${p.status.toUpperCase()}</span>`;
-  btn.addEventListener("click", () => selectProject(i, true));
-  listEl.appendChild(btn);
-});
-
-function selectProject(idx, scrollIntoView) {
-  selectedIdx = idx;
-  const p = projects[idx];
-
-  // Update list buttons
-  document.querySelectorAll(".core-row").forEach((r, j) => {
-    r.classList.toggle("sel", j === idx);
-    r.setAttribute("aria-selected", j === idx ? "true" : "false");
-  });
-
-  // Update die cores
-  document.querySelectorAll("#coreCluster .die-core").forEach((c, j) =>
-    c.classList.toggle("sel", j === idx)
-  );
-
-  const badgeClass = p.status === "building" ? "wip"
-                   : p.status === "live"     ? "live"
-                   :                           "done";
-
-  const perfHTML = p.perf
-    ? `<div class="ro-row">
-         <span class="ro-key">PERFORMANCE</span>
-         <span class="ro-val perf">${p.perf.map(([k, v]) =>
-           `${k} <b>${v}</b>`).join(" &nbsp;·&nbsp; ")}</span>
-       </div>`
-    : "";
-
-  const linkHTML = p.link
-    ? `<div class="ro-row">
-         <span class="ro-key">SOURCE</span>
-         <span class="ro-val ro-link">
-           <a href="${p.link.href}" target="_blank" rel="noopener noreferrer">${p.link.label} ↗</a>
-         </span>
-       </div>`
-    : "";
-
-  readout.innerHTML = `
-    <div class="ro-head">
-      <span class="ro-tag">C${idx} · ${p.tag}</span>
-      <span class="ro-badge ${badgeClass}">${p.status.toUpperCase()}</span>
-    </div>
-    <p class="ro-title" tabindex="-1" id="roTitle">${p.name}</p>
-    <p class="ro-desc">${p.desc}</p>
-    <div class="ro-rows">
-      <div class="ro-row">
-        <span class="ro-key">STACK</span>
-        <span class="ro-val mono" style="font-size:12px;color:var(--text-dim)">${p.stack}</span>
-      </div>
-      ${perfHTML}
-      <div class="ro-row">
-        <span class="ro-key">WHAT I BUILT</span>
-        <span class="ro-val">
-          <ul class="ro-points">${p.points.map(pt => `<li>${pt}</li>`).join("")}</ul>
-        </span>
-      </div>
-      <div class="ro-row">
-        <span class="ro-key">ERRATA</span>
-        <span class="ro-val"><span class="ro-errata">${p.note}</span></span>
-      </div>
-      ${linkHTML}
-    </div>
-  `;
-
-  // Move focus to the readout title for screen readers
-  const titleEl = document.getElementById("roTitle");
-  if (titleEl) setTimeout(() => titleEl.focus(), 50);
-
-  // Remove static readout if present
-  const staticReadout = document.getElementById("readoutStatic");
-  if (staticReadout) staticReadout.remove();
-
-  if (scrollIntoView) {
-    document.getElementById("projects").scrollIntoView({ behavior: "smooth" });
-  }
-}
-
-// Init with first project (replaces static content)
-selectProject(0, false);
-
-// Keyboard navigation: Arrow keys + j/k
-document.addEventListener("keydown", e => {
-  if (e.target.matches("input, textarea, select")) return;
-  const key = e.key;
-  if (key === "ArrowDown" || key === "j") {
-    e.preventDefault();
-    selectProject(Math.min(selectedIdx + 1, projects.length - 1), false);
-  }
-  if (key === "ArrowUp" || key === "k") {
-    e.preventDefault();
-    selectProject(Math.max(selectedIdx - 1, 0), false);
-  }
-});
-
-/* ============================================================
-   SVG BLOCK NAVIGATION + HOVER
-   ============================================================ */
-const dieReadout = document.getElementById("dieReadout");
-const defaultReadoutText = "hover a block — click to navigate";
-
-const blockLabels = {
-  "#projects":  "exec cluster — " + projects.length + " projects",
-  "#research":  "xai coproc — explanation consistency research",
-  "#skills":    "cache hierarchy — skills by access frequency",
-  "#about":     "boot rom — education & background",
-  "#contact":   "i/o phy — contact, all ports open",
-  "resume.pdf": "jtag — full résumé PDF"
-};
-
-document.querySelectorAll(".blk.link").forEach(block => {
-  const target = block.dataset.target;
-
-  function navigate() {
-    // If a filtercore is set, select that specific project first
-    if (block.dataset.filtercore !== undefined) {
-      const coreIdx = parseInt(block.dataset.filtercore, 10);
-      if (!isNaN(coreIdx) && coreIdx < projects.length) {
-        selectProject(coreIdx, false);
-      }
-    }
-
-    if (block.dataset.href) {
-      window.location.href = block.dataset.href;
-    } else if (target) {
-      const el = document.querySelector(target);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-
-  block.addEventListener("click", navigate);
-  block.addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      navigate();
-    }
-  });
-  block.addEventListener("mouseenter", () => {
-    dieReadout.textContent = blockLabels[target] || target;
-  });
-  block.addEventListener("mouseleave", () => {
-    dieReadout.textContent = defaultReadoutText;
-  });
-  block.addEventListener("focus", () => {
-    dieReadout.textContent = blockLabels[target] || target;
-  });
-  block.addEventListener("blur", () => {
-    dieReadout.textContent = defaultReadoutText;
-  });
-});
-
-// Core cells (project selection)
-document.querySelectorAll("#coreCluster .die-core").forEach(cell => {
-  const idx = +cell.dataset.idx;
-
-  function activate() {
-    selectProject(idx, true);
-  }
-
-  cell.addEventListener("click", e => { e.stopPropagation(); activate(); });
-  cell.addEventListener("keydown", e => {
-    if (e.key === "Enter") { e.stopPropagation(); activate(); }
-  });
-  cell.addEventListener("mouseenter", () => {
-    dieReadout.textContent = `C${idx} — ${projects[idx].name}`;
-  });
-  cell.addEventListener("mouseleave", () => {
-    dieReadout.textContent = defaultReadoutText;
-  });
-  cell.addEventListener("focus", () => {
-    dieReadout.textContent = `C${idx} — ${projects[idx].name}`;
-  });
-  cell.addEventListener("blur", () => {
-    dieReadout.textContent = defaultReadoutText;
-  });
-});
-
-// I/O PHY external links (mailto + external)
-document.querySelectorAll(".die-core[data-href]").forEach(port => {
-  port.addEventListener("click", e => {
-    e.stopPropagation();
-    const href = port.dataset.href;
-    if (href.startsWith("mailto:")) {
-      window.location.href = href;
-    } else {
-      window.open(href, "_blank", "noopener,noreferrer");
-    }
-  });
-  port.addEventListener("keydown", e => {
-    if (e.key === "Enter") {
-      e.stopPropagation();
-      const href = port.dataset.href;
-      if (href.startsWith("mailto:")) {
-        window.location.href = href;
-      } else {
-        window.open(href, "_blank", "noopener,noreferrer");
-      }
-    }
-  });
-});
-
-/* ============================================================
-   CLOCK (RTC only, no uptime)
-   ============================================================ */
-const timeFormatter = new Intl.DateTimeFormat("en-GB", {
-  timeZone: "Asia/Kolkata",
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-  hour12: false
-});
-
-const dieClockEl = document.getElementById("dieClock");
-
-function tick() {
-  if (dieClockEl) {
-    dieClockEl.textContent = timeFormatter.format(new Date());
-  }
-}
-tick();
-setInterval(tick, 1000);
-
-// Year in footer
-document.getElementById("year").textContent = new Date().getFullYear();
-
-// Cleanup on pagehide
-window.addEventListener("pagehide", () => clearInterval(tick));
-</script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

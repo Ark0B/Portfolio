@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GiveGrid — case study · Arkodyuti Bhattacharyya</title>
+<meta name="description" content="Case study: a donor-to-NGO matching platform with race-safe claims using SELECT FOR UPDATE, database-enforced append-only history and 120 tests.">
+<meta name="author" content="Arkodyuti Bhattacharyya">
+<meta name="theme-color" content="#121517">
+<link rel="canonical" href="https://ark0b.github.io/Portfolio/givegrid/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Arkodyuti Bhattacharyya">
+<meta property="og:title" content="GiveGrid — case study">
+<meta property="og:description" content="Case study: a donor-to-NGO matching platform with race-safe claims using SELECT FOR UPDATE, database-enforced append-only history and 120 tests.">
+<meta property="og:url" content="https://ark0b.github.io/Portfolio/givegrid/">
+<meta property="og:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GiveGrid — case study">
+<meta name="twitter:description" content="Case study: a donor-to-NGO matching platform with race-safe claims using SELECT FOR UPDATE, database-enforced append-only history and 120 tests.">
+<meta name="twitter:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
+<link rel="preload" href="../assets/fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "GiveGrid", "description": "Case study: a donor-to-NGO matching platform with race-safe claims using SELECT FOR UPDATE, database-enforced append-only history and 120 tests.", "url": "https://ark0b.github.io/Portfolio/givegrid/", "codeRepository": "https://github.com/TheCodeCipher/givegrid", "author": {"@type": "Person", "name": "Arkodyuti Bhattacharyya", "url": "https://ark0b.github.io/Portfolio/"}, "isPartOf": {"@type": "WebSite", "url": "https://ark0b.github.io/Portfolio/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://ark0b.github.io/Portfolio/"}, {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://ark0b.github.io/Portfolio/#projects"}, {"@type": "ListItem", "position": 3, "name": "GiveGrid", "item": "https://ark0b.github.io/Portfolio/givegrid/"}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <a class="bar-brand" href="../">ARK0B-1</a>
+  <nav class="bar-nav" aria-label="Case studies">
+    <a href="../#projects">← all</a>
+    <a href="../nids/">nids</a>
+    <a href="../fireguard/">fireguard</a>
+    <a href="../mealsync/">mealsync</a>
+    <a href="../givegrid/" aria-current="page">givegrid</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap case">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../">ARK0B-1</a><span aria-hidden="true">/</span><a href="../#projects">exec cluster</a><span aria-hidden="true">/</span>C3 · GIVE</nav>
+
+  <article class="case-sheet">
+    <header class="case-head">
+      <div class="net">
+        <span class="net-ref">C3</span>
+        <h1>GiveGrid</h1>
+        <span class="net-wire" aria-hidden="true"><i></i><b class="via"></b><i class="short"></i><b class="pad"></b></span>
+        <span class="net-name" aria-hidden="true">DS-C3</span>
+      </div>
+      <p class="case-lede">Matching donated goods to verified NGOs, built around one hard problem: two NGOs claiming the same chairs at the same instant.</p>
+      <dl class="spec">
+        <div><dt>Status</dt><dd>Complete</dd></div>
+        <div><dt>Team</dt><dd>With Tarun Das</dd></div>
+        <div><dt>Tests</dt><dd>120 · 92% line coverage</dd></div>
+        <div><dt>Stack</dt><dd class="mono">Node.js · Express · MySQL 8 · Jest</dd></div>
+      </dl>
+    </header>
+
+    <section class="case-sec">
+      <h2>The problem</h2>
+      <p>Offices, hotels and event organisers throw away usable goods that NGOs are actively asking for. GiveGrid connects the two: donors list items, <b>verified</b> NGOs post needs, the platform ranks matches, and the whole handover is tracked from claim to pickup. One donation can be split between several NGOs.</p>
+      <figure class="fig mid">
+        <img src="../assets/img/givegrid-matches.webp" alt="GiveGrid matches page for an office-chairs need, listing donations ranked by score with available quantity, location and a claim button." width="980" height="740" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 1</b> Ranked matches for an NGO's need: +30 if a donation covers everything still needed, +20 same area, +10 same city.</figcaption>
+      </figure>
+    </section>
+    <section class="case-sec">
+      <h2>The race condition</h2>
+      <p>The course's hard requirement: <b>100 chairs, two NGOs each claim 70 at the same instant</b>. A naive version reads "100 available" twice, approves both, and promises 140 chairs that don't exist.</p>
+      <p>A claim locks the donation and the need rows before reading them, then changes four rows in one transaction, all or nothing:</p>
+<pre class="term"><span class="k">BEGIN</span>;
+<span class="k">SELECT</span> * <span class="k">FROM</span> donations <span class="k">WHERE</span> id = ? <span class="k">FOR UPDATE</span>;   <span class="c">-- second claimer waits here</span>
+<span class="k">SELECT</span> * <span class="k">FROM</span> needs     <span class="k">WHERE</span> id = ? <span class="k">FOR UPDATE</span>;
+<span class="c">-- check quantity; if short, reply 409 with a counter-offer and reserve nothing</span>
+<span class="k">UPDATE</span> donations <span class="k">SET</span> available_quantity = available_quantity - ? ...;
+<span class="k">UPDATE</span> needs     <span class="k">SET</span> remaining_quantity = remaining_quantity - ? ...;
+<span class="k">INSERT</span> <span class="k">INTO</span> allocations ...;  <span class="k">INSERT</span> <span class="k">INTO</span> donation_events ...;
+<span class="k">COMMIT</span>;</pre>
+      <div class="dtab-wrap"><table class="dtab">
+        <caption><b>Table 1</b> Concurrency tests (all fire requests at the same instant). 9 of 9 pass; 10 of 10 repeated runs.</caption>
+        <tbody>
+          <tr><td>Two claims of 70 on 100 chairs</td><td class="good">exactly one wins, 30 left</td></tr>
+          <tr><td>Two NGOs accept the same counter-offer of 30</td><td class="good">only one gets it</td></tr>
+          <tr><td>Split 40 + 40 + 20 of 100 at once</td><td class="good">all three succeed, 0 left</td></tr>
+          <tr><td>Expiry timer and a new claim at once</td><td class="good">no double give-back</td></tr>
+          <tr><td>Five expiry runs at once</td><td class="good">hold released exactly once</td></tr>
+          <tr><td>Cancel and pickup at once</td><td class="good">exactly one wins</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="case-sec">
+      <h2>History nobody can rewrite</h2>
+      <figure class="fig mid">
+        <img src="../assets/img/givegrid-history.webp" alt="Donation detail page showing 19 of 20 chairs available and a history table: donation listed, then claimed and held for 48 hours." width="980" height="460" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 2</b> Every step of a donation is an event in an append-only table.</figcaption>
+      </figure>
+      <p>Append-only history is enforced by MySQL itself, in two layers. The app's database account simply has no UPDATE or DELETE rights on the history table, and a trigger blocks changes even from an administrator:</p>
+<pre class="term"><span class="c">-- as the app's account</span>
+UPDATE donation_events SET quantity = 0 WHERE id = 1;
+<span class="e">ERROR 1142: UPDATE command denied to user 'givegrid_app'</span>
+
+<span class="c">-- as root</span>
+UPDATE donation_events SET quantity = 0 WHERE id = 1;
+<span class="e">ERROR 1644: donation_events is append-only: UPDATE is not allowed</span></pre>
+      <p>Claims are held for <b>48 hours</b>; if the NGO doesn't confirm a pickup plan, a timer releases the items back to the donation, and the concurrency tests prove it releases them exactly once.</p>
+    </section>
+    <section class="case-sec">
+      <h2>Errata</h2>
+      <div class="errata-box">
+        <p>Our first concurrency test sent the two requests one after another. It passed against code with no locking at all, because nothing was ever concurrent. The professor caught it. The rewritten tests fire requests simultaneously, and removing <code>FOR UPDATE</code> now makes <b>5 of the 9 fail</b>, which is the only evidence that a concurrency test tests anything.</p>
+      </div>
+    </section>
+    <section class="case-sec">
+      <h2>By the numbers</h2>
+      <div class="dtab-wrap"><table class="dtab">
+        <tbody>
+          <tr><td>Tests</td><td>120 across 7 kinds: unit, smoke, functional, security, database, concurrency, performance</td></tr>
+          <tr><td>Coverage</td><td>92% of lines</td></tr>
+          <tr><td>Load</td><td>10,272 seeded rows; every measured request answered in milliseconds; indexes checked with EXPLAIN</td></tr>
+          <tr><td>Stack</td><td>Plain HTML / CSS / JS · Node.js · Express 4 · MySQL 8 · bcrypt · JWT · Jest + Supertest · Postman</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="case-sec">
+      <h2>Source</h2>
+      <p><a href="https://github.com/TheCodeCipher/givegrid" target="_blank" rel="noopener">github.com/TheCodeCipher/givegrid ↗</a> · Full Stack Development course project · Tarun Das and Arkodyuti Bhattacharyya.</p>
+    </section>
+    <nav class="case-nav" aria-label="More case studies">
+      <a href="../mealsync/"><span>← PREVIOUS</span>MealSync</a>
+      <a class="next" href="../nids/"><span>NEXT →</span>Network Intrusion Detection</a>
+    </nav>
+  </article>
+</main>
+
+<footer class="case-foot">
+  <div class="wrap">
+    <div class="colophon">
+      <span>© 2026 arkodyuti bhattacharyya</span>
+      <a href="../">← back to the chip</a>
+      <a href="https://github.com/ark0b" rel="me">github</a>
+      <a href="mailto:adb.return.human@gmail.com">email</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

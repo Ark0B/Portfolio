@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Network Intrusion Detection System — case study · Arkodyuti Bhattacharyya</title>
+<meta name="description" content="Case study: a 15-class network intrusion detector on CICIDS2017 with SHAP explanations, and why its 99.8% weighted F1 hides an XSS F1 of 0.27.">
+<meta name="author" content="Arkodyuti Bhattacharyya">
+<meta name="theme-color" content="#121517">
+<link rel="canonical" href="https://ark0b.github.io/Portfolio/nids/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Arkodyuti Bhattacharyya">
+<meta property="og:title" content="Network Intrusion Detection System — case study">
+<meta property="og:description" content="Case study: a 15-class network intrusion detector on CICIDS2017 with SHAP explanations, and why its 99.8% weighted F1 hides an XSS F1 of 0.27.">
+<meta property="og:url" content="https://ark0b.github.io/Portfolio/nids/">
+<meta property="og:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Network Intrusion Detection System — case study">
+<meta name="twitter:description" content="Case study: a 15-class network intrusion detector on CICIDS2017 with SHAP explanations, and why its 99.8% weighted F1 hides an XSS F1 of 0.27.">
+<meta name="twitter:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
+<link rel="preload" href="../assets/fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Network Intrusion Detection System", "description": "Case study: a 15-class network intrusion detector on CICIDS2017 with SHAP explanations, and why its 99.8% weighted F1 hides an XSS F1 of 0.27.", "url": "https://ark0b.github.io/Portfolio/nids/", "codeRepository": "https://github.com/TheCodeCipher/network-intrusion-detection-xai", "author": {"@type": "Person", "name": "Arkodyuti Bhattacharyya", "url": "https://ark0b.github.io/Portfolio/"}, "isPartOf": {"@type": "WebSite", "url": "https://ark0b.github.io/Portfolio/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://ark0b.github.io/Portfolio/"}, {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://ark0b.github.io/Portfolio/#projects"}, {"@type": "ListItem", "position": 3, "name": "Network Intrusion Detection System", "item": "https://ark0b.github.io/Portfolio/nids/"}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <a class="bar-brand" href="../">ARK0B-1</a>
+  <nav class="bar-nav" aria-label="Case studies">
+    <a href="../#projects">← all</a>
+    <a href="../nids/" aria-current="page">nids</a>
+    <a href="../fireguard/">fireguard</a>
+    <a href="../mealsync/">mealsync</a>
+    <a href="../givegrid/">givegrid</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap case">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../">ARK0B-1</a><span aria-hidden="true">/</span><a href="../#projects">exec cluster</a><span aria-hidden="true">/</span>C0 · NIDS</nav>
+
+  <article class="case-sheet">
+    <header class="case-head">
+      <div class="net">
+        <span class="net-ref">C0</span>
+        <h1>Network Intrusion Detection</h1>
+        <span class="net-wire" aria-hidden="true"><i></i><b class="via"></b><i class="short"></i><b class="pad"></b></span>
+        <span class="net-name" aria-hidden="true">DS-C0</span>
+      </div>
+      <p class="case-lede">A 15-class intrusion detector with an explanation for every alert, and a lesson in how a 99.8% score can hide the attacks that matter most.</p>
+      <dl class="spec">
+        <div><dt>Status</dt><dd>Complete</dd></div>
+        <div><dt>Team</dt><dd>4 people</dd></div>
+        <div><dt>Data</dt><dd>CICIDS2017 · 2.52 M flows · 15 classes</dd></div>
+        <div><dt>Stack</dt><dd class="mono">Python · scikit-learn · XGBoost · SHAP · Dash · Tshark</dd></div>
+      </dl>
+    </header>
+
+    <section class="case-sec">
+      <h2>The problem</h2>
+      <p>An intrusion detector that only says "attack" isn't much use to the person who has to respond. They need to know <b>which</b> attack, and they need a reason to believe the alert. So the goal was two things at once: classify each network flow into one of 15 classes, and attach an explanation to every detection.</p>
+    </section>
+    <section class="case-sec">
+      <h2>The data</h2>
+      <p>CICIDS2017 is five days of captured traffic from the Canadian Institute for Cybersecurity. After cleaning: <b>2,519,404 flows</b>, 78 numeric features each. It is brutally imbalanced. Benign traffic is 83% of the data; Heartbleed has 11 rows and Infiltration 36.</p>
+      <figure class="fig ">
+        <img src="../assets/img/nids-class-distribution.webp" alt="Horizontal bar chart of class counts in CICIDS2017. Benign dominates at about 2.1 million flows; Heartbleed, SQL injection and Infiltration have only dozens." width="1400" height="590" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 1</b> Class distribution after cleaning. Any metric averaged over flows is mostly a benign-traffic metric.</figcaption>
+      </figure>
+    </section>
+    <section class="case-sec">
+      <h2>What we built</h2>
+      <ul class="bul">
+        <li>Cleaning and preprocessing notebooks, then feature ranking down to the <b>25</b> most informative features.</li>
+        <li><b>Random Forest, XGBoost and SVM</b> trained and compared on weighted F1 and MCC. SMOTE oversampling was fitted on the training split only, so no synthetic rows leak into the test set.</li>
+        <li>Per-flow <b>SHAP</b> attributions, so each detection comes with the features that pushed it there.</li>
+        <li>A <b>Dash / Plotly</b> dashboard with live capture through Tshark for near-real-time monitoring.</li>
+      </ul>
+      <div class="dtab-wrap"><table class="dtab">
+        <caption><b>Table 1</b> Test set, 503,881 flows.</caption>
+        <thead><tr><th>Model</th><th class="n">Weighted F1</th><th class="n">MCC</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>Random Forest</td><td class="n">0.9977</td><td class="n">0.9918</td></tr>
+          <tr><td>XGBoost</td><td class="n">0.9676</td><td class="n">0.8792</td></tr>
+          <tr><td>SVM</td><td class="n">0.9071</td><td class="n">0.7409</td></tr>
+        </tbody>
+      </table></div>
+      <figure class="fig mid">
+        <img src="../assets/img/nids-confusion-matrix.webp" alt="Confusion matrix of the Random Forest over 15 classes. The diagonal is strong for high-volume classes; web attack classes show visible confusion." width="1319" height="1089" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 2</b> Random Forest confusion matrix. The big classes are near-perfect; look at the web-attack rows.</figcaption>
+      </figure>
+    </section>
+    <section class="case-sec">
+      <h2>The number that matters</h2>
+      <p>Table 1 looks finished. It isn't. Weighted F1 weights every class by how many flows it has, so the 418,872 benign test flows dominate it. <b>Macro F1</b>, where every class counts equally, is <b>0.85</b>, and the per-class report shows where the model actually struggles:</p>
+      <div class="dtab-wrap"><table class="dtab">
+        <caption><b>Table 2</b> Random Forest, per class (test set).</caption>
+        <thead><tr><th>Class</th><th class="n">F1</th><th class="n">Test samples</th></tr></thead>
+        <tbody>
+          <tr><td>Benign, DDoS, PortScan, FTP-Patator</td><td class="n good">1.00</td><td class="n">large</td></tr>
+          <tr><td>Infiltration</td><td class="n">0.80</td><td class="n">7</td></tr>
+          <tr><td>Bot</td><td class="n">0.78</td><td class="n">390</td></tr>
+          <tr><td>Web attack · brute force</td><td class="n bad">0.52</td><td class="n">294</td></tr>
+          <tr><td>Web attack · SQL injection</td><td class="n bad">0.50</td><td class="n">4</td></tr>
+          <tr class="hl"><td>Web attack · XSS</td><td class="n bad">0.27</td><td class="n">130</td></tr>
+          <tr><td>Heartbleed</td><td class="n">1.00</td><td class="n">2</td></tr>
+        </tbody>
+      </table></div>
+      <p>Heartbleed's perfect score is two test rows. It means nothing. XSS at 0.27 is the honest weak point: the attacks a web application would actually see are the ones this model is worst at.</p>
+    </section>
+    <section class="case-sec">
+      <h2>Explanations</h2>
+      <figure class="fig narrow">
+        <img src="../assets/img/nids-shap-ddos.webp" alt="SHAP global importance bar chart for the DDoS class. Top features are forward packet length max and mean, then destination port." width="789" height="940" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 3</b> Global SHAP importance for DDoS. Third place is Destination Port.</figcaption>
+      </figure>
+      <p>Most of the top features are about packet sizes, which is what DDoS traffic should look like. <b>Destination Port</b> in third place is the interesting one. In CICIDS2017 the DDoS traffic all targets the same web server port, so a model can partly learn "this port" rather than "this behaviour". That is exactly the failure my research is about: accurate, confident, and right for a reason that won't transfer.</p>
+    </section>
+    <section class="case-sec">
+      <h2>Errata</h2>
+      <div class="errata-box">
+        <p><b>Random split.</b> The train/test split and SMOTE are leak-free, but the split is random across all five days, so near-identical flows from the same attack session land on both sides. CICIDS2017 attacks are scheduled by day; a cross-day split (train on early days, test on later ones) is the honest test, and the numbers will drop.</p>
+        <p><b>Wrong headline metric.</b> Weighted F1 was the headline. It should have been macro F1, with per-class results next to it.</p>
+        <p><b>Possible shortcut feature.</b> Destination Port should be ablated, then the SHAP ranking re-checked, to see how much of the DDoS detection survives without it.</p>
+      </div>
+    </section>
+    <section class="case-sec">
+      <h2>Source</h2>
+      <p><a href="https://github.com/TheCodeCipher/network-intrusion-detection-xai" target="_blank" rel="noopener">github.com/TheCodeCipher/network-intrusion-detection-xai ↗</a> · team: Tarun Das, Sania Shanty, Arkodyuti Bhattacharyya, Adivi Ananya.</p>
+    </section>
+    <nav class="case-nav" aria-label="More case studies">
+      <a href="../givegrid/"><span>← PREVIOUS</span>GiveGrid</a>
+      <a class="next" href="../fireguard/"><span>NEXT →</span>FireGuard</a>
+    </nav>
+  </article>
+</main>
+
+<footer class="case-foot">
+  <div class="wrap">
+    <div class="colophon">
+      <span>© 2026 arkodyuti bhattacharyya</span>
+      <a href="../">← back to the chip</a>
+      <a href="https://github.com/ark0b" rel="me">github</a>
+      <a href="mailto:adb.return.human@gmail.com">email</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

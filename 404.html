@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bus fault 0x404 · ARK0B-1</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#121517">
+<link rel="icon" href="/Portfolio/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/Portfolio/assets/site.css">
+<style>
+  .nf { max-width: 980px; margin: 0 auto; padding: 4rem 1.5rem 3rem; }
+  .nf-code { font-family: var(--f-mono); font-size: 12px; letter-spacing: .14em; color: var(--warn); display: flex; align-items: center; gap: .6rem; }
+  .nf-led { width: 9px; height: 9px; border-radius: 50%; background: var(--warn); box-shadow: 0 0 10px var(--warn); }
+  .nf h1 { font-family: var(--f-display); font-size: clamp(3rem, 9vw, 6.5rem); font-weight: 700; line-height: .9; text-transform: uppercase; margin: 1rem 0 .4rem; }
+  .nf h1 .accent { color: var(--gold); }
+  .nf-sub { color: var(--text-dim); max-width: 52ch; font-size: 1.02rem; }
+  .nf-sub b { color: var(--text); font-weight: 500; }
+
+  /* logic analyzer */
+  .la { margin: 2.4rem 0 1.4rem; border: 1px solid var(--copper-dim); background: #0E1013; position: relative; }
+  .la-head { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .12em; color: var(--text-faint); padding: .55rem .9rem; border-bottom: 1px solid var(--rule); }
+  .la-head .trig { color: var(--warn); }
+  .la svg { display: block; width: 100%; height: auto; }
+  .ch-name { font-family: var(--f-mono); font-size: 11px; fill: var(--text-dim); letter-spacing: .1em; }
+  .grid line { stroke: rgba(194,116,58,.07); }
+  .w { fill: none; stroke-width: 1.6; stroke-linejoin: miter; }
+  .w-clk { stroke: var(--silver); }
+  .w-bus { stroke: var(--gold); }
+  .w-rd  { stroke: var(--pass); }
+  .w-ack { stroke: var(--warn); }
+  .bus-txt { font-family: var(--f-mono); font-size: 10.5px; fill: var(--gold); }
+  .scroll { animation: la-scroll 2.4s linear infinite; }
+  @keyframes la-scroll { to { transform: translateX(-80px); } }
+  .cursor { stroke: var(--warn); stroke-width: 1; stroke-dasharray: 3 3; }
+  .cursor-lbl { font-family: var(--f-mono); font-size: 10px; fill: var(--warn); letter-spacing: .08em; }
+  .timeout { font-family: var(--f-mono); font-size: 10.5px; fill: var(--warn); }
+  .ack-blink { animation: ack 1.2s steps(1) infinite; }
+  @keyframes ack { 50% { opacity: .25; } }
+  .glitch { animation: glitch 6s steps(1) infinite; }
+  @keyframes glitch { 0%, 96% { transform: none; } 97% { transform: translateX(2px); } 98% { transform: translateX(-3px); } 99% { transform: translateX(1px); } }
+
+  .diag { font-family: var(--f-mono); font-size: 12px; line-height: 1.9; color: var(--text-dim); border-left: 2px solid var(--copper); padding: .2rem 0 .2rem 1rem; margin-bottom: 2rem; }
+  .diag .k { color: var(--text-faint); display: inline-block; min-width: 8.5rem; }
+  .diag .v { color: var(--text); }
+  .diag .bad { color: var(--warn); }
+  .nf-cta { display: flex; flex-wrap: wrap; gap: .85rem; }
+  .reset-hint { font-family: var(--f-mono); font-size: 11px; color: var(--text-faint); margin-top: 1rem; }
+  .reset-hint kbd { border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 3px; padding: 0 .4em; color: var(--text-dim); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll, .ack-blink, .glitch { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<main class="nf">
+  <p class="nf-code"><span class="nf-led" aria-hidden="true"></span>BUS FAULT · 0x404 · ADDRESS NOT MAPPED</p>
+  <h1 class="glitch">No core at<br>this address<span class="accent">.</span></h1>
+  <p class="nf-sub">The request went out on the bus and <b>nothing acknowledged it</b>. Checked every cache level, including the one I only visit on demand. It's not a false negative: there's just nothing here.</p>
+
+  <figure class="la" aria-label="Logic analyzer capture of the failed request">
+    <div class="la-head"><span>LOGIC ANALYZER · 4 CH · 100 MHz</span><span class="trig">TRIG: ADDR VALID · ACK TIMEOUT</span></div>
+    <svg viewBox="0 0 900 250" aria-hidden="true">
+      <defs><clipPath id="trace"><rect x="90" y="0" width="800" height="250"/></clipPath></defs>
+      <g class="grid">
+        <line x1="90" y1="0" x2="90" y2="250"/><line x1="250" y1="0" x2="250" y2="250"/><line x1="410" y1="0" x2="410" y2="250"/>
+        <line x1="570" y1="0" x2="570" y2="250"/><line x1="730" y1="0" x2="730" y2="250"/>
+        <line x1="0" y1="62" x2="900" y2="62"/><line x1="0" y1="124" x2="900" y2="124"/><line x1="0" y1="186" x2="900" y2="186"/>
+      </g>
+      <text class="ch-name" x="16" y="36">CLK</text>
+      <text class="ch-name" x="16" y="98">ADDR</text>
+      <text class="ch-name" x="16" y="160">RD#</text>
+      <text class="ch-name" x="16" y="222">ACK</text>
+      <g clip-path="url(#trace)">
+        <!-- CLK: scrolls forever -->
+        <g class="scroll"><path class="w w-clk" id="clk" d=""/></g>
+        <!-- ADDR bus: idle, then the requested address, held -->
+        <path class="w w-bus" d="M90 84 H250 L258 76 H900 M250 84 L258 92 H900 M90 92 H250"/>
+        <text class="bus-txt" x="270" y="88" id="addrTxt">0x00000404</text>
+        <text class="bus-txt" x="600" y="88" id="pathTxt">/?</text>
+        <!-- RD#: asserted low when the address is valid -->
+        <path class="w w-rd" d="M90 140 H262 V166 H900"/>
+        <!-- ACK: never rises -->
+        <path class="w w-ack ack-blink" d="M90 228 H900"/>
+        <line class="cursor" x1="262" y1="0" x2="262" y2="250"/>
+        <text class="cursor-lbl" x="268" y="246">T0 request</text>
+        <line class="cursor" x1="730" y1="0" x2="730" y2="250"/>
+        <text class="timeout" x="736" y="214">no ACK · timeout</text>
+      </g>
+    </svg>
+  </figure>
+
+  <div class="diag">
+    <div><span class="k">requested</span><span class="v" id="dReq">this page</span></div>
+    <div><span class="k">mapped cores</span><span class="v">8 cores, all reachable from the home page</span></div>
+    <div><span class="k">ack</span><span class="bad">never</span></div>
+    <div><span class="k">suggested fix</span><span class="v">soft reset to the home page</span></div>
+  </div>
+
+  <div class="nf-cta">
+    <a class="btn solid" href="/Portfolio/" id="resetBtn">soft reset ↺</a>
+    <a class="btn" href="/Portfolio/#projects">jump to the projects</a>
+    <a class="btn" href="mailto:adb.return.human@gmail.com?subject=Broken%20link%20on%20your%20portfolio">report a broken link</a>
+  </div>
+  <p class="reset-hint">or press <kbd>R</kbd></p>
+</main>
+
+<script>
+(function () {
+  // Clock waveform long enough to scroll seamlessly (period 80px, shifted by one period).
+  var d = "M90 46", x = 90, hi = false;
+  while (x < 980) { x += 40; d += " H" + x + (hi ? " V46" : " V26"); hi = !hi; }
+  document.getElementById("clk").setAttribute("d", d);
+
+  // Put the missing path on the address bus, as a hash so it looks like an address.
+  var path = location.pathname.replace(/^\/Portfolio/, "") || "/";
+  var h = 0x811c9dc5;
+  for (var i = 0; i < path.length; i++) { h ^= path.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+  var hex = "0x" + ("00000000" + h.toString(16).toUpperCase()).slice(-8);
+  document.getElementById("addrTxt").textContent = hex;
+  document.getElementById("pathTxt").textContent = path.length > 34 ? path.slice(0, 33) + "…" : path;
+  document.getElementById("dReq").textContent = path + "  →  " + hex;
+
+  document.addEventListener("keydown", function (e) {
+    if ((e.key === "r" || e.key === "R") && !e.ctrlKey && !e.metaKey && !e.altKey) location.href = "/Portfolio/";
+  });
+})();
+</script>
+</body>
+</html>

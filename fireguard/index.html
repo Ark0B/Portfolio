@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FireGuard — case study · Arkodyuti Bhattacharyya</title>
+<meta name="description" content="Case study: next-day wildfire spread forecasting on WildfireSpreadTS with leave-one-year-out evaluation, a weather-data audit, and an honest look at whether temporal models help.">
+<meta name="author" content="Arkodyuti Bhattacharyya">
+<meta name="theme-color" content="#121517">
+<link rel="canonical" href="https://ark0b.github.io/Portfolio/fireguard/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Arkodyuti Bhattacharyya">
+<meta property="og:title" content="FireGuard — case study">
+<meta property="og:description" content="Case study: next-day wildfire spread forecasting on WildfireSpreadTS with leave-one-year-out evaluation, a weather-data audit, and an honest look at whether temporal models help.">
+<meta property="og:url" content="https://ark0b.github.io/Portfolio/fireguard/">
+<meta property="og:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FireGuard — case study">
+<meta name="twitter:description" content="Case study: next-day wildfire spread forecasting on WildfireSpreadTS with leave-one-year-out evaluation, a weather-data audit, and an honest look at whether temporal models help.">
+<meta name="twitter:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
+<link rel="preload" href="../assets/fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "FireGuard", "description": "Case study: next-day wildfire spread forecasting on WildfireSpreadTS with leave-one-year-out evaluation, a weather-data audit, and an honest look at whether temporal models help.", "url": "https://ark0b.github.io/Portfolio/fireguard/", "codeRepository": "https://github.com/TheCodeCipher/fireguard", "author": {"@type": "Person", "name": "Arkodyuti Bhattacharyya", "url": "https://ark0b.github.io/Portfolio/"}, "isPartOf": {"@type": "WebSite", "url": "https://ark0b.github.io/Portfolio/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://ark0b.github.io/Portfolio/"}, {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://ark0b.github.io/Portfolio/#projects"}, {"@type": "ListItem", "position": 3, "name": "FireGuard", "item": "https://ark0b.github.io/Portfolio/fireguard/"}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <a class="bar-brand" href="../">ARK0B-1</a>
+  <nav class="bar-nav" aria-label="Case studies">
+    <a href="../#projects">← all</a>
+    <a href="../nids/">nids</a>
+    <a href="../fireguard/" aria-current="page">fireguard</a>
+    <a href="../mealsync/">mealsync</a>
+    <a href="../givegrid/">givegrid</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap case">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../">ARK0B-1</a><span aria-hidden="true">/</span><a href="../#projects">exec cluster</a><span aria-hidden="true">/</span>C1 · FIRE</nav>
+
+  <article class="case-sheet">
+    <header class="case-head">
+      <div class="net">
+        <span class="net-ref">C1</span>
+        <h1>FireGuard</h1>
+        <span class="net-wire" aria-hidden="true"><i></i><b class="via"></b><i class="short"></i><b class="pad"></b></span>
+        <span class="net-name" aria-hidden="true">DS-C1</span>
+      </div>
+      <p class="case-lede">Next-day wildfire spread forecasting for western-US fires. Four U-Net variants, two baselines, leave-one-year-out evaluation, and a weather channel that only covered half the compass.</p>
+      <dl class="spec">
+        <div><dt>Status</dt><dd>Building · live forecasting next</dd></div>
+        <div><dt>My role</dt><dd>Temporal and weather models</dd></div>
+        <div><dt>Team</dt><dd>6 people</dd></div>
+        <div><dt>Data</dt><dd>WildfireSpreadTS · 2018–2021</dd></div>
+        <div><dt>Stack</dt><dd class="mono">Python · PyTorch · U-Net · GeoTIFF</dd></div>
+      </dl>
+    </header>
+
+    <section class="case-sec">
+      <h2>The problem</h2>
+      <p>Given a wildfire that's burning today, which cells will a satellite see burning tomorrow? FireGuard answers that for western-US fires, with a probability for every 375 m cell, and lets you replay any historical fire to compare the forecast with what actually happened.</p>
+      <figure class="fig ">
+        <img src="../assets/img/fireguard-overview.webp" alt="FireGuard overview page: headline asking which cells of a burning fire a satellite will see tomorrow, beside a grid of fire maps." width="1440" height="930" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 1</b> The FireGuard prototype.</figcaption>
+      </figure>
+    </section>
+    <section class="case-sec">
+      <h2>My part: weather, time, and not trusting the inputs</h2>
+      <p>Six of us split the project by role. Mine was <b>temporal and weather modelling</b>: how several days of history and weather get into a model that otherwise sees one spatial snapshot. Before building anything on the weather channels, I checked them against the raw GeoTIFFs.</p>
+      <figure class="fig narrow">
+        <img src="../assets/img/fireguard-wind-direction-audit.webp" alt="Two histograms. GFS wind direction only spans minus 90 to plus 90 degrees; GRIDMET wind direction spans the full 0 to 360 degrees." width="800" height="650" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 2</b> GFS wind direction only covers −90° to +90°: half the compass. GRIDMET covers the full circle.</figcaption>
+      </figure>
+      <p>The forecast-weather (GFS) wind-direction channel turned out to be quadrant-limited, and GFS precipitation wasn't defined consistently across years. Neither would have thrown an error. A model would have trained on them happily. Both are now gated explicitly, and I wrote the <b>temporal input contract</b> that defines exactly which channels, days and units the models receive. I also integrated every role's branch into one prototype and ran the final M1–M4 evaluation.</p>
+    </section>
+    <section class="case-sec">
+      <h2>Models and protocol</h2>
+      <ul class="bul">
+        <li><b>M1</b> spatial U-Net · <b>M2</b> attention residual U-Net · <b>M3</b> U-Net on 5 stacked days · <b>M4</b> ConvLSTM U-Net over 5 days.</li>
+        <li>Two baselines that need no learning: <b>distance decay</b> from today's fire, and <b>climatology</b>.</li>
+        <li><b>Leave-one-year-out</b> over 2018–2021: every year is tested by a model that never saw it. The model is chosen on validation AUPRC, never on test.</li>
+        <li>Comparisons use a paired bootstrap over fire groups, so one huge fire can't decide a result.</li>
+      </ul>
+    </section>
+    <section class="case-sec">
+      <h2>Results</h2>
+      <figure class="fig ">
+        <img src="../assets/img/fireguard-auprc-by-fold.webp" alt="Grouped bar chart of test AUPRC per held-out year for four U-Net variants and two baselines. All U-Nets beat both baselines every year." width="1440" height="672" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 3</b> Test AUPRC per held-out year. Every model beats both baselines in every year.</figcaption>
+      </figure>
+      <div class="dtab-wrap"><table class="dtab">
+        <caption><b>Table 1</b> Pooled test AUPRC, selected model (M3) vs the strongest baseline.</caption>
+        <thead><tr><th>Held-out year</th><th class="n">M3 stacked days</th><th class="n">Distance decay</th><th class="n">Test fires</th></tr></thead>
+        <tbody>
+          <tr><td>2018</td><td class="n">0.478</td><td class="n">0.348</td><td class="n">216</td></tr>
+          <tr><td>2019</td><td class="n">0.375</td><td class="n">0.226</td><td class="n">88</td></tr>
+          <tr><td>2020</td><td class="n">0.476</td><td class="n">0.311</td><td class="n">173</td></tr>
+          <tr><td>2021</td><td class="n">0.549</td><td class="n">0.396</td><td class="n">122</td></tr>
+        </tbody>
+      </table></div>
+      <p>Raw outputs from the BCE + Dice loss rank cells well but aren't calibrated probabilities, so a Platt-scaling step fitted on validation data converts them before anything is shown as a percentage.</p>
+    </section>
+    <section class="case-sec">
+      <h2>Errata</h2>
+      <div class="errata-box">
+        <p><b>My temporal models haven't earned their place yet.</b> M3 was selected on validation, but against the single-day M1 the paired test showed no significant difference in 2018 or 2019, and the ConvLSTM (M4) was significantly <i>worse</i> than M3 in 2019. On this evidence, five days of history don't buy measurable skill over one. That's the result, and it's on the page because it's true.</p>
+        <p><b>Still not run:</b> a capacity-matched control for the ConvLSTM, a 3-day vs 5-day context comparison, and a terrain ablation. 2019 is the smallest fold (88 test fires), so no single comparison there decides anything.</p>
+      </div>
+    </section>
+    <section class="case-sec">
+      <h2>The replay lab</h2>
+      <figure class="fig ">
+        <img src="../assets/img/fireguard-replay.webp" alt="FireGuard replay lab showing a forecast probability map, the satellite-observed fire, and hits and misses for one fire, under a banner reading not a FireGuard result." width="1440" height="1345" loading="lazy" decoding="async">
+        <figcaption><b>Fig. 4</b> The replay lab, captured on a pipeline smoke-test run. The yellow banner is the app itself refusing to present test output as a result.</figcaption>
+      </figure>
+      <p>Pick a fire and a day, load the forecast, then reveal what the satellite actually saw, with hits and misses scored. Every forecast carries its provenance: model, fold, input contract, and checksums for the checkpoint and data manifests. Live next-day forecasting from current satellite data is being built into the final version.</p>
+    </section>
+    <section class="case-sec">
+      <h2>Source</h2>
+      <p><a href="https://github.com/TheCodeCipher/fireguard" target="_blank" rel="noopener">github.com/TheCodeCipher/fireguard ↗</a> · six-person team, roles split across data, spatial models, temporal models, evaluation, backend and frontend.</p>
+    </section>
+    <nav class="case-nav" aria-label="More case studies">
+      <a href="../nids/"><span>← PREVIOUS</span>Network Intrusion Detection</a>
+      <a class="next" href="../mealsync/"><span>NEXT →</span>MealSync</a>
+    </nav>
+  </article>
+</main>
+
+<footer class="case-foot">
+  <div class="wrap">
+    <div class="colophon">
+      <span>© 2026 arkodyuti bhattacharyya</span>
+      <a href="../">← back to the chip</a>
+      <a href="https://github.com/ark0b" rel="me">github</a>
+      <a href="mailto:adb.return.human@gmail.com">email</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
