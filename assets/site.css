@@ -526,7 +526,7 @@ a.blk:focus-visible .lbl { fill: var(--gold); }
   line-height: 1.55;
 }
 .ro-points li::before {
-  content: "—";
+  content: "-";
   position: absolute;
   left: 0;
   color: var(--copper-dim);
@@ -1067,7 +1067,7 @@ figcaption b, .fig-cap b { color: var(--gold); font-weight: 600; }
 .case-sec p b, .case-sec li b { color: var(--text); font-weight: 500; }
 .case-sec ul.bul { margin: .8rem 0; }
 .case-sec ul.bul li { position: relative; padding-left: 1.1rem; margin-bottom: .45rem; }
-.case-sec ul.bul li::before { content: "—"; position: absolute; left: 0; color: var(--copper); }
+.case-sec ul.bul li::before { content: "-"; position: absolute; left: 0; color: var(--copper); }
 .case-sec code, .case-sec kbd { font-family: var(--f-mono); font-size: .86em; color: var(--gold); }
 
 .fig { margin: 1.6rem 0; }

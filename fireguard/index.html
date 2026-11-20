@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FireGuard — case study · Arkodyuti Bhattacharyya</title>
+<title>FireGuard | case study · Arkodyuti Bhattacharyya</title>
 <meta name="description" content="Case study: next-day wildfire spread forecasting on WildfireSpreadTS with leave-one-year-out evaluation, a weather-data audit, and an honest look at whether temporal models help.">
 <meta name="author" content="Arkodyuti Bhattacharyya">
 <meta name="theme-color" content="#121517">
@@ -11,12 +11,12 @@
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Arkodyuti Bhattacharyya">
-<meta property="og:title" content="FireGuard — case study">
+<meta property="og:title" content="FireGuard | case study">
 <meta property="og:description" content="Case study: next-day wildfire spread forecasting on WildfireSpreadTS with leave-one-year-out evaluation, a weather-data audit, and an honest look at whether temporal models help.">
 <meta property="og:url" content="https://ark0b.github.io/Portfolio/fireguard/">
 <meta property="og:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FireGuard — case study">
+<meta name="twitter:title" content="FireGuard | case study">
 <meta name="twitter:description" content="Case study: next-day wildfire spread forecasting on WildfireSpreadTS with leave-one-year-out evaluation, a weather-data audit, and an honest look at whether temporal models help.">
 <meta name="twitter:image" content="https://ark0b.github.io/Portfolio/assets/og.png">
 <link rel="preload" href="../assets/fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
@@ -53,7 +53,7 @@
         <div><dt>Status</dt><dd>Building · live forecasting next</dd></div>
         <div><dt>My role</dt><dd>Temporal and weather models</dd></div>
         <div><dt>Team</dt><dd>6 people</dd></div>
-        <div><dt>Data</dt><dd>WildfireSpreadTS · 2018–2021</dd></div>
+        <div><dt>Data</dt><dd>WildfireSpreadTS · 2018-2021</dd></div>
         <div><dt>Stack</dt><dd class="mono">Python · PyTorch · U-Net · GeoTIFF</dd></div>
       </dl>
     </header>
@@ -73,14 +73,14 @@
         <img src="../assets/img/fireguard-wind-direction-audit.webp" alt="Two histograms. GFS wind direction only spans minus 90 to plus 90 degrees; GRIDMET wind direction spans the full 0 to 360 degrees." width="800" height="650" loading="lazy" decoding="async">
         <figcaption><b>Fig. 2</b> GFS wind direction only covers −90° to +90°: half the compass. GRIDMET covers the full circle.</figcaption>
       </figure>
-      <p>The forecast-weather (GFS) wind-direction channel turned out to be quadrant-limited, and GFS precipitation wasn't defined consistently across years. Neither would have thrown an error. A model would have trained on them happily. Both are now gated explicitly, and I wrote the <b>temporal input contract</b> that defines exactly which channels, days and units the models receive. I also integrated every role's branch into one prototype and ran the final M1–M4 evaluation.</p>
+      <p>The forecast-weather (GFS) wind-direction channel turned out to be quadrant-limited, and GFS precipitation wasn't defined consistently across years. Neither would have thrown an error. A model would have trained on them happily. Both are now gated explicitly, and I wrote the <b>temporal input contract</b> that defines exactly which channels, days and units the models receive. I also integrated every role's branch into one prototype and ran the final M1 to M4 evaluation.</p>
     </section>
     <section class="case-sec">
       <h2>Models and protocol</h2>
       <ul class="bul">
         <li><b>M1</b> spatial U-Net · <b>M2</b> attention residual U-Net · <b>M3</b> U-Net on 5 stacked days · <b>M4</b> ConvLSTM U-Net over 5 days.</li>
         <li>Two baselines that need no learning: <b>distance decay</b> from today's fire, and <b>climatology</b>.</li>
-        <li><b>Leave-one-year-out</b> over 2018–2021: every year is tested by a model that never saw it. The model is chosen on validation AUPRC, never on test.</li>
+        <li><b>Leave-one-year-out</b> over 2018-2021: every year is tested by a model that never saw it. The model is chosen on validation AUPRC, never on test.</li>
         <li>Comparisons use a paired bootstrap over fire groups, so one huge fire can't decide a result.</li>
       </ul>
     </section>

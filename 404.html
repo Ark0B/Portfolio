@@ -119,7 +119,7 @@
   for (var i = 0; i < path.length; i++) { h ^= path.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
   var hex = "0x" + ("00000000" + h.toString(16).toUpperCase()).slice(-8);
   document.getElementById("addrTxt").textContent = hex;
-  document.getElementById("pathTxt").textContent = path.length > 34 ? path.slice(0, 33) + "…" : path;
+  document.getElementById("pathTxt").textContent = path.length > 34 ? path.slice(0, 33) + "..." : path;
   document.getElementById("dReq").textContent = path + "  →  " + hex;
 
   document.addEventListener("keydown", function (e) {

@@ -20,7 +20,7 @@
   var articles = Array.prototype.slice.call(document.querySelectorAll("#projStack .proj"));
   var ids = articles.map(function (a) { return a.id; });
 
-  /* Number the projects C0, C1, … in DOM order so adding one never needs renumbering. */
+  /* Number the projects C0, C1, ... in DOM order so adding one never needs renumbering. */
   articles.forEach(function (a, i) {
     var tag = a.querySelector(".ro-tag");
     if (tag) tag.textContent = "C" + i + " · " + a.dataset.tag;
@@ -69,7 +69,7 @@
         "class": "die-core",
         href: "#" + a.id,
         "aria-label": "C" + i + ": " + name + " (" + status + ")",
-        "data-readout": "c" + i + " — " + name.toLowerCase(),
+        "data-readout": "c" + i + ": " + name.toLowerCase(),
         style: "animation-delay:" + (0.12 + i * 0.06).toFixed(2) + "s"
       });
       link.appendChild(svgEl("rect", { x: x, y: y, width: cw, height: ch, rx: 2 }));
@@ -102,7 +102,7 @@
       '<span class="c-id">C' + i + "</span>" +
       '<span class="c-nm"></span>' +
       '<span class="c-st st-' + a.dataset.status + '">' + a.dataset.status + "</span>";
-    btn.querySelector(".c-nm").textContent = a.querySelector(".ro-title").textContent.split(" — ")[0];
+    btn.querySelector(".c-nm").textContent = a.querySelector(".ro-title").textContent.split(": ")[0];
     if (a.querySelector(".cs-link")) {
       var dot = document.createElement("span");
       dot.className = "cs-dot";
@@ -167,7 +167,7 @@
     select(next, { focusTab: true, updateHash: true });
   });
 
-  // A #p-… link (chip core, shared URL) selects that project and brings it into view.
+  // A #p-... link (chip core, shared URL) selects that project and brings it into view.
   function followHash(smooth) {
     var id = decodeURIComponent(location.hash.slice(1));
     var i = ids.indexOf(id);
