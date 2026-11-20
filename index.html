@@ -242,7 +242,7 @@
       </svg>
       <figcaption class="die-caption">
         <span id="dieReadout" aria-hidden="true">every block is a link</span>
-        <span class="led-legend"><i class="led st-complete"></i>complete <i class="led st-building"></i>building <i class="led st-live"></i>live <i class="led st-paused"></i>paused</span>
+        <span class="led-legend"><i class="led st-complete"></i>complete <i class="led st-building"></i>building <i class="led st-live"></i>live</span>
       </figcaption>
     </figure>
   </div>
@@ -255,7 +255,7 @@
 <section class="sheet" id="projects" aria-labelledby="projects-h">
   <aside class="rail" aria-label="Margin notes">
     <ul class="rail-notes">
-      <li>8 cores, one per project</li>
+      <li>7 cores, one per project</li>
       <li>4 have full case studies</li>
       <li>C0 is also wired to U3, the sec engine</li>
     </ul>
@@ -415,33 +415,11 @@
           <span class="ro-badge st-building">building</span>
           <span class="ro-role">team of 2</span>
         </header>
-        <h3 class="ro-title">Project Orion — Student Workspace</h3>
-        <p class="ro-desc">One workspace for student life: calendar, reminders, goals and a resource library, plus a model that learns from how you plan and <b>helps schedule the work</b>.</p>
+        <h3 class="ro-title">Project Orion — Agentic Productivity</h3>
+        <p class="ro-desc">A general productivity app built around an <b>AI agent</b>. It started life as a workspace for students and is now being widened into a tool for anyone's work.</p>
         <dl class="ro-rows">
-          <div class="ro-row"><dt>Stack</dt><dd class="mono">React · Node.js · PostgreSQL · pgvector</dd></div>
-          <div class="ro-row"><dt>What I built</dt><dd><ul class="ro-points">
-            <li>Schema designed first; features ship as vertical slices on top of it.</li>
-            <li>Recommendations from vector similarity inside PostgreSQL.</li>
-          </ul></dd></div>
-          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">Recurring calendar events (RRULE) are the hard part. Every calendar app you've used has scars from them.</span></dd></div>
-        </dl>
-      </article>
-
-      <article class="proj" id="p-cviz" data-tag="CVIZ" data-status="paused">
-        <header class="ro-head">
-          <span class="ro-tag">CVIZ</span>
-          <span class="ro-badge st-paused">paused</span>
-          <span class="ro-role">team of 5</span>
-        </header>
-        <h3 class="ro-title">Code Execution Visualizer</h3>
-        <p class="ro-desc">Step through a program's execution like a timeline: <b>run once, record every state</b>, then scrub forwards and backwards.</p>
-        <dl class="ro-rows">
-          <div class="ro-row"><dt>Stack</dt><dd class="mono">JavaScript · WebAssembly</dd></div>
-          <div class="ro-row"><dt>Design</dt><dd><ul class="ro-points">
-            <li>Execute-once / replay: the UI walks an array of snapshots, so stepping <em>backwards</em> is free.</li>
-            <li>Interpreters compiled to WebAssembly, so untrusted code never touches a server.</li>
-          </ul></dd></div>
-          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">Paused while other projects ship. The key decision stands: record the run once and replay it, rather than re-running code on every step.</span></dd></div>
+          <div class="ro-row"><dt>Where it started</dt><dd>A student workspace: calendar, reminders, goals and a resource library, built on React, Node.js and PostgreSQL.</dd></div>
+          <div class="ro-row"><dt>Errata</dt><dd><span class="ro-errata">Mid-pivot. The scope is being redrawn, so details stay off this page until there's something to show.</span></dd></div>
         </dl>
       </article>
 

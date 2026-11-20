@@ -105,7 +105,7 @@
     <section class="case-sec">
       <h2>Errata</h2>
       <div class="errata-box">
-        <p><b>My temporal models haven't earned their place yet.</b> M3 was selected on validation, but against the single-day M1 the paired test showed no significant difference in 2018 or 2019, and the ConvLSTM (M4) was significantly <i>worse</i> than M3 in 2019. On this evidence, five days of history don't buy measurable skill over one. That's the result, and it's on the page because it's true.</p>
+        <p><b>The temporal gain is real on one metric and unproven on the other.</b> M3 (five stacked days) has the highest pooled test AUPRC in every year, ahead of the single-day M1 in all four. But the project's own rule for adding complexity is a paired, fire-by-fire test, and there the extra days are significantly better only in 2020, significantly worse in 2021, and indistinguishable in 2018 and 2019. The likely reading: the pooled gain comes mostly from a few large fires. So temporal context stays in the model, but it hasn't yet earned the claim that it helps in general. The ConvLSTM (M4) was significantly worse than M3 in 2019 and 2020.</p>
         <p><b>Still not run:</b> a capacity-matched control for the ConvLSTM, a 3-day vs 5-day context comparison, and a terrain ablation. 2019 is the smallest fold (88 test fires), so no single comparison there decides anything.</p>
       </div>
     </section>
